@@ -5,8 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
 
 import java.util.List;
+
+import auntbertha.Program;
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * Created by Willee on 8/1/15.
@@ -14,10 +19,14 @@ import java.util.List;
 public class CardAdapter extends BaseAdapter {
 
     private Context mContext;
-    private List<Place> mList;
+    private List<hackaccess.c4q.nyc.educationapp.Program> mList;
     private LayoutInflater mInflater;
 
-    public CardAdapter(Context mContext, List<Place> mList) {
+
+    private TextView mTextViewName;
+    private TextView mTextViewDistance;
+
+    public CardAdapter(Context mContext, List<hackaccess.c4q.nyc.educationapp.Program> mList) {
         this.mContext = mContext;
         this.mList = mList;
         mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -29,7 +38,7 @@ public class CardAdapter extends BaseAdapter {
     }
 
     @Override
-    public Place getItem(int position) {
+    public hackaccess.c4q.nyc.educationapp.Program getItem(int position) {
         return mList.get(position);
     }
 
@@ -45,9 +54,11 @@ public class CardAdapter extends BaseAdapter {
             convertView = mInflater.inflate(R.layout.list_item_place, parent, false);
         }
 
+        mTextViewName = (TextView) convertView.findViewById(R.id.tv_agency_name);
+        mTextViewDistance = (TextView) convertView.findViewById(R.id.tv_agency_distance);
 
-
-
+        mTextViewName.setText(getItem(position).getName());
+        mTextViewDistance.setText(getItem(position).getDistance() + "");
 
 
 

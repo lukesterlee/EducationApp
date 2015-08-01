@@ -35,16 +35,14 @@ import com.google.maps.android.ui.IconGenerator;
 import java.io.IOException;
 import java.util.List;
 
-import AuntBertha.Program;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class DirectoryActivity extends ActionBarActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
-    @Bind(R.id.list_view) ListView mListView;
-
     public Context context;
+    private ListView mListView;
     private GoogleApiClient googleApiClient;
     private LocationRequest mLocationRequest;
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
@@ -52,12 +50,13 @@ public class DirectoryActivity extends ActionBarActivity implements OnMapReadyCa
     private Location location;
     private List<Program> programs;
     private String zipcode;
+    private CardAdapter mAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.directory_activity_layout);
-        ButterKnife.bind(this);
+        mListView = (ListView) findViewById(R.id.list_view);
 
         // Connect to Geolocation API to make current location request
         connectGoogleApiClient();
@@ -149,7 +148,7 @@ public class DirectoryActivity extends ActionBarActivity implements OnMapReadyCa
         protected Address doInBackground(Void... params) {
             Address address = null;
 
-            Geocoder geocoder = new Geocoder(context);
+            Geocoder geocoder = new Geocoder(DirectoryActivity.this);
             try {
                 List<Address> locations = geocoder.getFromLocation(
                         location.getLatitude(), location.getLongitude(), 1 /* maxResults */);
@@ -164,10 +163,8 @@ public class DirectoryActivity extends ActionBarActivity implements OnMapReadyCa
         protected void onPostExecute(Address address) {
             zipcode = address.getPostalCode();
 
-            ProgramGetter rp = new ProgramGetter();
-            programs = rp.parseData(zipcode);
-            CardAdapter adapter = new CardAdapter(DirectoryActivity.this, programs);
-            mListView.setAdapter(adapter);
+            new ProgramTask().execute(zipcode);
+
 
             //TODO: get List of LatLngs
             //populate(latLngs);
@@ -210,6 +207,22 @@ public class DirectoryActivity extends ActionBarActivity implements OnMapReadyCa
             Intent intent = new Intent(DirectoryActivity.this, ProgramActivity.class);
             //intent.putExtra("program", programs.get(position));
             startActivity(intent);
+        }
+    }
+
+    private class ProgramTask extends AsyncTask<String, Void, List<hackaccess.c4q.nyc.educationapp.Program>> {
+
+        @Override
+        protected List<hackaccess.c4q.nyc.educationapp.Program> doInBackground(String... zipcode) {
+
+            return new ProgramGetter().getHardCodingData(zipcode[0]);
+        }
+
+        @Override
+        protected void onPostExecute(List<hackaccess.c4q.nyc.educationapp.Program> programs) {
+            mAdapter = new CardAdapter(getApplicationContext(), programs);
+            mListView.setAdapter(mAdapter);
+
         }
     }
 }

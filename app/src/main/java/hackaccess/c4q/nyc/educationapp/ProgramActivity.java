@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import AuntBertha.Program;
 
 /**
  * Created by sufeizhao on 8/1/15.

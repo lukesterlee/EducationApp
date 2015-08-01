@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.firebase.client.Firebase;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -35,8 +36,7 @@ import com.google.maps.android.ui.IconGenerator;
 import java.io.IOException;
 import java.util.List;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
+import hackaccess.c4q.nyc.educationapp.firebase.Account;
 
 public class DirectoryActivity extends ActionBarActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
@@ -71,6 +71,12 @@ public class DirectoryActivity extends ActionBarActivity implements OnMapReadyCa
         map = mapFragment.getMap();
 
         mListView.setOnItemClickListener(new ProgramClickListener());
+
+        Firebase.setAndroidContext(this);
+        Firebase fbRef = new Firebase("https://edusearch.firebaseio.com/");
+        Account userAccount = new Account("ksmaragh@gmail.com", "Testing");
+        FbHelper.saveAccount(userAccount,fbRef);
+
     }
 
     @Override

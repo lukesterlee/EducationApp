@@ -1,8 +1,5 @@
 package hackaccess.c4q.nyc.educationapp;
 
-import android.os.AsyncTask;
-import android.util.Log;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,20 +15,12 @@ import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
 
-import AuntBertha.ABModel;
-import AuntBertha.AuntBerthaApi;
-import retrofit.Callback;
-import retrofit.RestAdapter;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
 
 /**
  * Class used to handle parsing of the aunt bertha API data.
  */
 public class ProgramGetter {
 
-    private ArrayList<Program> mList;
-    public static final String AUNTBERTHA_ENDPOINT = "https://searchbertha-hrd.appspot.com/_ah/api/search/v1/zipcodes";
     public static final String PRE_ENDPOINT = "https://searchbertha-hrd.appspot.com/_ah/api/search/v1/zipcodes/";
     public static final String POST_ENDPOINT = "/programs?api_key=b30f1b9f41161c0fb3b39cb49aff8104&serviceTag=mentoring&attributeTag=young%20adults";
 

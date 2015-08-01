@@ -11,9 +11,6 @@ public class Program {
     @SerializedName("next_steps")
     @Expose
     private List<NextStep> nextSteps = new ArrayList<NextStep>();
-    @SerializedName("google_plus_id")
-    @Expose
-    private String googlePlusId;
     @SerializedName("attribute_tags")
     @Expose
     private List<String> attributeTags = new ArrayList<String>();
@@ -28,9 +25,6 @@ public class Program {
     @SerializedName("update_date")
     @Expose
     private String updateDate;
-    @SerializedName("video_url")
-    @Expose
-    private String videoUrl;
     @SerializedName("wl_score")
     @Expose
     private Double wlScore;
@@ -100,23 +94,7 @@ public class Program {
         this.nextSteps = nextSteps;
     }
 
-    /**
-     *
-     * @return
-     * The googlePlusId
-     */
-    public String getGooglePlusId() {
-        return googlePlusId;
-    }
 
-    /**
-     *
-     * @param googlePlusId
-     * The google_plus_id
-     */
-    public void setGooglePlusId(String googlePlusId) {
-        this.googlePlusId = googlePlusId;
-    }
 
     /**
      *
@@ -206,24 +184,6 @@ public class Program {
      */
     public void setUpdateDate(String updateDate) {
         this.updateDate = updateDate;
-    }
-
-    /**
-     *
-     * @return
-     * The videoUrl
-     */
-    public String getVideoUrl() {
-        return videoUrl;
-    }
-
-    /**
-     *
-     * @param videoUrl
-     * The video_url
-     */
-    public void setVideoUrl(String videoUrl) {
-        this.videoUrl = videoUrl;
     }
 
     /**

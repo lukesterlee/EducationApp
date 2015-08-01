@@ -17,14 +17,16 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ProgramGetter rp = new ProgramGetter();
-
-        List<Program> myList =rp.parseData("11226");
         tv = (TextView) findViewById(R.id.testingText);
 
-        if(myList != null){
-            tv.setText(myList.get(0).getOffices().get(0).getHours().toString());
-        }
+        ProgramGetter rp = new ProgramGetter();
+        List<Program> myList = rp.parseData("11226");
+
+
+
+
+
+
 
     }
 

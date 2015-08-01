@@ -2,7 +2,7 @@ package hackaccess.c4q.nyc.educationapp;
 
 import android.util.Log;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import AuntBertha.ABModel;
 import AuntBertha.AuntBerthaApi;
@@ -17,11 +17,11 @@ import retrofit.client.Response;
  */
 public class ProgramGetter {
 
+    private ArrayList<Program> mList;
     public static final String AUNTBERTHA_ENDPOINT = "https://searchbertha-hrd.appspot.com/_ah/api/search/v1/zipcodes";
 
-    private List<Program> mList;
 
-    public List<Program> parseData(String zipcode) {
+    public ArrayList<Program> parseData(String zipcode) {
 
         RestAdapter restAdapter = new RestAdapter.Builder().setEndpoint(AUNTBERTHA_ENDPOINT).build();
 
@@ -30,21 +30,18 @@ public class ProgramGetter {
         auntBerthaApi.getFeed(zipcode, new Callback<ABModel>() {
             @Override
             public void success(ABModel abModel, Response response) {
-
-                mList = abModel.getPrograms();
-                Log.d("retroSuccess", "URL: " + response.getUrl());
+                mList = (ArrayList<Program>) abModel.getPrograms();
 
             }
-
             @Override
             public void failure(RetrofitError e) {
-                Log.d("retroFAIL", "URL: " + e.getUrl() + "||| Error: " + e.toString());
+                Log.e("retroFAIL", "URL: " + e.getUrl() + "||| Error: " + e.toString());
+                Log.e("retroFAIL", "Size of mList: " + mList.size());
 
             }
         });
-
-
         return mList;
+
     }
 
 

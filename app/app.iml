@@ -106,8 +106,12 @@
     <orderEntry type="library" exported="" name="play-services-maps-7.5.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-fitness-7.5.0" level="project" />
     <orderEntry type="library" exported="" name="android-maps-utils-0.3" level="project" />
+<<<<<<< HEAD
     <orderEntry type="library" exported="" name="play-services-7.5.0" level="project" />
+=======
+>>>>>>> eb799fc99af53b2182de093fb992f6d17987a92f
     <orderEntry type="library" exported="" name="play-services-analytics-7.5.0" level="project" />
+    <orderEntry type="library" exported="" name="play-services-7.5.0" level="project" />
     <orderEntry type="library" exported="" name="mediarouter-v7-22.0.0" level="project" />
     <orderEntry type="library" exported="" name="glide-3.6.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-wallet-7.5.0" level="project" />

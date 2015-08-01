@@ -1,5 +1,8 @@
 package hackaccess.c4q.nyc.educationapp;
 
+import android.util.Log;
+
+import com.google.android.gms.maps.model.LatLng;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
-
 
 /**
  * Class used to handle parsing of the aunt bertha API data.
@@ -58,7 +60,6 @@ public class ProgramGetter {
         List<Program> list = new ArrayList<Program>();
 
         String body = getJsonString(zipcode);
-        
 
         if (body != null) {
             JSONObject object = null;
@@ -69,8 +70,16 @@ public class ProgramGetter {
                 for (int i = 0; i < programs.length(); i++) {
                     JSONObject item = programs.getJSONObject(i);
                     double distance = item.getDouble("distance");
-                    String name = item.getString("name");
-                    list.add(new Program(distance, name));
+
+                    if (distance <= 5){
+                        String name = item.getString("name");
+                        JSONArray offices = item.getJSONArray("offices");
+                        JSONObject inside = offices.getJSONObject(0);
+                        JSONObject location = inside.getJSONObject("location");
+                        double lat = location.getDouble("latitude");
+                        double lon = location.getDouble("longitude");
+                        list.add(new Program(distance, name, new LatLng(lat, lon)));
+                    }
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

@@ -1,6 +1,5 @@
 package hackaccess.c4q.nyc.educationapp;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.graphics.Bitmap;
@@ -36,9 +35,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
-
 public class DirectoryActivity extends ActionBarActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
@@ -69,6 +65,7 @@ public class DirectoryActivity extends ActionBarActivity implements OnMapReadyCa
         map = mapFragment.getMap();
 
         mListView.setOnItemClickListener(new ProgramClickListener());
+
     }
 
     @Override
@@ -160,7 +157,6 @@ public class DirectoryActivity extends ActionBarActivity implements OnMapReadyCa
         @Override
         protected void onPostExecute(Address address) {
             String zipcode = address.getPostalCode();
-            Log.d("ZIPCODE", zipcode);
             new ProgramTask().execute(zipcode);
         }
     };
@@ -179,7 +175,6 @@ public class DirectoryActivity extends ActionBarActivity implements OnMapReadyCa
 
         @Override
         protected List<Program> doInBackground(String... zipcode) {
-
             return new ProgramGetter().getHardCodingData(zipcode[0]);
         }
 
@@ -198,6 +193,7 @@ public class DirectoryActivity extends ActionBarActivity implements OnMapReadyCa
 
         for (Program program : programs) {
             latLngs.add(program.getLatLng());
+            Log.d("LATLNG+++++", program.getLatLng().toString());
 
             IconGenerator mIconGenerator = new IconGenerator(DirectoryActivity.this);
             Bitmap iconBitmap = mIconGenerator.makeIcon(Integer.toString(count));

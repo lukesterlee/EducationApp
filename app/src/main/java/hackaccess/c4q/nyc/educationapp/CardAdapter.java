@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -22,6 +23,7 @@ public class CardAdapter extends BaseAdapter {
 
     private TextView mTextViewName;
     private TextView mTextViewDistance;
+    private ImageView mImageView;
 
     public CardAdapter(Context mContext, List<Program> mList) {
         this.mContext = mContext;
@@ -53,12 +55,11 @@ public class CardAdapter extends BaseAdapter {
 
         mTextViewName = (TextView) convertView.findViewById(R.id.tv_agency_name);
         mTextViewDistance = (TextView) convertView.findViewById(R.id.tv_agency_distance);
+        mImageView = (ImageView) convertView.findViewById(R.id.iv_agency_photo);
 
         mTextViewName.setText(getItem(position).getName());
         mTextViewDistance.setText(getItem(position).getDistance() + "");
-
-
-
+       // mImageView.setImageBitmap(BITMAP);
 
         return convertView;
     }

@@ -14,10 +14,10 @@ import java.util.List;
 public class CardAdapter extends BaseAdapter {
 
     private Context mContext;
-    private List<Place> mList;
+    private List<Program> mList;
     private LayoutInflater mInflater;
 
-    public CardAdapter(Context mContext, List<Place> mList) {
+    public CardAdapter(Context mContext, List<Program> mList) {
         this.mContext = mContext;
         this.mList = mList;
         mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -29,7 +29,7 @@ public class CardAdapter extends BaseAdapter {
     }
 
     @Override
-    public Place getItem(int position) {
+    public Program getItem(int position) {
         return mList.get(position);
     }
 

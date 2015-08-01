@@ -8,6 +8,8 @@ import android.widget.BaseAdapter;
 
 import java.util.List;
 
+import AuntBertha.Program;
+
 /**
  * Created by Willee on 8/1/15.
  */
@@ -44,11 +46,6 @@ public class CardAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = mInflater.inflate(R.layout.list_item_place, parent, false);
         }
-
-
-
-
-
 
 
 

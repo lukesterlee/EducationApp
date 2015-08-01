@@ -1,8 +1,5 @@
 package hackaccess.c4q.nyc.educationapp;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
@@ -13,10 +10,9 @@ import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
@@ -33,42 +29,35 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.maps.android.ui.BubbleIconFactory;
 import com.google.maps.android.ui.IconGenerator;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
+import AuntBertha.Program;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-/**
- * Created by sufeizhao on 8/1/15.
- */
-public class DirectoryActivity extends Fragment implements OnMapReadyCallback,
+public class DirectoryActivity extends ActionBarActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
     @Bind(R.id.list_view) ListView mListView;
 
     public Context context;
-    private CardAdapter mAdapter;
     private GoogleApiClient googleApiClient;
     private LocationRequest mLocationRequest;
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
     private GoogleMap map;
     private Location location;
-    //private List<Program> programs;
+    private List<Program> programs;
     private String zipcode;
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.directory_activity_layout, container, false);
-        context = view.getContext();
-        ButterKnife.bind(getActivity());
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.directory_activity_layout);
+        ButterKnife.bind(this);
 
         // Connect to Geolocation API to make current location request
         connectGoogleApiClient();
@@ -82,12 +71,7 @@ public class DirectoryActivity extends Fragment implements OnMapReadyCallback,
         mapFragment.getMapAsync(this);
         map = mapFragment.getMap();
 
-        // Create List of Directory Locations
-        //CardAdapter adapter = new CardAdapter(context, programs);
-        //mListView.setAdapter(adapter);
         mListView.setOnItemClickListener(new ProgramClickListener());
-
-        return view;
     }
 
     @Override
@@ -116,7 +100,7 @@ public class DirectoryActivity extends Fragment implements OnMapReadyCallback,
     public void onConnectionFailed(ConnectionResult connectionResult) {
         if (connectionResult.hasResolution()) {
             try {
-                connectionResult.startResolutionForResult(getActivity(), CONNECTION_FAILURE_RESOLUTION_REQUEST);
+                connectionResult.startResolutionForResult(this, CONNECTION_FAILURE_RESOLUTION_REQUEST);
             } catch (IntentSender.SendIntentException e) {
                 e.printStackTrace();
             }
@@ -148,7 +132,7 @@ public class DirectoryActivity extends Fragment implements OnMapReadyCallback,
     }
 
     protected synchronized void connectGoogleApiClient() {
-        googleApiClient = new GoogleApiClient.Builder(getActivity())
+        googleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API)
@@ -179,6 +163,12 @@ public class DirectoryActivity extends Fragment implements OnMapReadyCallback,
         @Override
         protected void onPostExecute(Address address) {
             zipcode = address.getPostalCode();
+
+            ProgramGetter rp = new ProgramGetter();
+            programs = rp.parseData(zipcode);
+            CardAdapter adapter = new CardAdapter(DirectoryActivity.this, programs);
+            mListView.setAdapter(adapter);
+
             //TODO: get List of LatLngs
             //populate(latLngs);
         }
@@ -217,7 +207,7 @@ public class DirectoryActivity extends Fragment implements OnMapReadyCallback,
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            Intent intent = new Intent(getActivity(), ProgramActivity.class);
+            Intent intent = new Intent(DirectoryActivity.this, ProgramActivity.class);
             //intent.putExtra("program", programs.get(position));
             startActivity(intent);
         }

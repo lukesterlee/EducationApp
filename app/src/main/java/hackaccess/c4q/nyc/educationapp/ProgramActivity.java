@@ -9,13 +9,24 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
+
+import com.google.samples.apps.iosched.ui.widget.SlidingTabLayout;
 
 
 /**
  * Created by sufeizhao on 8/1/15.
  */
-public class ProgramActivity extends FragmentActivity implements ActionBar.TabListener {
+public class ProgramActivity extends ActionBarActivity implements ActionBar.TabListener {
+
+
+    private Toolbar mToolbar;
+    private SlidingTabLayout mSlidingTabLayout;
 
     private Program mProgram;
     private ViewPager mViewPager;
@@ -34,28 +45,25 @@ public class ProgramActivity extends FragmentActivity implements ActionBar.TabLi
             mProgram = intent.getParcelableExtra(Constants.EXTRA_PROGRAM);
         }
 
-
-
-//        ActionBar actionBar = getActionBar();
-//        actionBar.setN
-
-        //actionBar.setHomeButtonEnabled(false);
-
-        // Specify that tabs should be displayed in the action bar.
-        //actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
-
-
-
-
-
-
-        //mProgram =  getIntent().getParcelableExtra();
-
+        mToolbar = (Toolbar) findViewById(R.id.tool_bar);
+        setSupportActionBar(mToolbar);
 
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mAdapter = new ProgramPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mAdapter);
+
+        mSlidingTabLayout = (SlidingTabLayout) findViewById(R.id.tabs);
+        mSlidingTabLayout.setDistributeEvenly(true);
+
+        mSlidingTabLayout.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
+            @Override
+            public int getIndicatorColor(int position) {
+                return getResources().getColor(R.color.tabsScrollColor);
+            }
+        });
+
+        // Setting the ViewPager For the SlidingTabsLayout
+        mSlidingTabLayout.setViewPager(mViewPager);
 
 
         //Program program = intent.getParcelableExtra("program");
@@ -72,7 +80,7 @@ public class ProgramActivity extends FragmentActivity implements ActionBar.TabLi
 
     }
 
-    public class ProgramPagerAdapter extends FragmentPagerAdapter {
+    public class ProgramPagerAdapter extends FragmentStatePagerAdapter {
 
         public ProgramPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -137,5 +145,27 @@ public class ProgramActivity extends FragmentActivity implements ActionBar.TabLi
     @Override
     public void onTabUnselected(ActionBar.Tab tab, android.app.FragmentTransaction ft) {
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

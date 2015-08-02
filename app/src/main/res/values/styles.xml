@@ -1,8 +1,12 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
+    </style>
+
+    <style name="AppCompatTheme" parent="@style/Theme.AppCompat.Light">
+        <item name="windowActionBar">false</item>
     </style>
 
     <style name="tv_agency_name">

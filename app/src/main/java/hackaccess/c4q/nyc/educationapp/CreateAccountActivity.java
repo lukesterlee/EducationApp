@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import hackaccess.c4q.nyc.educationapp.chat.ChatRoomActivity;
+import hackaccess.c4q.nyc.educationapp.firebase.Like;
+import hackaccess.c4q.nyc.educationapp.firebase.UserInfo;
 
 /**
  * Created by c4q-anthonyf on 8/1/15.
@@ -40,15 +42,8 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
     public void onClick(View view) {
         mHelper = FirebaseHelper.getInstance(getApplicationContext());
 
-        mHelper.createAccount(mEditTextEmail.getText().toString(), mEditTextPassword.getText().toString());
-
-//        if () {
-//            Toast.makeText(getApplicationContext(), "Account Created", Toast.LENGTH_SHORT).show();
-//        } else {
-//            Toast.makeText(getApplicationContext(), "Email Already In Use", Toast.LENGTH_SHORT).show();
-//
-//        }
-
+        mHelper.createAccount(mEditTextEmail.getText().toString(), mEditTextPassword.getText().toString(), new UserInfo(""));
+        mHelper.addLike("123","11101");
 
     }
 

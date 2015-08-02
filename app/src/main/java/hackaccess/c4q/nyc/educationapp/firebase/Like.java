@@ -7,16 +7,23 @@ import java.util.HashMap;
  */
 public class Like {
 
-    HashMap<String,Long> like;
+    HashMap<String,String> like;
 
-    public Like(long officeID, long userID) {
+    public Like(String programID, String zipcode) {
         like = new HashMap<>();
-        like.put("officeid", officeID);
-        like.put("userid", userID);
+        like.put("programID", programID);
+        like.put("zipcode", zipcode);
     }
 
-    public HashMap<String, Long> getLike() {
+    public HashMap<String, String> getHashMap() {
         return like;
+    }
+    public String getZipcode(){
+        return like.get("zipcode");
+    }
+
+    public String getProgramID(){
+        return like.get("programID");
     }
 
 }

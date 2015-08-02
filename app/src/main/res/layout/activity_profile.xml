@@ -1,46 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <ImageView
         android:id="@+id/profile_pic"
-        android:layout_weight="4"
-        android:src="@drawable/ic_play_light"
         android:layout_width="match_parent"
-        android:layout_height="0dp" />
+        android:layout_height="0dp"
+        android:layout_weight="4"
+        android:src="@drawable/ic_play_light" />
 
     <TextView
         android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="1"
         android:text="@string/username"
-        android:textSize="18sp"
-        android:gravity="center_horizontal"
+        android:textSize="20sp"
+        android:gravity="center_horizontal"/>
+
+    <TextView
+        android:text="@string/favorites"
+        android:textSize="20dp"
         android:layout_width="match_parent"
-        android:layout_height="0dp" />
-    
-    <ExpandableListView
-        android:id="@android:id/list"
-        android:layout_weight="5"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
         android:layout_height="0dp"
         android:divider="@color/primary"
-        android:dividerHeight="0.5dp"/>
+        android:dividerHeight="0.5dp"
+        android:layout_weight="5"
+        android:orientation="horizontal">
+
+        <ListView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@color/primary"
+            android:dividerHeight="0.5dp" />
+
+        <ImageView
+            android:id="@+id/heart"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/change_email"
-        android:layout_weight="1"
-        android:text="@string/change_email"
-        android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
-        android:layout_height="0dp" />
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1"
+        android:text="@string/change_email" />
 
     <Button
         android:id="@+id/log_out"
-        android:layout_weight="1"
-        android:text="@string/log_out"
-        android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
-        android:layout_height="0dp" />
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1"
+        android:text="@string/log_out" />
+
 </LinearLayout>

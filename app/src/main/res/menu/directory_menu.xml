@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
 
     <item
-        android:id="@+id/action_sign_user"
-        android:title="Sign In"
-        app:showAsAction="never"/>
+        android:id="@+id/action_mapview"
+        android:title="@string/action_mapview"
+        app:showAsAction="always"/>
 
     <item
         android:id="@+id/action_profile"

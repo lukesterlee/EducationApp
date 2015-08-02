@@ -21,7 +21,6 @@ import hackaccess.c4q.nyc.educationapp.SettingsActivity;
 
 public class ChatRoomActivity extends AppCompatActivity implements ActionBar.TabListener {
 
-    private static final String FIREBASE_URL = "https://edusearch.firebaseio.com/";
     private ViewPager mViewPager;
 
     @Override
@@ -30,7 +29,7 @@ public class ChatRoomActivity extends AppCompatActivity implements ActionBar.Tab
         setContentView(R.layout.activity_chat);
         Firebase.setAndroidContext(this);
 
-        Toolbar mToolbar = (Toolbar) findViewById(R.id.tool_bar);
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
 
         mViewPager = (ViewPager) findViewById(R.id.pager);
@@ -87,10 +86,10 @@ public class ChatRoomActivity extends AppCompatActivity implements ActionBar.Tab
             CharSequence title = "";
             switch (position) {
                 case 0:
-                    title = "Chatroom1";
+                    title = getResources().getString(R.string.chat1);
                     break;
                 case 1:
-                    title = "Chatroom2";
+                    title = getResources().getString(R.string.chat2);
                     break;
             }
             return title;

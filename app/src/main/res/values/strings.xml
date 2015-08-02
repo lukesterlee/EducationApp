@@ -23,5 +23,16 @@
     <string name="favorites">  Favorites</string>
     <string name="chat">  Chat History</string>
     <string name="username">Username</string>
-
+    <string name="chat1">Study Group</string>
+    <string name="chat2">Best Friends</string>
+    <string name="gps_network_not_enabled">For best results, please enable Location Services on your device.</string>
+    <string name="open_location_settings">Settings</string>
+    <string name="Cancel">Cancel</string>
+    <string name="network_not_enabled">Connect to a Wifi or Data Network for access to nearby Education centers.</string>
+    <string name="action_mapview">Map View</string>
+    <string name="marker_snippet">Click here for more info</string>
+    <string name="action_listview">List View</string>
+    <string name="enter_email">Enter new email address:</string>
+    <string name="save">Save</string>
+    <string name="friends">Friends</string>
 </resources>

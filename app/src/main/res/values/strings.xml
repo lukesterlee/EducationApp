@@ -18,4 +18,6 @@
     <string name="email">Email</string>
     <string name="twitter">Twitter</string>
     <string name="facebook">Facebook</string>
+    <string name="office_name">Office</string>
+    <string name="location">Location</string>
 </resources>

@@ -31,7 +31,7 @@ public class ContactFragment extends Fragment {
         }
 
 
-        mTextViewPhoneNumber = (TextView) result.findViewById(R.id.textView_phone_number);
+        mTextViewPhoneNumber = (TextView) result.findViewById(R.id.tv_phone_number);
         mTextViewPhoneNumber.setText(mProgram.getPhoneNumber());
 
         return result;

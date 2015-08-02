@@ -28,7 +28,7 @@ public class DetailsFragment extends Fragment {
         }
 
 
-        mTextViewDescription = (TextView) result.findViewById(R.id.textView_description);
+        mTextViewDescription = (TextView) result.findViewById(R.id.tv_description);
         mTextViewDescription.setText(mProgram.getDescription());
 
         return result;

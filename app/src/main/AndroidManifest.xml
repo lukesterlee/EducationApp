@@ -38,7 +38,7 @@
 
         </activity>
 
-        <activity android:name=".ProgramActivity"/>
+        <activity android:name=".program.ProgramActivity"/>
 
 
         <activity android:name=".CreateAccountActivity"

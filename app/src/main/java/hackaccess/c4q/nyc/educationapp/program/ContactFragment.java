@@ -1,4 +1,4 @@
-package hackaccess.c4q.nyc.educationapp;
+package hackaccess.c4q.nyc.educationapp.program;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,18 +8,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import hackaccess.c4q.nyc.educationapp.Constants;
+import hackaccess.c4q.nyc.educationapp.Program;
+import hackaccess.c4q.nyc.educationapp.R;
+
 /**
  * Created by Willee on 8/1/15.
  */
-public class DetailsFragment extends Fragment {
+public class ContactFragment extends Fragment {
 
+    private TextView mTextViewPhoneNumber;
     private Program mProgram;
-    private TextView mTextViewDescription;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View result = inflater.inflate(R.layout.fragment_details, container, false);
+        View result = inflater.inflate(R.layout.fragment_contact, container, false);
+
+
+
 
         Bundle bundle = getArguments();
 
@@ -28,8 +35,10 @@ public class DetailsFragment extends Fragment {
         }
 
 
-        mTextViewDescription = (TextView) result.findViewById(R.id.tv_description);
-        mTextViewDescription.setText(mProgram.getDescription());
+        mTextViewPhoneNumber = (TextView) result.findViewById(R.id.tv_phone_number);
+        mTextViewPhoneNumber.setText("(Tel) " + mProgram.getPhoneNumber());
+
+
 
         return result;
     }

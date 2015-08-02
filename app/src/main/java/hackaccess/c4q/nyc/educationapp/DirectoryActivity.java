@@ -333,9 +333,6 @@ public class DirectoryActivity extends AppCompatActivity implements OnMapReadyCa
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-
-
-
         switch (item.getItemId()) {
             case R.id.action_mapview:
                 Intent map = new Intent(this, MapActivity.class);
@@ -370,9 +367,6 @@ public class DirectoryActivity extends AppCompatActivity implements OnMapReadyCa
                 startActivity(intent);
                 break;
         }
-
-
-
         return super.onOptionsItemSelected(item);
     }
 

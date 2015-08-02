@@ -12,15 +12,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.samples.apps.iosched.ui.widget.SlidingTabLayout;
 
+import hackaccess.c4q.nyc.educationapp.FirebaseHelper;
+import hackaccess.c4q.nyc.educationapp.MapActivity;
 import hackaccess.c4q.nyc.educationapp.chat.ChatRoomActivity;
 import hackaccess.c4q.nyc.educationapp.Constants;
 import hackaccess.c4q.nyc.educationapp.ProfileActivity;
 import hackaccess.c4q.nyc.educationapp.Program;
 import hackaccess.c4q.nyc.educationapp.R;
 import hackaccess.c4q.nyc.educationapp.SettingsActivity;
+import hackaccess.c4q.nyc.educationapp.profile.CreateProfileActivity;
 
 
 /**
@@ -35,14 +39,14 @@ public class ProgramActivity extends AppCompatActivity implements ActionBar.TabL
     private Program mProgram;
     private ViewPager mViewPager;
     private ProgramActivity.ProgramPagerAdapter mAdapter;
-
+    private FirebaseHelper mHelper;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_program);
-
+        mHelper = FirebaseHelper.getInstance(getApplicationContext());
 
         Intent intent = getIntent();
         if (intent != null) {
@@ -162,27 +166,36 @@ public class ProgramActivity extends AppCompatActivity implements ActionBar.TabL
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        switch (item.getItemId()) {
+            case R.id.action_sign_user:
+                if (mHelper.isLoggedIn()) {
+                    item.setTitle("Sign In");
+                    mHelper.logOutUser();
+                    Toast.makeText(getApplicationContext(), "Signed Out!", Toast.LENGTH_SHORT).show();
 
-        
-        if (id == R.id.action_profile) {
-//            if (isLoggedIn) {
-            Intent profile = new Intent(this, ProfileActivity.class);
-            startActivity(profile);
-//            } else {
-//                Intent create = new Intent(this, CreateProfileActivity.class);
-//                startActivity(create);
-//            }
+                } else {
+                    Intent create = new Intent(this, CreateProfileActivity.class);
+                    startActivity(create);
+                }
+                break;
+            case R.id.action_profile:
+                if (mHelper.isLoggedIn()) {
+                    Intent profile = new Intent(this, ProfileActivity.class);
+                    startActivity(profile);
+                } else {
+                    Intent create = new Intent(this, CreateProfileActivity.class);
+                    startActivity(create);
+                }
+                break;
+            case R.id.action_chat:
+                Intent chat = new Intent(this, ChatRoomActivity.class);
+                startActivity(chat);
+                break;
+            case R.id.action_settings:
+                Intent intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
+                break;
         }
-        if (id == R.id.action_chat) {
-            Intent chat = new Intent(this, ChatRoomActivity.class);
-            startActivity(chat);
-        }
-        if (id == R.id.action_settings) {
-            Intent intent = new Intent(this, SettingsActivity.class);
-            startActivity(intent);
-        }
-
         return super.onOptionsItemSelected(item);
     }
 }

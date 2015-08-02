@@ -16,9 +16,9 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:gravity="center_horizontal"
-        android:text="Sufei"
-        android:textSize="20dp" />
+        android:text="@string/username"
+        android:textSize="20sp"
+        android:gravity="center_horizontal"/>
 
     <TextView
         android:text="@string/favorites"
@@ -30,6 +30,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:divider="@color/primary"
+        android:dividerHeight="0.5dp"
         android:layout_weight="5"
         android:orientation="horizontal">
 
@@ -37,15 +39,15 @@
             android:id="@+id/favorites_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:divider="@color/tabsScrollColor"
+            android:divider="@color/primary"
             android:dividerHeight="0.5dp" />
 
         <ImageView
             android:id="@+id/heart"
             android:layout_width="wrap_content"
             android:layout_height="match_parent" />
-    </LinearLayout>
 
+    </LinearLayout>
 
     <Button
         android:id="@+id/change_email"
@@ -62,4 +64,5 @@
         android:layout_gravity="center_horizontal"
         android:layout_weight="1"
         android:text="@string/log_out" />
+
 </LinearLayout>

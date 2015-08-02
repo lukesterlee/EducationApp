@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -18,13 +17,13 @@ import android.widget.Toast;
 
 import com.google.samples.apps.iosched.ui.widget.SlidingTabLayout;
 
-import hackaccess.c4q.nyc.educationapp.MapActivity;
-import hackaccess.c4q.nyc.educationapp.profile.CreateProfileActivity;
 import hackaccess.c4q.nyc.educationapp.DirectoryActivity;
 import hackaccess.c4q.nyc.educationapp.FirebaseHelper;
+import hackaccess.c4q.nyc.educationapp.MapActivity;
 import hackaccess.c4q.nyc.educationapp.ProfileActivity;
 import hackaccess.c4q.nyc.educationapp.R;
 import hackaccess.c4q.nyc.educationapp.SettingsActivity;
+import hackaccess.c4q.nyc.educationapp.profile.CreateProfileActivity;
 
 public class ChatRoomActivity extends AppCompatActivity implements ActionBar.TabListener {
 
@@ -52,7 +51,7 @@ public class ChatRoomActivity extends AppCompatActivity implements ActionBar.Tab
             mSlidingTabLayout.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
                 @Override
                 public int getIndicatorColor(int position) {
-                    return getResources().getColor(R.color.tabsScrollColor);
+                    return getResources().getColor(R.color.accent);
                 }
             });
 
@@ -190,4 +189,3 @@ public class ChatRoomActivity extends AppCompatActivity implements ActionBar.Tab
         return super.onOptionsItemSelected(item);
     }
 }
-

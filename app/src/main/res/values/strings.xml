@@ -22,6 +22,7 @@
     <string name="location">Location</string>
     <string name="favorites">  Favorites</string>
     <string name="chat">  Chat History</string>
+    <string name="username">Username</string>
     <string name="chat1">Study Group</string>
     <string name="chat2">Best Friends</string>
     <string name="gps_network_not_enabled">For best results, please enable Location Services on your device.</string>

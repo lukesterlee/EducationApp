@@ -20,7 +20,7 @@ import hackaccess.c4q.nyc.educationapp.R;
 import hackaccess.c4q.nyc.educationapp.SettingsActivity;
 import hackaccess.c4q.nyc.educationapp.chat.ChatRoomActivity;
 
-public class CreateProfileActivity extends ActionBarActivity implements ActionBar.TabListener{
+public class CreateProfileActivity extends ActionBarActivity implements ActionBar.TabListener {
 
     private SlidingTabLayout mSlidingTabLayout;
 
@@ -44,7 +44,7 @@ public class CreateProfileActivity extends ActionBarActivity implements ActionBa
         mSlidingTabLayout.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
             @Override
             public int getIndicatorColor(int position) {
-                return getResources().getColor(R.color.tabsScrollColor);
+                return getResources().getColor(R.color.accent);
             }
         });
 

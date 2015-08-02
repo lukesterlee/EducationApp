@@ -61,6 +61,9 @@ public class DirectoryActivity extends ActionBarActivity implements OnMapReadyCa
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_directory);
+
+
+
         mListView = (ListView) findViewById(R.id.list_view);
         preferences = getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE);
         preferences.getBoolean(Constants.LOGGEDIN, false);
@@ -241,6 +244,7 @@ public class DirectoryActivity extends ActionBarActivity implements OnMapReadyCa
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
         return true;
     }
 

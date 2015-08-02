@@ -156,14 +156,26 @@ public class ProgramActivity extends ActionBarActivity implements ActionBar.TabL
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
+        // Handle action bar item clicks here. The action bar will automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_profile) {
+//            if (isLoggedIn) {
+            Intent profile = new Intent(this, ProfileActivity.class);
+            startActivity(profile);
+//            } else {
+//                Intent create = new Intent(this, CreateProfileActivity.class);
+//                startActivity(create);
+//            }
+        }
+        if (id == R.id.action_chat) {
+            Intent chat = new Intent(this, ChatRoomActivity.class);
+            startActivity(chat);
+        }
         if (id == R.id.action_settings) {
-            return true;
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);

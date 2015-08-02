@@ -79,10 +79,6 @@ public class DirectoryActivity extends ActionBarActivity implements OnMapReadyCa
 
         mListView.setOnItemClickListener(new ProgramClickListener());
 
-
-
-
-
     }
 
     @Override
@@ -178,8 +174,6 @@ public class DirectoryActivity extends ActionBarActivity implements OnMapReadyCa
         }
     };
 
-
-
     private class ProgramTask extends AsyncTask<String, Void, List<Program>> {
 
         @Override
@@ -215,7 +209,7 @@ public class DirectoryActivity extends ActionBarActivity implements OnMapReadyCa
         for (Program program : programs) {
 
             LatLng latLng = new LatLng(program.getLatitude(), program.getLongitude());
-            
+
             latLngs.add(latLng);
 
             IconGenerator mIconGenerator = new IconGenerator(DirectoryActivity.this);
@@ -241,9 +235,6 @@ public class DirectoryActivity extends ActionBarActivity implements OnMapReadyCa
             map.animateCamera(CameraUpdateFactory.newLatLngBounds(bc.build(), 50));
         }
     }
-
-
-
 
     // MENU RESOURCES
     @Override

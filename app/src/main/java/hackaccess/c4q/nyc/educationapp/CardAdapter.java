@@ -67,7 +67,7 @@ public class CardAdapter extends BaseAdapter {
 
         URL url = null;
         try {
-            url = new URL(preHTTP + getItem(position).getLatLng().latitude + "," + getItem(position).getLatLng().longitude);
+            url = new URL(preHTTP + getItem(position).getLatitude() + "," + getItem(position).getLongitude());
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }

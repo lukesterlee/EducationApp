@@ -348,7 +348,7 @@ public class DirectoryActivity extends AppCompatActivity implements OnMapReadyCa
                     Toast.makeText(getApplicationContext(), "Signed Out!", Toast.LENGTH_SHORT).show();
 
                 } else {
-                    Intent create = new Intent(this, CreateAccountActivity.class);
+                    Intent create = new Intent(this, CreateProfileActivity.class);
                     startActivity(create);
                 }
                 break;

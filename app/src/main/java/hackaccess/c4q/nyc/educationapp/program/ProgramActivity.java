@@ -164,6 +164,7 @@ public class ProgramActivity extends AppCompatActivity implements ActionBar.TabL
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+        
         if (id == R.id.action_profile) {
 //            if (isLoggedIn) {
             Intent profile = new Intent(this, ProfileActivity.class);

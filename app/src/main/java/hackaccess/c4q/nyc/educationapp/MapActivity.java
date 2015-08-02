@@ -47,6 +47,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import hackaccess.c4q.nyc.educationapp.chat.ChatRoomActivity;
+import hackaccess.c4q.nyc.educationapp.profile.CreateProfileActivity;
 import hackaccess.c4q.nyc.educationapp.program.ProgramActivity;
 
 /**

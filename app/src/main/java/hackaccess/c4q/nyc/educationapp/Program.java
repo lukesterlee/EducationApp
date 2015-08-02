@@ -6,6 +6,8 @@ import android.os.Parcelable;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Willee on 8/1/15.
@@ -33,6 +35,16 @@ public class Program implements Parcelable, Serializable {
     private String language;
     private String lastUpdated;
     private String phoneNumber;
+    private String programId;
+    private String zipcode;
+    private String monday;
+    private String tuesday;
+    private String wednesday;
+    private String thursday;
+    private String friday;
+    private String saturday;
+    private String sunday;
+
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
@@ -44,6 +56,16 @@ public class Program implements Parcelable, Serializable {
         dest.writeString(language);
         dest.writeString(lastUpdated);
         dest.writeString(phoneNumber);
+        dest.writeString(programId);
+        dest.writeString(zipcode);
+        dest.writeString(monday);
+        dest.writeString(tuesday);
+        dest.writeString(wednesday);
+        dest.writeString(thursday);
+        dest.writeString(friday);
+        dest.writeString(saturday);
+        dest.writeString(sunday);
+
     }
 
 
@@ -56,6 +78,9 @@ public class Program implements Parcelable, Serializable {
         language = "";
         lastUpdated = "";
         phoneNumber = "";
+        programId = "";
+        zipcode = "";
+
     }
 
     public Program(Parcel parcel) {
@@ -67,9 +92,24 @@ public class Program implements Parcelable, Serializable {
         language = parcel.readString();
         lastUpdated = parcel.readString();
         phoneNumber = parcel.readString();
+        programId = parcel.readString();
+        zipcode = parcel.readString();
+        monday = parcel.readString();
+        tuesday = parcel.readString();
+        wednesday = parcel.readString();
+        thursday = parcel.readString();
+        friday = parcel.readString();
+        saturday = parcel.readString();
+        sunday = parcel.readString();
     }
 
-    public Program(String description, double distance, String language, String lastUpdated, double latitude, double longitude, String name, String phoneNumber) {
+    public Program(String description, double distance,
+                   String language, String lastUpdated,
+                   double latitude, double longitude,
+                   String name, String phoneNumber,
+                   String programId, String zipcode, String monday,
+                   String tuesday, String wednesday, String thursday,
+                   String friday, String saturday, String sunday) {
         this.description = description;
         this.distance = distance;
         this.language = language;
@@ -78,6 +118,16 @@ public class Program implements Parcelable, Serializable {
         this.longitude = longitude;
         this.name = name;
         this.phoneNumber = phoneNumber;
+        this.programId = programId;
+        this.zipcode = zipcode;
+        this.monday = monday;
+        this.tuesday = tuesday;
+        this.wednesday = wednesday;
+        this.thursday = thursday;
+        this.friday = friday;
+        this.saturday = saturday;
+        this.sunday = sunday;
+
     }
 
     public String getDistance() {
@@ -142,6 +192,78 @@ public class Program implements Parcelable, Serializable {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getProgramId() {
+        return programId;
+    }
+
+    public void setProgramId(String programId) {
+        this.programId = programId;
+    }
+
+    public String getZipcode() {
+        return zipcode;
+    }
+
+    public void setZipcode(String zipcode) {
+        this.zipcode = zipcode;
+    }
+
+    public String getFriday() {
+        return friday;
+    }
+
+    public void setFriday(String friday) {
+        this.friday = friday;
+    }
+
+    public String getMonday() {
+        return monday;
+    }
+
+    public void setMonday(String monday) {
+        this.monday = monday;
+    }
+
+    public String getSaturday() {
+        return saturday;
+    }
+
+    public void setSaturday(String saturday) {
+        this.saturday = saturday;
+    }
+
+    public String getSunday() {
+        return sunday;
+    }
+
+    public void setSunday(String sunday) {
+        this.sunday = sunday;
+    }
+
+    public String getThursday() {
+        return thursday;
+    }
+
+    public void setThursday(String thursday) {
+        this.thursday = thursday;
+    }
+
+    public String getTuesday() {
+        return tuesday;
+    }
+
+    public void setTuesday(String tuesday) {
+        this.tuesday = tuesday;
+    }
+
+    public String getWednesday() {
+        return wednesday;
+    }
+
+    public void setWednesday(String wednesday) {
+        this.wednesday = wednesday;
     }
 
     @Override

@@ -44,6 +44,7 @@ public class Program implements Parcelable, Serializable {
     private String friday;
     private String saturday;
     private String sunday;
+    private String address;
 
 
     @Override
@@ -65,6 +66,7 @@ public class Program implements Parcelable, Serializable {
         dest.writeString(friday);
         dest.writeString(saturday);
         dest.writeString(sunday);
+        dest.writeString(address);
 
     }
 
@@ -80,6 +82,7 @@ public class Program implements Parcelable, Serializable {
         phoneNumber = "";
         programId = "";
         zipcode = "";
+        address = "";
 
     }
 
@@ -101,6 +104,7 @@ public class Program implements Parcelable, Serializable {
         friday = parcel.readString();
         saturday = parcel.readString();
         sunday = parcel.readString();
+        address = parcel.readString();
     }
 
     public Program(String description, double distance,
@@ -109,7 +113,7 @@ public class Program implements Parcelable, Serializable {
                    String name, String phoneNumber,
                    String programId, String zipcode, String monday,
                    String tuesday, String wednesday, String thursday,
-                   String friday, String saturday, String sunday) {
+                   String friday, String saturday, String sunday, String address) {
         this.description = description;
         this.distance = distance;
         this.language = language;
@@ -127,6 +131,7 @@ public class Program implements Parcelable, Serializable {
         this.friday = friday;
         this.saturday = saturday;
         this.sunday = sunday;
+        this.address = address;
 
     }
 
@@ -264,6 +269,14 @@ public class Program implements Parcelable, Serializable {
 
     public void setWednesday(String wednesday) {
         this.wednesday = wednesday;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     @Override

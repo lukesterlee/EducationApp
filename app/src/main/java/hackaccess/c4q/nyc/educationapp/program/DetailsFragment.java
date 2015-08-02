@@ -18,6 +18,8 @@ import hackaccess.c4q.nyc.educationapp.R;
 public class DetailsFragment extends Fragment {
 
     private Program mProgram;
+
+    private TextView mTextViewName;
     private TextView mTextViewDescription;
     private TextView mTextViewLangueage;
     private TextView mTextViewLastUpdated;
@@ -43,6 +45,8 @@ public class DetailsFragment extends Fragment {
         mTextViewLastUpdated = (TextView) result.findViewById(R.id.tv_last_updated);
         mTextViewLastUpdated.setText("Last Updated : " + mProgram.getLastUpdated());
 
+        mTextViewName = (TextView) result.findViewById(R.id.tv_office_name);
+        mTextViewName.setText(mProgram.getName());
 
         return result;
     }

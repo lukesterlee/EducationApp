@@ -15,12 +15,13 @@ import android.view.MenuItem;
 
 import com.google.samples.apps.iosched.ui.widget.SlidingTabLayout;
 
+import hackaccess.c4q.nyc.educationapp.FirebaseHelper;
 import hackaccess.c4q.nyc.educationapp.ProfileActivity;
 import hackaccess.c4q.nyc.educationapp.R;
 import hackaccess.c4q.nyc.educationapp.SettingsActivity;
 import hackaccess.c4q.nyc.educationapp.chat.ChatRoomActivity;
 
-public class CreateProfileActivity extends ActionBarActivity implements ActionBar.TabListener{
+public class CreateProfileActivity extends ActionBarActivity implements ActionBar.TabListener, BackCallback {
 
     private SlidingTabLayout mSlidingTabLayout;
 
@@ -29,10 +30,15 @@ public class CreateProfileActivity extends ActionBarActivity implements ActionBa
 
     private SharedPreferences preferences;
 
+    private FirebaseHelper mHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_profile);
+
+        mHelper = FirebaseHelper.getInstance(getApplicationContext());
+        mHelper.setCallback(this);
 
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mAdapter = new ProfilePagerAdapter(getSupportFragmentManager());
@@ -147,4 +153,8 @@ public class CreateProfileActivity extends ActionBarActivity implements ActionBa
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void goback() {
+        onBackPressed();
+    }
 }

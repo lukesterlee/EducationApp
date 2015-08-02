@@ -35,4 +35,14 @@
     <string name="save">Save</string>
     <string name="friends">Friends</string>
 
+
+    <string name="firstName">First Name</string>
+    <string name="lastName">Last Name</string>
+    <string name="zipcode">Zipcode</string>
+    <string name="password">Password</string>
+    <string name="submit">Submit</string>
+    <string name="facebook_app_id">1458548884470272</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

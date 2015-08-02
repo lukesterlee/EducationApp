@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Map;
 
 import hackaccess.c4q.nyc.educationapp.chat.ChatRoomActivity;
+import hackaccess.c4q.nyc.educationapp.profile.CreateProfileActivity;
 
 /**
  * Created by sufeizhao on 8/1/15.

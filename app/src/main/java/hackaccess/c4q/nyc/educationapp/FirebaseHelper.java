@@ -1,7 +1,6 @@
 package hackaccess.c4q.nyc.educationapp;
 
 import android.content.Context;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.firebase.client.AuthData;

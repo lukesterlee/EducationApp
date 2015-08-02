@@ -63,13 +63,19 @@ public class DirectoryActivity extends AppCompatActivity implements OnMapReadyCa
     private CardAdapter mAdapter;
     boolean gps_enabled = false;
     private boolean isLoggedIn = false;
-    private SharedPreferences preferences;
     private SwipeRefreshLayout swipeLayout;
+
+    private FirebaseHelper mHelper;
+    private SharedPreferences preferences;
+    private MenuItem signMenu;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_directory);
+
+        mHelper = FirebaseHelper.getInstance(getApplicationContext());
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -291,11 +297,33 @@ public class DirectoryActivity extends AppCompatActivity implements OnMapReadyCa
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(signMenu != null) {
+            if (mHelper.isLoggedIn()) {
+                signMenu.setTitle("Sign Out");
+
+            } else {
+                signMenu.setTitle("Sign In");
+            }
+        }
+    }
+
     // MENU RESOURCES
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.directory_menu, menu);
+
+        signMenu = menu.getItem(0);
+        if (mHelper.isLoggedIn()) {
+            signMenu.setTitle("Sign Out");
+
+        } else {
+            signMenu.setTitle("Sign In");
+
+        }
 
         return true;
     }
@@ -304,29 +332,43 @@ public class DirectoryActivity extends AppCompatActivity implements OnMapReadyCa
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        if (id == R.id.action_mapview) {
-            Intent map = new Intent(this, MapActivity.class);
-            startActivity(map);
+
+
+        switch (item.getItemId()) {
+            case R.id.action_sign_user:
+                if (mHelper.isLoggedIn()) {
+                    item.setTitle("Sign In");
+                    mHelper.logOutUser();
+                    Toast.makeText(getApplicationContext(), "Signed Out!", Toast.LENGTH_SHORT).show();
+
+                } else {
+                    Intent create = new Intent(this, CreateAccountActivity.class);
+                    startActivity(create);
+                    //item.setTitle("Sign Out");
+
+                }
+                break;
+            case R.id.action_profile:
+                if (mHelper.isLoggedIn()) {
+                    Intent profile = new Intent(this, ProfileActivity.class);
+                    startActivity(profile);
+                } else {
+                    Intent create = new Intent(this, CreateProfileActivity.class);
+                    startActivity(create);
+                }
+                break;
+            case R.id.action_chat:
+                Intent chat = new Intent(this, ChatRoomActivity.class);
+                startActivity(chat);
+                break;
+            case R.id.action_settings:
+                Intent intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
+                break;
         }
-        if (id == R.id.action_profile) {
-            if (isLoggedIn) {
-                Intent profile = new Intent(this, ProfileActivity.class);
-                startActivity(profile);
-            } else {
-                Intent create = new Intent(this, CreateProfileActivity.class);
-                startActivity(create);
-            }
-        }
-        if (id == R.id.action_chat) {
-            Intent chat = new Intent(this, ChatRoomActivity.class);
-            startActivity(chat);
-        }
-        if (id == R.id.action_settings) {
-            Intent intent = new Intent(this, SettingsActivity.class);
-            startActivity(intent);
-        }
+
+
 
         return super.onOptionsItemSelected(item);
     }

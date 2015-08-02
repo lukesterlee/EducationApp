@@ -89,18 +89,6 @@ public class ProgramActivity extends AppCompatActivity implements ActionBar.TabL
 
         Glide.with(this).load(url).centerCrop().into(image);
 
-        //Program program = intent.getParcelableExtra("program");
-
-        // Add 3 tabs, specifying the tab's text and TabListener
-//        for (int i = 0; i < 3; i++) {
-//
-//            actionBar.addTab(
-//                    actionBar.newTab()
-//                            .setText("Tab " + (i + 1))
-//                            .setTabListener(this));
-//        }
-
-
     }
 
     public class ProgramPagerAdapter extends FragmentStatePagerAdapter {

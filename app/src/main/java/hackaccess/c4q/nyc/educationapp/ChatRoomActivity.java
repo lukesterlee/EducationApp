@@ -40,8 +40,7 @@ public class ChatRoomActivity extends ListActivity {
 
         // Make sure we have a mUsername
         setupUsername();
-
-        setTitle("Chatting as " + mUsername);
+        setTitle("Chatroom");
 
         // Setup our Firebase mFirebaseRef
         mFirebaseRef = new Firebase(FIREBASE_URL).child("chat");
@@ -109,6 +108,7 @@ public class ChatRoomActivity extends ListActivity {
         mChatListAdapter.cleanup();
     }
 
+    //TODO edit username
     private void setupUsername() {
         SharedPreferences prefs = getApplication().getSharedPreferences("ChatPrefs", 0);
         mUsername = prefs.getString("username", null);

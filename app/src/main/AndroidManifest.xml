@@ -31,7 +31,12 @@
         <activity android:name=".program.ProgramActivity"
             android:noHistory="true"/>
         <activity android:name=".CreateAccountActivity"
-            android:noHistory="true"/>
+            android:noHistory="true"
+            android:theme="@style/ActionBar">
+
+
+
+        </activity>
         <activity android:name=".ProfileActivity"
             android:noHistory="true"/>
         <activity android:name=".CreateProfileActivity"

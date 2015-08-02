@@ -1,59 +1,41 @@
-package hackaccess.c4q.nyc.educationapp.program;
+package hackaccess.c4q.nyc.educationapp.profile;
 
 import android.app.ActionBar;
+import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.samples.apps.iosched.ui.widget.SlidingTabLayout;
 
-import hackaccess.c4q.nyc.educationapp.chat.ChatRoomActivity;
-import hackaccess.c4q.nyc.educationapp.Constants;
 import hackaccess.c4q.nyc.educationapp.ProfileActivity;
-import hackaccess.c4q.nyc.educationapp.Program;
 import hackaccess.c4q.nyc.educationapp.R;
 import hackaccess.c4q.nyc.educationapp.SettingsActivity;
+import hackaccess.c4q.nyc.educationapp.chat.ChatRoomActivity;
 
+public class CreateProfileActivity extends ActionBarActivity implements ActionBar.TabListener{
 
-/**
- * Created by sufeizhao on 8/1/15.
- */
-public class ProgramActivity extends AppCompatActivity implements ActionBar.TabListener {
-
-
-    private Toolbar mToolbar;
     private SlidingTabLayout mSlidingTabLayout;
 
-    private Program mProgram;
     private ViewPager mViewPager;
-    private ProgramActivity.ProgramPagerAdapter mAdapter;
+    private ProfilePagerAdapter mAdapter;
 
-
+    private SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_program);
-
-
-        Intent intent = getIntent();
-        if (intent != null) {
-            mProgram = intent.getParcelableExtra(Constants.EXTRA_PROGRAM);
-        }
-
-        mToolbar = (Toolbar) findViewById(R.id.tool_bar);
-        setSupportActionBar(mToolbar);
+        setContentView(R.layout.activity_create_profile);
 
         mViewPager = (ViewPager) findViewById(R.id.pager);
-        mAdapter = new ProgramPagerAdapter(getSupportFragmentManager());
+        mAdapter = new ProfilePagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mAdapter);
 
         mSlidingTabLayout = (SlidingTabLayout) findViewById(R.id.tabs);
@@ -69,24 +51,11 @@ public class ProgramActivity extends AppCompatActivity implements ActionBar.TabL
         // Setting the ViewPager For the SlidingTabsLayout
         mSlidingTabLayout.setViewPager(mViewPager);
 
-
-        //Program program = intent.getParcelableExtra("program");
-
-        // Add 3 tabs, specifying the tab's text and TabListener
-//        for (int i = 0; i < 3; i++) {
-//
-//            actionBar.addTab(
-//                    actionBar.newTab()
-//                            .setText("Tab " + (i + 1))
-//                            .setTabListener(this));
-//        }
-
-
     }
 
-    public class ProgramPagerAdapter extends FragmentStatePagerAdapter {
+    public class ProfilePagerAdapter extends FragmentStatePagerAdapter {
 
-        public ProgramPagerAdapter(FragmentManager fm) {
+        public ProfilePagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
@@ -94,28 +63,22 @@ public class ProgramActivity extends AppCompatActivity implements ActionBar.TabL
         public Fragment getItem(int position) {
 
             Fragment fragment = null;
-            Bundle bundle = new Bundle();
-            bundle.putParcelable(Constants.EXTRA_PROGRAM, (Parcelable) mProgram);
 
             switch (position) {
                 case 0:
-                    fragment = new DetailsFragment();
+                    fragment = new SignupFragment();
                     break;
                 case 1:
-                    fragment = new HoursFragment();
-                    break;
-                case 2:
-                    fragment = new ContactFragment();
+                    fragment = new LoginFragment();
                     break;
             }
 
-            fragment.setArguments(bundle);
             return fragment;
         }
 
         @Override
         public int getCount() {
-            return 3;
+            return 2;
         }
 
         @Override
@@ -123,22 +86,14 @@ public class ProgramActivity extends AppCompatActivity implements ActionBar.TabL
             CharSequence title = "";
             switch (position) {
                 case 0:
-                    title = "Details";
+                    title = "Sign Up";
                     break;
                 case 1:
-                    title = "Hours";
-                    break;
-                case 2:
-                    title = "Contacts";
+                    title = "Login";
                     break;
             }
             return title;
         }
-    }
-
-    @Override
-    public void onTabReselected(ActionBar.Tab tab, android.app.FragmentTransaction ft) {
-
     }
 
     @Override
@@ -147,14 +102,21 @@ public class ProgramActivity extends AppCompatActivity implements ActionBar.TabL
     }
 
     @Override
-    public void onTabUnselected(ActionBar.Tab tab, android.app.FragmentTransaction ft) {
+    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
 
     }
 
     @Override
+    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
+
+    }
+
+    // MENU RESOURCES
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
         return true;
     }
 
@@ -164,7 +126,6 @@ public class ProgramActivity extends AppCompatActivity implements ActionBar.TabL
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        
         if (id == R.id.action_profile) {
 //            if (isLoggedIn) {
             Intent profile = new Intent(this, ProfileActivity.class);
@@ -185,4 +146,5 @@ public class ProgramActivity extends AppCompatActivity implements ActionBar.TabL
 
         return super.onOptionsItemSelected(item);
     }
+
 }

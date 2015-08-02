@@ -50,6 +50,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hackaccess.c4q.nyc.educationapp.chat.ChatRoomActivity;
+import hackaccess.c4q.nyc.educationapp.profile.CreateProfileActivity;
 import hackaccess.c4q.nyc.educationapp.program.ProgramActivity;
 
 public class DirectoryActivity extends AppCompatActivity implements OnMapReadyCallback,
@@ -347,7 +348,7 @@ public class DirectoryActivity extends AppCompatActivity implements OnMapReadyCa
                     Toast.makeText(getApplicationContext(), "Signed Out!", Toast.LENGTH_SHORT).show();
 
                 } else {
-                    Intent create = new Intent(this, CreateAccountActivity.class);
+                    Intent create = new Intent(this, CreateProfileActivity.class);
                     startActivity(create);
                 }
                 break;

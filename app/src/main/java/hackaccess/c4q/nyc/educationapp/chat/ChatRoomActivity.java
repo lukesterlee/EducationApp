@@ -19,7 +19,7 @@ import android.widget.Toast;
 import com.firebase.client.Firebase;
 import com.google.samples.apps.iosched.ui.widget.SlidingTabLayout;
 
-import hackaccess.c4q.nyc.educationapp.CreateProfileActivity;
+import hackaccess.c4q.nyc.educationapp.profile.CreateProfileActivity;
 import hackaccess.c4q.nyc.educationapp.DirectoryActivity;
 import hackaccess.c4q.nyc.educationapp.FirebaseHelper;
 import hackaccess.c4q.nyc.educationapp.ProfileActivity;

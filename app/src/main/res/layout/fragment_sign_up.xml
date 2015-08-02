@@ -1,0 +1,71 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="hackaccess.c4q.nyc.educationapp.profile.SignupFragment"
+    android:orientation="vertical">
+
+    <!--<com.facebook.login.widget.LoginButton-->
+    <!--android:id="@+id/facebookLogin"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="center_horizontal"/>-->
+
+    <!--<View-->
+    <!--android:layout_width="300dp"-->
+    <!--android:layout_height="1dp"-->
+    <!--android:background="@color/primary_dark_material_light"-->
+    <!--android:layout_gravity="center_horizontal"/>-->
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_gravity="center_horizontal">
+
+        <EditText
+            android:id="@+id/firstNameField"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/firstName"/>
+
+        <EditText
+            android:id="@+id/lastNameField"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/lastName"/>
+
+    </LinearLayout>
+
+
+    <EditText
+        android:id="@+id/emailField"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/email"
+        android:layout_gravity="center_horizontal"
+        android:inputType="textEmailAddress"/>
+
+    <EditText
+        android:id="@+id/zipcodeField"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/zipcode"
+        android:layout_gravity="center_horizontal"
+        android:inputType="number"/>
+
+    <EditText
+        android:id="@+id/passwordField"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/password"
+        android:layout_gravity="center_horizontal"/>
+
+    <Button
+        android:id="@+id/userSignUpButton"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/submit"
+        android:layout_gravity="center_horizontal"/>
+
+</LinearLayout>

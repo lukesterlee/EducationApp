@@ -22,7 +22,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import hackaccess.c4q.nyc.educationapp.FirebaseHelper;
-import hackaccess.c4q.nyc.educationapp.MapActivity;
 import hackaccess.c4q.nyc.educationapp.chat.ChatRoomActivity;
 import hackaccess.c4q.nyc.educationapp.Constants;
 import hackaccess.c4q.nyc.educationapp.ProfileActivity;
@@ -72,7 +71,7 @@ public class ProgramActivity extends AppCompatActivity implements ActionBar.TabL
         mSlidingTabLayout.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
             @Override
             public int getIndicatorColor(int position) {
-                return getResources().getColor(R.color.tabsScrollColor);
+                return getResources().getColor(R.color.accent);
             }
         });
 
@@ -89,17 +88,6 @@ public class ProgramActivity extends AppCompatActivity implements ActionBar.TabL
         }
 
         Glide.with(this).load(url).centerCrop().into(image);
-
-        //Program program = intent.getParcelableExtra("program");
-
-        // Add 3 tabs, specifying the tab's text and TabListener
-//        for (int i = 0; i < 3; i++) {
-//
-//            actionBar.addTab(
-//                    actionBar.newTab()
-//                            .setText("Tab " + (i + 1))
-//                            .setTabListener(this));
-//        }
 
 
     }

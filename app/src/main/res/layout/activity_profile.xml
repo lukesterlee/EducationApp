@@ -37,7 +37,7 @@
             android:id="@+id/favorites_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:divider="@color/tabsScrollColor"
+            android:divider="@color/accent"
             android:dividerHeight="0.5dp" />
 
         <ImageView

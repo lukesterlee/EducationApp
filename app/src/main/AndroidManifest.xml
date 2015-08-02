@@ -18,6 +18,8 @@
         <meta-data android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDTaAeiCfVCXJhdweubPkgIvsni3s1-9ss" />
 
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+
         <activity android:name=".DirectoryActivity"
             android:label="@string/app_name">
 
@@ -35,11 +37,17 @@
             android:theme="@style/ActionBar"/>
         <activity android:name=".ProfileActivity"
             android:theme="@style/ActionBar"/>
-        <activity android:name=".CreateProfileActivity"
+        <activity android:name=".profile.CreateProfileActivity"
             android:theme="@style/ActionBar"/>
         <activity android:name=".chat.ChatRoomActivity"/>
         <activity android:name=".SettingsActivity"
             android:theme="@style/ActionBar"/>
+
+        <activity android:name="com.facebook.FacebookActivity"
+            android:configChanges=
+                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:label="@string/app_name" />
 
 
     </application>

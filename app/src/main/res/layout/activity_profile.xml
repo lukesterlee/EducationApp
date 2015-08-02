@@ -12,17 +12,27 @@
 
     <TextView
         android:id="@+id/name"
-        android:layout_weight="2"
+        android:layout_weight="1"
         android:text="Sufei"
         android:textSize="20dp"
         android:gravity="center_horizontal"
         android:layout_width="match_parent"
         android:layout_height="0dp" />
+    
+    <ExpandableListView
+        android:id="@+id/expandable_list"
+        android:layout_weight="2"
+        android:layout_width="match_parent"
+        android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
+        android:layout_height="0dp"
+        android:divider="#A4C739"
+        android:dividerHeight="0.5dp"/>
 
     <Button
         android:id="@+id/change_email"
         android:layout_weight="1"
         android:text="@string/change_email"
+        android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="0dp" />
 
@@ -30,6 +40,7 @@
         android:id="@+id/log_out"
         android:layout_weight="1"
         android:text="@string/log_out"
+        android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="0dp" />
 </LinearLayout>

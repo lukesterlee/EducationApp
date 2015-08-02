@@ -55,7 +55,7 @@ public class DirectoryActivity extends ActionBarActivity implements OnMapReadyCa
 
     private boolean isLoggedIn = false;
     private SharedPreferences preferences;
-    
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -213,12 +213,15 @@ public class DirectoryActivity extends ActionBarActivity implements OnMapReadyCa
         int count = 1;
 
         for (Program program : programs) {
-            latLngs.add(program.getLatLng());
+
+            LatLng latLng = new LatLng(program.getLatitude(), program.getLongitude());
+            
+            latLngs.add(latLng);
 
             IconGenerator mIconGenerator = new IconGenerator(DirectoryActivity.this);
             Bitmap iconBitmap = mIconGenerator.makeIcon(Integer.toString(count));
             map.addMarker(new MarkerOptions()
-                    .position(program.getLatLng())
+                    .position(latLng)
                     .title(program.getName())
                     .icon(BitmapDescriptorFactory.fromBitmap(iconBitmap)));
             count++;

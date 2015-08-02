@@ -35,6 +35,8 @@
         <activity android:name=".ProgramActivity"/>
         <activity android:name=".ProfileActivity"/>
         <activity android:name=".CreateProfileActivity"/>
+        <activity android:name=".ChatRoomActivity"
+            android:theme="@android:style/Theme.Holo.Light.DarkActionBar"/>
         <activity android:name=".SettingsActivity"/>
     </application>
 

@@ -20,7 +20,7 @@
         android:layout_height="0dp" />
     
     <ExpandableListView
-        android:id="@+id/expandable_list"
+        android:id="@android:id/list"
         android:layout_weight="2"
         android:layout_width="match_parent"
         android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"

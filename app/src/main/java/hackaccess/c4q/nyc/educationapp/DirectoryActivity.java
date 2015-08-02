@@ -240,13 +240,13 @@ public class DirectoryActivity extends ActionBarActivity implements OnMapReadyCa
         int id = item.getItemId();
 
         if (id == R.id.action_profile) {
-            if (isLoggedIn) {
+//            if (isLoggedIn) {
                 Intent profile = new Intent(this, ProfileActivity.class);
                 startActivity(profile);
-            } else {
-                Intent create = new Intent(this, CreateProfileActivity.class);
-                startActivity(create);
-            }
+//            } else {
+//                Intent create = new Intent(this, CreateProfileActivity.class);
+//                startActivity(create);
+//            }
         }
         if (id == R.id.action_settings) {
             Intent intent = new Intent(this, SettingsActivity.class);

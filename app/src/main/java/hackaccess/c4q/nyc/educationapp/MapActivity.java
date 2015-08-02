@@ -13,9 +13,11 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Parcelable;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -41,6 +43,7 @@ import com.google.maps.android.ui.IconGenerator;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import hackaccess.c4q.nyc.educationapp.chat.ChatRoomActivity;
@@ -50,7 +53,7 @@ import hackaccess.c4q.nyc.educationapp.program.ProgramActivity;
  * Created by sufeizhao on 8/2/15.
  */
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback,
-        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener, SwipeRefreshLayout.OnRefreshListener {
 
     private GoogleApiClient googleApiClient;
     private LocationRequest mLocationRequest;
@@ -59,12 +62,19 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     boolean gps_enabled = false;
     private boolean isLoggedIn = false;
     private SharedPreferences preferences;
-    private Program programClicked;
+    private SwipeRefreshLayout swipeLayout;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+
+        swipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
+        swipeLayout.setOnRefreshListener(this);
+        swipeLayout.setColorScheme(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
 
         // Connect to Geolocation API to make current location request
         locationServiceIsAvailable();
@@ -190,6 +200,15 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         }
     };
 
+    @Override
+    public void onRefresh() {
+        new Handler().postDelayed(new Runnable() {
+            @Override public void run() {
+                swipeLayout.setRefreshing(false);
+            }
+        }, 5000);
+    }
+
     private class ProgramTask extends AsyncTask<String, Void, List<Program>> {
 
         @Override
@@ -206,6 +225,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     // Task to decode current location
     public void populateMap(List<Program> programs) {
         List<LatLng> latLngs = new ArrayList<LatLng>();
+        HashMap<String, Integer> markerIds = new HashMap<>();
         int count = 1;
 
         for (Program program : programs) {
@@ -216,18 +236,19 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
             IconGenerator mIconGenerator = new IconGenerator(MapActivity.this);
             Bitmap iconBitmap = mIconGenerator.makeIcon(Integer.toString(count));
-            map.addMarker(new MarkerOptions().get
+            Marker marker = map.addMarker(new MarkerOptions()
                     .position(latLng)
                     .title(program.getName())
                     .snippet(getResources().getString(R.string.marker_snippet))
                     .icon(BitmapDescriptorFactory.fromBitmap(iconBitmap)));
+            markerIds.put(marker.getId(), count);
 
             count++;
         }
 
         Log.d("Map", "Fix Zoom");
         fixZoomForLatLngs(map, latLngs);
-        map.setOnInfoWindowClickListener(new ProgramClickListener(programs));
+        map.setOnInfoWindowClickListener(new ProgramClickListener(markerIds, programs));
     }
 
     public static void fixZoomForLatLngs(GoogleMap map, List<LatLng> latLngs) {
@@ -242,17 +263,19 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     public class ProgramClickListener implements GoogleMap.OnInfoWindowClickListener {
+        HashMap<String, Integer> markerIds;
         List<Program> programs;
 
-        public ProgramClickListener(List<Program> programs) {
+        public ProgramClickListener(HashMap<String, Integer> markerIds, List<Program> programs) {
+            this.markerIds = markerIds;
             this.programs = programs;
         }
 
         @Override
         public void onInfoWindowClick(Marker marker) {
             Intent intent = new Intent(MapActivity.this, ProgramActivity.class);
-            String title = marker.getTitle();
-            Program program = programs.get(programs.indexOf(title));
+            int index = markerIds.get(marker.getId()) - 1;
+            Program program = programs.get(index);
 
             intent.putExtra(Constants.EXTRA_PROGRAM, (Parcelable) program);
             startActivity(intent);

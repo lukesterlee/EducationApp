@@ -13,9 +13,11 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Parcelable;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -51,7 +53,7 @@ import hackaccess.c4q.nyc.educationapp.chat.ChatRoomActivity;
 import hackaccess.c4q.nyc.educationapp.program.ProgramActivity;
 
 public class DirectoryActivity extends AppCompatActivity implements OnMapReadyCallback,
-        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener, SwipeRefreshLayout.OnRefreshListener {
 
     private ListView mListView;
     private GoogleApiClient googleApiClient;
@@ -62,7 +64,7 @@ public class DirectoryActivity extends AppCompatActivity implements OnMapReadyCa
     boolean gps_enabled = false;
     private boolean isLoggedIn = false;
     private SharedPreferences preferences;
-
+    private SwipeRefreshLayout swipeLayout;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -75,6 +77,13 @@ public class DirectoryActivity extends AppCompatActivity implements OnMapReadyCa
         final ActionBar ab = getSupportActionBar();
         ab.setHomeAsUpIndicator(R.drawable.ic_menu);
         ab.setDisplayHomeAsUpEnabled(true);
+
+        swipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
+        swipeLayout.setOnRefreshListener(this);
+        swipeLayout.setColorScheme(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
 
         mListView = (ListView) findViewById(R.id.list_view);
         preferences = getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE);
@@ -206,6 +215,18 @@ public class DirectoryActivity extends AppCompatActivity implements OnMapReadyCa
             new ProgramTask().execute(zipcode);
         }
     };
+
+    @Override
+    public void onRefresh() {
+        new Handler().postDelayed(new Runnable() {
+            @Override public void run() {
+                swipeLayout.setRefreshing(false);
+            }
+        }, 5000);
+
+        onPause();
+        onStart();
+    }
 
     private class ProgramTask extends AsyncTask<String, Void, List<Program>> {
 

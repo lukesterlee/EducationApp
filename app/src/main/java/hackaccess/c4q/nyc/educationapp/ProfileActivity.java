@@ -19,9 +19,16 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.Query;
+import com.firebase.client.ValueEventListener;
+
 import java.util.ArrayList;
 
 import hackaccess.c4q.nyc.educationapp.chat.ChatRoomActivity;
+import hackaccess.c4q.nyc.educationapp.firebase.UserInfo;
 import hackaccess.c4q.nyc.educationapp.profile.CreateProfileActivity;
 
 /**
@@ -34,6 +41,7 @@ public class ProfileActivity extends AppCompatActivity  {
     private TextView name;
     private Button logout, changeEmail;
     private FirebaseHelper mHelper;
+    private UserInfo mUserInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +52,12 @@ public class ProfileActivity extends AppCompatActivity  {
         profilePic = (ImageView) findViewById(R.id.profile_pic);
         heart = (ImageView) findViewById(R.id.heart);
         name = (TextView) findViewById(R.id.name);
+
+        mHelper = FirebaseHelper.getInstance(getApplicationContext());
+
+        mUserInfo = mHelper.getUserInfo();
+
+        name.setText(mUserInfo.getFirstName() + " " + mUserInfo.getLastName());
 
         changeEmail = (Button) findViewById(R.id.change_email);
         changeEmail.setOnClickListener(new View.OnClickListener() {

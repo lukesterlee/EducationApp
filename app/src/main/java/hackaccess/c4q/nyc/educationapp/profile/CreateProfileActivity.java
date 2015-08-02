@@ -18,13 +18,13 @@ import android.widget.Toast;
 import com.google.samples.apps.iosched.ui.widget.SlidingTabLayout;
 
 import hackaccess.c4q.nyc.educationapp.FirebaseHelper;
-import hackaccess.c4q.nyc.educationapp.MapActivity;
+
 import hackaccess.c4q.nyc.educationapp.ProfileActivity;
 import hackaccess.c4q.nyc.educationapp.R;
 import hackaccess.c4q.nyc.educationapp.SettingsActivity;
 import hackaccess.c4q.nyc.educationapp.chat.ChatRoomActivity;
 
-public class CreateProfileActivity extends ActionBarActivity implements ActionBar.TabListener{
+public class CreateProfileActivity extends ActionBarActivity implements ActionBar.TabListener, BackCallback {
 
     private SlidingTabLayout mSlidingTabLayout;
 
@@ -32,6 +32,7 @@ public class CreateProfileActivity extends ActionBarActivity implements ActionBa
     private ProfilePagerAdapter mAdapter;
     private FirebaseHelper mHelper;
     private SharedPreferences preferences;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +43,9 @@ public class CreateProfileActivity extends ActionBarActivity implements ActionBa
         Toolbar mToolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(mToolbar);
         setTitle("Account Info");
+
+        mHelper = FirebaseHelper.getInstance(getApplicationContext());
+        mHelper.setCallback(this);
 
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mAdapter = new ProfilePagerAdapter(getSupportFragmentManager());
@@ -166,6 +170,8 @@ public class CreateProfileActivity extends ActionBarActivity implements ActionBa
         return super.onOptionsItemSelected(item);
     }
 
-
-
+    @Override
+    public void goback() {
+        onBackPressed();
+    }
 }

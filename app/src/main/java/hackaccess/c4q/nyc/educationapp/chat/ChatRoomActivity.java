@@ -29,6 +29,9 @@ public class ChatRoomActivity extends AppCompatActivity implements ActionBar.Tab
 
     private ViewPager mViewPager;
     private FirebaseHelper mHelper;
+    private ProgramPagerAdapter mAdapter;
+    private SlidingTabLayout mSlidingTabLayout;
+    private Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,16 +39,23 @@ public class ChatRoomActivity extends AppCompatActivity implements ActionBar.Tab
         setContentView(R.layout.activity_chat);
         mHelper = FirebaseHelper.getInstance(this);
 
-        Toolbar mToolbar = (Toolbar) findViewById(R.id.tool_bar);
+        mToolbar = (Toolbar) findViewById(R.id.tool_bar);
+        mSlidingTabLayout = (SlidingTabLayout) findViewById(R.id.tabs);
+        mViewPager = (ViewPager) findViewById(R.id.pager);
         setSupportActionBar(mToolbar);
         setTitle("Chatrooms");
 
+        refresh();
+
+    }
+
+    public void refresh() {
         if (mHelper.isLoggedIn()) {
-            mViewPager = (ViewPager) findViewById(R.id.pager);
-            ProgramPagerAdapter mAdapter = new ProgramPagerAdapter(getSupportFragmentManager());
+
+            mAdapter = new ProgramPagerAdapter(getSupportFragmentManager());
             mViewPager.setAdapter(mAdapter);
 
-            SlidingTabLayout mSlidingTabLayout = (SlidingTabLayout) findViewById(R.id.tabs);
+
             mSlidingTabLayout.setDistributeEvenly(true);
 
             mSlidingTabLayout.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
@@ -76,7 +86,6 @@ public class ChatRoomActivity extends AppCompatActivity implements ActionBar.Tab
             });
             dialog.show();
         }
-
     }
 
     // TABS
@@ -187,6 +196,12 @@ public class ChatRoomActivity extends AppCompatActivity implements ActionBar.Tab
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        refresh();
     }
 }
 

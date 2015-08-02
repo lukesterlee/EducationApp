@@ -23,7 +23,7 @@ public class CardAdapter extends BaseAdapter {
     private Context mContext;
     private List<Program> mList;
     private LayoutInflater mInflater;
-    private String preHTTP = "https://maps.googleapis.com/maps/api/streetview?key=AIzaSyDTaAeiCfVCXJhdweubPkgIvsni3s1-9ss&size=600x600&location=";
+    private String preHTTP = "https://maps.googleapis.com/maps/api/streetview?key=AIzaSyDTaAeiCfVCXJhdweubPkgIvsni3s1-9ss&size=800x400&location=";
 
 
     private TextView mTextViewName;

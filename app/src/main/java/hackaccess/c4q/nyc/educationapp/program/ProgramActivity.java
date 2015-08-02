@@ -45,6 +45,7 @@ public class ProgramActivity extends AppCompatActivity implements ActionBar.TabL
     private ProgramActivity.ProgramPagerAdapter mAdapter;
     private FirebaseHelper mHelper;
     private ImageView image;
+    private MenuItem signMenu;
     private String preHTTP = "https://maps.googleapis.com/maps/api/streetview?key=AIzaSyDTaAeiCfVCXJhdweubPkgIvsni3s1-9ss&size=800x400&location=";
 
     @Override
@@ -160,9 +161,32 @@ public class ProgramActivity extends AppCompatActivity implements ActionBar.TabL
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        if(signMenu != null) {
+            if (mHelper.isLoggedIn()) {
+                signMenu.setTitle("Sign Out");
+
+            } else {
+                signMenu.setTitle("Sign In");
+            }
+        }
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        signMenu = menu.getItem(1);
+        if (mHelper.isLoggedIn()) {
+            signMenu.setTitle("Sign Out");
+
+        } else {
+            signMenu.setTitle("Sign In");
+
+        }
+
         return true;
     }
 

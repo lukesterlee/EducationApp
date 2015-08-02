@@ -1,6 +1,7 @@
 package hackaccess.c4q.nyc.educationapp;
 
 import android.app.ActionBar;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -18,7 +19,8 @@ public class ProgramActivity extends FragmentActivity implements ActionBar.TabLi
 
     private Program mProgram;
     private ViewPager mViewPager;
-    private ProgramPagerAdapter mAdapter;
+    private ProgramActivity.ProgramPagerAdapter mAdapter;
+
 
 
     @Override

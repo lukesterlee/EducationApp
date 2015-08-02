@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.firebase.client.Firebase;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -40,6 +41,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import hackaccess.c4q.nyc.educationapp.firebase.Account;
+
 public class DirectoryActivity extends ActionBarActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
@@ -52,6 +55,7 @@ public class DirectoryActivity extends ActionBarActivity implements OnMapReadyCa
 
     private boolean isLoggedIn = false;
     private SharedPreferences preferences;
+    
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -74,6 +78,10 @@ public class DirectoryActivity extends ActionBarActivity implements OnMapReadyCa
         map = mapFragment.getMap();
 
         mListView.setOnItemClickListener(new ProgramClickListener());
+
+
+
+
 
     }
 

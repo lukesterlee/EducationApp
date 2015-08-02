@@ -49,6 +49,9 @@ public class DirectoryActivity extends ActionBarActivity implements OnMapReadyCa
     private Location location;
     private CardAdapter mAdapter;
 
+    private Firebase mFirebase;
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,11 +73,6 @@ public class DirectoryActivity extends ActionBarActivity implements OnMapReadyCa
         mListView.setOnItemClickListener(new ProgramClickListener());
 
 
-        //FIREBASE TESTING
-        Firebase.setAndroidContext(this);
-        Firebase fbRef = new Firebase("https://edusearch.firebaseio.com/");
-        Account userAccount = new Account("ksmaragh@gmail.com", "Testing");
-        FbHelper.saveAccount(userAccount, fbRef);
 
 
 

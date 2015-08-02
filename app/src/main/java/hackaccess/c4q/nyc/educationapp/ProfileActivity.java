@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,7 +34,7 @@ import hackaccess.c4q.nyc.educationapp.chat.ChatRoomActivity;
 public class ProfileActivity extends AppCompatActivity  {
 
     private ImageView profilePic, heart;
-    private ExpandableListView eListView;
+    private ListView eListView;
     private TextView name;
     private Button logout, changeEmail;
 
@@ -81,7 +82,7 @@ public class ProfileActivity extends AppCompatActivity  {
         });
 
         // Expandable listview
-        eListView = (ExpandableListView) findViewById(R.id.list);
+        eListView = (ListView) findViewById(R.id.list);
         //TODO likes
         ArrayList<String> groupItems = new ArrayList<>();
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, groupItems);

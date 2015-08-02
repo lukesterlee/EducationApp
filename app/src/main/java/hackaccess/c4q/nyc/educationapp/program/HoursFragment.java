@@ -20,6 +20,7 @@ public class HoursFragment extends Fragment {
     private Program mProgram;
 
     private TextView mTextViewHours;
+    private TextView mTextViewAddress;
 
 
     @Nullable
@@ -35,6 +36,8 @@ public class HoursFragment extends Fragment {
 
 
         mTextViewHours = (TextView) result.findViewById(R.id.tv_hours);
+        mTextViewAddress = (TextView) result.findViewById(R.id.tv_location);
+
         mTextViewHours.setText("Monday : " + mProgram.getMonday() + "\n");
         mTextViewHours.append("Tuesday : " + mProgram.getTuesday() + "\n");
         mTextViewHours.append("Wednesday : " + mProgram.getWednesday() + "\n");
@@ -43,6 +46,7 @@ public class HoursFragment extends Fragment {
         mTextViewHours.append("Saturday : " + mProgram.getSaturday() + "\n");
         mTextViewHours.append("Sunday : " + mProgram.getSunday() + "\n");
 
+        mTextViewAddress.setText("Address : " + mProgram.getAddress());
 
 
         return result;

@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Map;
 
 import hackaccess.c4q.nyc.educationapp.chat.ChatRoomActivity;
+import hackaccess.c4q.nyc.educationapp.profile.CreateProfileActivity;
 
 /**
  * Created by sufeizhao on 8/1/15.
@@ -82,7 +83,7 @@ public class ProfileActivity extends AppCompatActivity  {
         });
 
         // Expandable listview
-        eListView = (ListView) findViewById(R.id.list);
+        eListView = (ListView) findViewById(R.id.favorites_list);
         //TODO likes
         ArrayList<String> groupItems = new ArrayList<>();
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, groupItems);

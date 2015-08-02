@@ -50,6 +50,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hackaccess.c4q.nyc.educationapp.chat.ChatRoomActivity;
+import hackaccess.c4q.nyc.educationapp.profile.CreateProfileActivity;
 import hackaccess.c4q.nyc.educationapp.program.ProgramActivity;
 
 public class DirectoryActivity extends AppCompatActivity implements OnMapReadyCallback,
@@ -315,7 +316,7 @@ public class DirectoryActivity extends AppCompatActivity implements OnMapReadyCa
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.directory_menu, menu);
 
-        signMenu = menu.getItem(0);
+        signMenu = menu.getItem(1);
         if (mHelper.isLoggedIn()) {
             signMenu.setTitle("Sign Out");
 
@@ -331,10 +332,11 @@ public class DirectoryActivity extends AppCompatActivity implements OnMapReadyCa
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-
-
-
         switch (item.getItemId()) {
+            case R.id.action_mapview:
+                Intent map = new Intent(this, MapActivity.class);
+                startActivity(map);
+                break;
             case R.id.action_sign_user:
                 if (mHelper.isLoggedIn()) {
                     item.setTitle("Sign In");
@@ -342,10 +344,8 @@ public class DirectoryActivity extends AppCompatActivity implements OnMapReadyCa
                     Toast.makeText(getApplicationContext(), "Signed Out!", Toast.LENGTH_SHORT).show();
 
                 } else {
-                    Intent create = new Intent(this, CreateAccountActivity.class);
+                    Intent create = new Intent(this, CreateProfileActivity.class);
                     startActivity(create);
-                    //item.setTitle("Sign Out");
-
                 }
                 break;
             case R.id.action_profile:
@@ -366,9 +366,6 @@ public class DirectoryActivity extends AppCompatActivity implements OnMapReadyCa
                 startActivity(intent);
                 break;
         }
-
-
-
         return super.onOptionsItemSelected(item);
     }
 

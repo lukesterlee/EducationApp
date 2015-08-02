@@ -78,6 +78,14 @@ public class ProgramGetter {
                         JSONArray languages = item.getJSONArray("supported_languages");
                         JSONObject hours = firstOffice.getJSONObject("hours");
 
+                        String address = firstOffice.getString("address1") + " ";
+
+                        try {
+                            address += firstOffice.getString("address2");
+                        } catch (JSONException e) {
+
+                        }
+
                         String monday;
                         String tuesday;
                         String wednesday;
@@ -172,7 +180,7 @@ public class ProgramGetter {
 
                         list.add(new Program(description, distance, language, lastUpdated,
                                 latitude, longitude, name, phoneNumber, programId, zipcode, monday,
-                                tuesday, wednesday, thursday, friday, saturday, sunday));
+                                tuesday, wednesday, thursday, friday, saturday, sunday, address));
                     }
                 }
             } catch (JSONException e) {

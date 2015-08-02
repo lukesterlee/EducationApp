@@ -316,7 +316,7 @@ public class DirectoryActivity extends AppCompatActivity implements OnMapReadyCa
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.directory_menu, menu);
 
-        signMenu = menu.getItem(0);
+        signMenu = menu.getItem(1);
         if (mHelper.isLoggedIn()) {
             signMenu.setTitle("Sign Out");
 
@@ -336,6 +336,10 @@ public class DirectoryActivity extends AppCompatActivity implements OnMapReadyCa
 
 
         switch (item.getItemId()) {
+            case R.id.action_mapview:
+                Intent map = new Intent(this, MapActivity.class);
+                startActivity(map);
+                break;
             case R.id.action_sign_user:
                 if (mHelper.isLoggedIn()) {
                     item.setTitle("Sign In");
@@ -345,8 +349,6 @@ public class DirectoryActivity extends AppCompatActivity implements OnMapReadyCa
                 } else {
                     Intent create = new Intent(this, CreateAccountActivity.class);
                     startActivity(create);
-                    //item.setTitle("Sign Out");
-
                 }
                 break;
             case R.id.action_profile:

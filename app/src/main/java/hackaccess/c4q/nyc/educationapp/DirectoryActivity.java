@@ -3,6 +3,7 @@ package hackaccess.c4q.nyc.educationapp;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.location.Address;
 import android.location.Geocoder;
@@ -13,6 +14,8 @@ import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -34,31 +37,29 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.maps.android.ui.IconGenerator;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 
 public class DirectoryActivity extends ActionBarActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
-    public Context context;
     private ListView mListView;
     private GoogleApiClient googleApiClient;
     private LocationRequest mLocationRequest;
-    private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
     private GoogleMap map;
     private Location location;
-    private List<Program> programs;
-    private String zipcode;
     private CardAdapter mAdapter;
-    private String jsonString;
+
+    private boolean isLoggedIn = false;
+    private SharedPreferences preferences;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.directory_activity_layout);
+        setContentView(R.layout.activity_directory);
         mListView = (ListView) findViewById(R.id.list_view);
+        preferences = getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE);
+        preferences.getBoolean(Constants.LOGGEDIN, false);
 
         // Connect to Geolocation API to make current location request
         connectGoogleApiClient();
@@ -73,6 +74,7 @@ public class DirectoryActivity extends ActionBarActivity implements OnMapReadyCa
         map = mapFragment.getMap();
 
         mListView.setOnItemClickListener(new ProgramClickListener());
+
     }
 
     @Override
@@ -101,7 +103,7 @@ public class DirectoryActivity extends ActionBarActivity implements OnMapReadyCa
     public void onConnectionFailed(ConnectionResult connectionResult) {
         if (connectionResult.hasResolution()) {
             try {
-                connectionResult.startResolutionForResult(this, CONNECTION_FAILURE_RESOLUTION_REQUEST);
+                connectionResult.startResolutionForResult(this, Constants.CONNECTION_FAILURE_RESOLUTION_REQUEST);
             } catch (IntentSender.SendIntentException e) {
                 e.printStackTrace();
             }
@@ -163,26 +165,53 @@ public class DirectoryActivity extends ActionBarActivity implements OnMapReadyCa
 
         @Override
         protected void onPostExecute(Address address) {
-            zipcode = address.getPostalCode();
-
+            String zipcode = address.getPostalCode();
             new ProgramTask().execute(zipcode);
-
-
-            //TODO: get List of LatLngs
-            //populate(latLngs);
         }
     };
 
+
+
+    private class ProgramTask extends AsyncTask<String, Void, List<Program>> {
+
+        @Override
+        protected List<Program> doInBackground(String... zipcode) {
+            return new ProgramGetter().getHardCodingData(zipcode[0]);
+        }
+
+        @Override
+        protected void onPostExecute(List<Program> programs) {
+            mAdapter = new CardAdapter(getApplicationContext(), programs);
+            mListView.setAdapter(mAdapter);
+            populateMap(programs);
+        }
+    }
+
+    public class ProgramClickListener implements AdapterView.OnItemClickListener {
+
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            Intent intent = new Intent(DirectoryActivity.this, ProgramActivity.class);
+            Program program = (Program) parent.getItemAtPosition(position);
+
+            intent.putExtra(Constants.EXTRA_PROGRAM, (Parcelable) program);
+            startActivity(intent);
+        }
+    }
+
     // Task to decode current location
-    public void populate(List<LatLng> latLngs) {
+    public void populateMap(List<Program> programs) {
+        List<LatLng> latLngs = new ArrayList<LatLng>();
         int count = 1;
 
-        for (LatLng latLng : latLngs) {
-            IconGenerator mIconGenerator = new IconGenerator(context);
+        for (Program program : programs) {
+            latLngs.add(program.getLatLng());
+
+            IconGenerator mIconGenerator = new IconGenerator(DirectoryActivity.this);
             Bitmap iconBitmap = mIconGenerator.makeIcon(Integer.toString(count));
             map.addMarker(new MarkerOptions()
-                    .position(latLng)
-                    .title("hello")
+                    .position(program.getLatLng())
+                    .title(program.getName())
                     .icon(BitmapDescriptorFactory.fromBitmap(iconBitmap)));
             count++;
         }
@@ -202,33 +231,37 @@ public class DirectoryActivity extends ActionBarActivity implements OnMapReadyCa
         }
     }
 
-    public class ProgramClickListener implements AdapterView.OnItemClickListener {
 
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            Intent intent = new Intent(DirectoryActivity.this, ProgramActivity.class);
-            Program program = (Program) parent.getItemAtPosition(position);
 
-            intent.putExtra(Constants.EXTRA_PROGRAM, (Parcelable) program);
-            startActivity(intent);
-        }
+
+    // MENU RESOURCES
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
     }
 
-    private class ProgramTask extends AsyncTask<String, Void, List<hackaccess.c4q.nyc.educationapp.Program>> {
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
 
-        @Override
-        protected List<hackaccess.c4q.nyc.educationapp.Program> doInBackground(String... zipcode) {
-
-            ProgramGetter getter = new ProgramGetter();
-            jsonString = getter.getJsonString(zipcode[0]);
-            return getter.getHardCodingData(zipcode[0]);
+        if (id == R.id.action_profile) {
+            if (isLoggedIn) {
+                Intent profile = new Intent(this, ProfileActivity.class);
+                startActivity(profile);
+            } else {
+                Intent create = new Intent(this, CreateProfileActivity.class);
+                startActivity(create);
+            }
+        }
+        if (id == R.id.action_settings) {
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
         }
 
-        @Override
-        protected void onPostExecute(List<hackaccess.c4q.nyc.educationapp.Program> programs) {
-            mAdapter = new CardAdapter(getApplicationContext(), programs);
-            mListView.setAdapter(mAdapter);
-
-        }
+        return super.onOptionsItemSelected(item);
     }
 }

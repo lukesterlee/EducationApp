@@ -80,10 +80,7 @@ public class Program implements Parcelable, Serializable {
         this.phoneNumber = phoneNumber;
     }
 
-    public Program(double distance, String name) {
-        this.distance = distance;
-        this.name = name;
-    }
+
 
     public double getDistance() {
         return distance;

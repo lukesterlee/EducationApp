@@ -5,8 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 
@@ -18,10 +23,12 @@ public class CardAdapter extends BaseAdapter {
     private Context mContext;
     private List<Program> mList;
     private LayoutInflater mInflater;
+    private String preHTTP = "https://maps.googleapis.com/maps/api/streetview?key=AIzaSyDTaAeiCfVCXJhdweubPkgIvsni3s1-9ss&size=800x400&location=";
 
 
     private TextView mTextViewName;
     private TextView mTextViewDistance;
+    private ImageView mImageView;
 
     public CardAdapter(Context mContext, List<Program> mList) {
         this.mContext = mContext;
@@ -53,12 +60,19 @@ public class CardAdapter extends BaseAdapter {
 
         mTextViewName = (TextView) convertView.findViewById(R.id.tv_agency_name);
         mTextViewDistance = (TextView) convertView.findViewById(R.id.tv_agency_distance);
+        mImageView = (ImageView) convertView.findViewById(R.id.iv_agency_photo);
 
         mTextViewName.setText(getItem(position).getName());
         mTextViewDistance.setText(getItem(position).getDistance() + "");
 
+        URL url = null;
+        try {
+            url = new URL(preHTTP + getItem(position).getLatLng().latitude + "," + getItem(position).getLatLng().longitude);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
 
-
+        Glide.with(mContext).load(url).centerCrop().into(mImageView);
 
         return convertView;
     }

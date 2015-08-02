@@ -11,7 +11,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 
 
-
 /**
  * Created by sufeizhao on 8/1/15.
  */

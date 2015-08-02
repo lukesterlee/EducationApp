@@ -29,7 +29,7 @@ public class ChatRoomActivity extends AppCompatActivity implements ActionBar.Tab
         setContentView(R.layout.activity_chat);
         Firebase.setAndroidContext(this);
 
-        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(mToolbar);
 
         mViewPager = (ViewPager) findViewById(R.id.pager);

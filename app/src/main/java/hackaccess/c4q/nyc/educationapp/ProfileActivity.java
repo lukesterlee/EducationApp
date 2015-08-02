@@ -1,37 +1,42 @@
 package hackaccess.c4q.nyc.educationapp;
 
 import android.app.AlertDialog;
-import android.app.ExpandableListActivity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 import hackaccess.c4q.nyc.educationapp.chat.ChatRoomActivity;
 
 /**
  * Created by sufeizhao on 8/1/15.
  */
-public class ProfileActivity extends ExpandableListActivity {
+public class ProfileActivity extends AppCompatActivity  {
 
-    private ImageView profilePic;
-    private ExpandableListView eListView;
+    private ImageView profilePic, heart;
+    private ListView eListView;
     private TextView name;
     private Button logout, changeEmail;
-    private ArrayList<String> parentItems = new ArrayList<String>();
-    private ArrayList<Object> childItems = new ArrayList<Object>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +44,7 @@ public class ProfileActivity extends ExpandableListActivity {
         setContentView(R.layout.activity_profile);
 
         profilePic = (ImageView) findViewById(R.id.profile_pic);
+        heart = (ImageView) findViewById(R.id.heart);
         name = (TextView) findViewById(R.id.name);
 
         changeEmail = (Button) findViewById(R.id.change_email);
@@ -47,10 +53,10 @@ public class ProfileActivity extends ExpandableListActivity {
             public void onClick(View v) {
                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(ProfileActivity.this);
                 final EditText emailEditText = new EditText(ProfileActivity.this);
-                dialogBuilder.setTitle("Change Email Address")
-                        .setMessage("Enter new email address: ")
+                dialogBuilder.setTitle(getResources().getString(R.string.change_email))
+                        .setMessage(getResources().getString(R.string.enter_email))
                         .setView(emailEditText)
-                        .setPositiveButton("Save", new DialogInterface.OnClickListener() {
+                        .setPositiveButton(getResources().getString(R.string.save), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 String email = emailEditText.getText().toString();
@@ -75,37 +81,20 @@ public class ProfileActivity extends ExpandableListActivity {
             }
         });
 
-        eListView = (ExpandableListView) findViewById(android.R.id.list);
-        setGroupParents();
-        setChildData();
-        ExpandableListViewAdapter adapter = new ExpandableListViewAdapter(parentItems, childItems);
-        adapter.setInflater((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE), this);
+        // Expandable listview
+        eListView = (ListView) findViewById(R.id.list);
+        //TODO likes
+        ArrayList<String> groupItems = new ArrayList<>();
+        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, groupItems);
         eListView.setAdapter(adapter);
-        eListView.setOnChildClickListener(this);
+        eListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // TODO bring up detail view
+            }
+        });
     }
 
-    public void setGroupParents() {
-        parentItems.add(getResources().getString(R.string.favorites));
-        parentItems.add(getResources().getString(R.string.chat));
-    }
-
-    public void setChildData() {
-
-        // Favorites
-        ArrayList<String> child = new ArrayList<String>();
-        child.add("Core");
-        child.add("Games");
-        childItems.add(child);
-
-        // Chat History
-        child = new ArrayList<String>();
-        child.add("Apache");
-        child.add("Applet");
-        child.add("AspectJ");
-        child.add("Beans");
-        child.add("Crypto");
-        childItems.add(child);
-    }
 
     // MENU RESOURCES
     @Override

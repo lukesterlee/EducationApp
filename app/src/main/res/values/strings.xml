@@ -31,5 +31,8 @@
     <string name="action_mapview">Map View</string>
     <string name="marker_snippet">Click here for more info</string>
     <string name="action_listview">List View</string>
+    <string name="enter_email">Enter new email address:</string>
+    <string name="save">Save</string>
+    <string name="friends">Friends</string>
 
 </resources>

@@ -73,23 +73,106 @@ public class ProgramGetter {
                     if (distance <= 10){
                         String name = item.getString("name");
                         JSONArray offices = item.getJSONArray("offices");
-                        JSONObject inside = offices.getJSONObject(0);
-                        JSONObject location = inside.getJSONObject("location");
+                        JSONObject firstOffice = offices.getJSONObject(0);
+                        JSONObject location = firstOffice.getJSONObject("location");
                         JSONArray languages = item.getJSONArray("supported_languages");
+                        JSONObject hours = firstOffice.getJSONObject("hours");
+
+                        String monday;
+                        String tuesday;
+                        String wednesday;
+                        String thursday;
+                        String friday;
+                        String saturday;
+                        String sunday;
+
+                        if (hours.getBoolean("monday")) {
+                            monday = hours.getString("monday_start") + " - ";
+                            monday += hours.getString("monday_finish");
+                        } else {
+                            monday = "Closed";
+                        }
+
+                        if (hours.getBoolean("tuesday")) {
+                            tuesday = hours.getString("tuesday_start") + " - ";
+                            tuesday += hours.getString("tuesday_finish");
+                        } else {
+                            tuesday = "Closed";
+                        }
+
+                        if (hours.getBoolean("wednesday")) {
+                            wednesday = hours.getString("wednesday_start") + " - ";
+                            wednesday += hours.getString("wednesday_finish");
+                        } else {
+
+                            wednesday = "Closed";
+                        }
+
+                        if (hours.getBoolean("thursday")) {
+                            thursday = hours.getString("thursday_start") + " - ";
+                            thursday += hours.getString("thursday_finish");
+                        } else {
+
+                            thursday = "Closed";
+                        }
+
+                        if (hours.getBoolean("friday")) {
+                            friday = hours.getString("friday_start") + " - ";
+                            friday += hours.getString("friday_finish");
+                        } else {
+
+                            friday = "Closed";
+                        }
+
+                        if (hours.getBoolean("saturday")) {
+                            saturday = hours.getString("saturday_start") + " - ";
+                            saturday += hours.getString("saturday_finish");
+                        } else {
+
+                            saturday = "Closed";
+                        }
+
+                        if (hours.getBoolean("sunday")) {
+                            sunday = hours.getString("sunday_start") + " - ";
+                            sunday += hours.getString("sunday_finish");
+                        } else {
+
+                            sunday = "Closed";
+                        }
+
+                        List<String> hoursList = new ArrayList<>();
+                        hoursList.add(monday);
+                        hoursList.add(tuesday);
+                        hoursList.add(wednesday);
+                        hoursList.add(thursday);
+                        hoursList.add(friday);
+                        hoursList.add(saturday);
+                        hoursList.add(sunday);
+
+                        String programId = item.getString("id");
                         double latitude = location.getDouble("latitude");
                         double longitude = location.getDouble("longitude");
                         String description = item.getString("description");
                         String language = "";
+
 
                         for (int j = 0; j < languages.length(); j++) {
                             language += languages.getString(j) + " ";
                         }
 
                         String lastUpdated = item.getString("update_date");
-//                        String phoneNumber = inside.getString("phone_number");
-                        String phoneNumber = "000";
+                        String phoneNumber;
 
-                        list.add(new Program(description, distance, language, lastUpdated, latitude, longitude, name, phoneNumber));
+                        try {
+                            phoneNumber = firstOffice.getString("phone_number");
+                        } catch (JSONException e) {
+                            phoneNumber = "N/A";
+                        }
+                        
+
+                        list.add(new Program(description, distance, language, lastUpdated,
+                                latitude, longitude, name, phoneNumber, programId, zipcode, monday,
+                                tuesday, wednesday, thursday, friday, saturday, sunday));
                     }
                 }
             } catch (JSONException e) {

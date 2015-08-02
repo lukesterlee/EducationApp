@@ -80,10 +80,8 @@ public class Program implements Parcelable, Serializable {
         this.phoneNumber = phoneNumber;
     }
 
-
-
-    public double getDistance() {
-        return distance;
+    public String getDistance() {
+        return distance + " mi";
     }
 
     public void setDistance(double distance) {

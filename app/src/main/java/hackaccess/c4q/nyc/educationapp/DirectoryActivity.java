@@ -38,12 +38,15 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.maps.android.ui.IconGenerator;
 
-import hackaccess.c4q.nyc.educationapp.firebase.Account;
-import hackaccess.c4q.nyc.educationapp.program.ProgramActivity;
+//import hackaccess.c4q.nyc.educationapp.chat.ChatRoomActivity;
+//import hackaccess.c4q.nyc.educationapp.program.ProgramActivity;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import hackaccess.c4q.nyc.educationapp.chat.ChatRoomActivity;
+import hackaccess.c4q.nyc.educationapp.program.ProgramActivity;
 
 public class DirectoryActivity extends AppCompatActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
@@ -264,13 +267,13 @@ public class DirectoryActivity extends AppCompatActivity implements OnMapReadyCa
         int id = item.getItemId();
 
         if (id == R.id.action_profile) {
-//            if (isLoggedIn) {
+            if (isLoggedIn) {
             Intent profile = new Intent(this, ProfileActivity.class);
             startActivity(profile);
-//            } else {
-//                Intent create = new Intent(this, CreateProfileActivity.class);
-//                startActivity(create);
-//            }
+            } else {
+                Intent create = new Intent(this, CreateProfileActivity.class);
+                startActivity(create);
+            }
         }
         if (id == R.id.action_chat) {
             Intent chat = new Intent(this, ChatRoomActivity.class);

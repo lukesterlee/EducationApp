@@ -1,16 +1,15 @@
-package hackaccess.c4q.nyc.educationapp;
+package hackaccess.c4q.nyc.educationapp.chat;
 
-import android.app.ListActivity;
-import android.content.Intent;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.DataSetObserver;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -24,34 +23,44 @@ import com.firebase.client.ValueEventListener;
 
 import java.util.Random;
 
-public class ChatRoomActivity extends ActionBarActivity {
+import hackaccess.c4q.nyc.educationapp.Constants;
+import hackaccess.c4q.nyc.educationapp.R;
+
+/**
+ * Created by sufeizhao on 8/2/15.
+ */
+public class ChatFragment extends Fragment {
 
     private static final String FIREBASE_URL = "https://edusearch.firebaseio.com/";
-
     private ListView mListView;
+    private EditText inputText;
     private String mUsername;
     private Firebase mFirebaseRef;
     private ValueEventListener mConnectedListener;
     private ChatListAdapter mChatListAdapter;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.chat_room);
-        Firebase.setAndroidContext(this);
+    private String chat_name;
 
-        mListView = (ListView) findViewById(R.id.listView_chatroom);
+    public ChatFragment(String chat_name) {
+        this.chat_name = chat_name;
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.chat_room, container, false);
+
+        mListView = (ListView) view.findViewById(R.id.listView_chatroom);
+        inputText = (EditText) view.findViewById(R.id.messageInput);
 
         // Make sure we have a mUsername
         setupUsername();
 
-        setTitle("Chatting as " + mUsername);
-
         // Setup our Firebase mFirebaseRef
-        mFirebaseRef = new Firebase(FIREBASE_URL).child("chat");
+        mFirebaseRef = new Firebase(FIREBASE_URL).child(chat_name);
 
         // Setup our input methods. Enter key on the keyboard or pushing the send button
-        EditText inputText = (EditText) findViewById(R.id.messageInput);
+        EditText inputText = (EditText) view.findViewById(R.id.messageInput);
         inputText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
@@ -62,13 +71,14 @@ public class ChatRoomActivity extends ActionBarActivity {
             }
         });
 
-        findViewById(R.id.sendButton).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.sendButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 sendMessage();
             }
         });
 
+        return view;
     }
 
     @Override
@@ -77,7 +87,7 @@ public class ChatRoomActivity extends ActionBarActivity {
         // Setup our view and list adapter. Ensure it scrolls to the bottom as data changes
 
         // Tell our list adapter that we only want 50 messages at a time
-        mChatListAdapter = new ChatListAdapter(mFirebaseRef.limit(50), this, R.layout.chat_message, mUsername);
+        mChatListAdapter = new ChatListAdapter(mFirebaseRef.limit(50), this.getActivity(), R.layout.chat_message, mUsername);
         mListView.setAdapter(mChatListAdapter);
         mChatListAdapter.registerDataSetObserver(new DataSetObserver() {
             @Override
@@ -93,9 +103,9 @@ public class ChatRoomActivity extends ActionBarActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 boolean connected = (Boolean) dataSnapshot.getValue();
                 if (connected) {
-                    Toast.makeText(ChatRoomActivity.this, "Connected to Firebase", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Connected to Firebase", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(ChatRoomActivity.this, "Disconnected from Firebase", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Disconnected from Firebase", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -114,7 +124,7 @@ public class ChatRoomActivity extends ActionBarActivity {
     }
 
     private void setupUsername() {
-        SharedPreferences prefs = getApplication().getSharedPreferences("ChatPrefs", 0);
+        SharedPreferences prefs = getActivity().getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE);
         mUsername = prefs.getString("username", null);
         if (mUsername == null) {
             Random r = new Random();
@@ -125,7 +135,6 @@ public class ChatRoomActivity extends ActionBarActivity {
     }
 
     private void sendMessage() {
-        EditText inputText = (EditText) findViewById(R.id.messageInput);
         String input = inputText.getText().toString();
         if (!input.equals("")) {
             // Create our 'model', a Chat object
@@ -135,41 +144,4 @@ public class ChatRoomActivity extends ActionBarActivity {
             inputText.setText("");
         }
     }
-
-    // MENU RESOURCES
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        if (id == R.id.action_profile) {
-//            if (isLoggedIn) {
-            Intent profile = new Intent(this, ProfileActivity.class);
-            startActivity(profile);
-//            } else {
-//                Intent create = new Intent(this, CreateProfileActivity.class);
-//                startActivity(create);
-//            }
-        }
-        if (id == R.id.action_chat) {
-            Intent chat = new Intent(this, ChatRoomActivity.class);
-            startActivity(chat);
-        }
-        if (id == R.id.action_settings) {
-            Intent intent = new Intent(this, SettingsActivity.class);
-            startActivity(intent);
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 }
-

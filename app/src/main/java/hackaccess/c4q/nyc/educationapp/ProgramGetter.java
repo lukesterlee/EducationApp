@@ -70,7 +70,7 @@ public class ProgramGetter {
                     JSONObject item = programs.getJSONObject(i);
                     double distance = item.getDouble("distance");
 
-                    if (distance <= 5){
+                    if (distance <= 10){
                         String name = item.getString("name");
                         JSONArray offices = item.getJSONArray("offices");
                         JSONObject inside = offices.getJSONObject(0);
@@ -79,17 +79,17 @@ public class ProgramGetter {
                         double latitude = location.getDouble("latitude");
                         double longitude = location.getDouble("longitude");
                         String description = item.getString("description");
-
-
                         String language = "";
+
                         for (int j = 0; j < languages.length(); j++) {
                             language += languages.getString(j) + " ";
                         }
 
                         String lastUpdated = item.getString("update_date");
-                        String phoneNumber = inside.getString("phone_number");
-                        list.add(new Program(description, distance, language, lastUpdated, latitude, longitude, name, phoneNumber));
+//                        String phoneNumber = inside.getString("phone_number");
+                        String phoneNumber = "000";
 
+                        list.add(new Program(description, distance, language, lastUpdated, latitude, longitude, name, phoneNumber));
                     }
                 }
             } catch (JSONException e) {

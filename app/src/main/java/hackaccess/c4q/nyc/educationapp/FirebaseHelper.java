@@ -34,7 +34,7 @@ public class FirebaseHelper extends Firebase {
     public static FirebaseHelper getInstance(Context context) {
         sContext = context;
         if (INSTANCE == null) {
-            Firebase.setAndroidContext(context.getApplicationContext());
+            Firebase.setAndroidContext(context);
             INSTANCE = new FirebaseHelper();
         }
         return INSTANCE;

@@ -37,8 +37,7 @@
             android:theme="@style/ActionBar"/>
         <activity android:name=".CreateProfileActivity"
             android:theme="@style/ActionBar"/>
-        <activity android:name=".ChatRoomActivity"
-            android:theme="@style/ActionBar"/>
+        <activity android:name=".chat.ChatRoomActivity"/>
         <activity android:name=".SettingsActivity"
             android:theme="@style/ActionBar"/>
 

@@ -168,7 +168,7 @@ public class ProgramGetter {
                         } catch (JSONException e) {
                             phoneNumber = "N/A";
                         }
-                        
+
 
                         list.add(new Program(description, distance, language, lastUpdated,
                                 latitude, longitude, name, phoneNumber, programId, zipcode, monday,

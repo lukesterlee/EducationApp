@@ -34,5 +34,7 @@
     <string name="enter_email">Enter new email address:</string>
     <string name="save">Save</string>
     <string name="friends">Friends</string>
+    <string name="must_log_in">Please log in to access chat function.</string>
+    <string name="log_in">Log In</string>
 
 </resources>

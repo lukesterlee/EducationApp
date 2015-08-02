@@ -1,8 +1,11 @@
 package hackaccess.c4q.nyc.educationapp.chat;
 
 import android.app.ActionBar;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -11,10 +14,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.firebase.client.Firebase;
 import com.google.samples.apps.iosched.ui.widget.SlidingTabLayout;
 
+import hackaccess.c4q.nyc.educationapp.CreateProfileActivity;
+import hackaccess.c4q.nyc.educationapp.DirectoryActivity;
+import hackaccess.c4q.nyc.educationapp.FirebaseHelper;
 import hackaccess.c4q.nyc.educationapp.ProfileActivity;
 import hackaccess.c4q.nyc.educationapp.R;
 import hackaccess.c4q.nyc.educationapp.SettingsActivity;
@@ -27,29 +34,49 @@ public class ChatRoomActivity extends AppCompatActivity implements ActionBar.Tab
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
-        Firebase.setAndroidContext(this);
+        FirebaseHelper mHelper = FirebaseHelper.getInstance(this);
 
         Toolbar mToolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(mToolbar);
-
-        mViewPager = (ViewPager) findViewById(R.id.pager);
-        ProgramPagerAdapter mAdapter = new ProgramPagerAdapter(getSupportFragmentManager());
-        mViewPager.setAdapter(mAdapter);
-
-        SlidingTabLayout mSlidingTabLayout = (SlidingTabLayout) findViewById(R.id.tabs);
-        mSlidingTabLayout.setDistributeEvenly(true);
-
-        mSlidingTabLayout.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
-            @Override
-            public int getIndicatorColor(int position) {
-                return getResources().getColor(R.color.tabsScrollColor);
-            }
-        });
-
-        // Setting the ViewPager For the SlidingTabsLayout
-        mSlidingTabLayout.setViewPager(mViewPager);
-
         setTitle("Chatrooms");
+
+        if (mHelper.isLoggedIn()) {
+            mViewPager = (ViewPager) findViewById(R.id.pager);
+            ProgramPagerAdapter mAdapter = new ProgramPagerAdapter(getSupportFragmentManager());
+            mViewPager.setAdapter(mAdapter);
+
+            SlidingTabLayout mSlidingTabLayout = (SlidingTabLayout) findViewById(R.id.tabs);
+            mSlidingTabLayout.setDistributeEvenly(true);
+
+            mSlidingTabLayout.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
+                @Override
+                public int getIndicatorColor(int position) {
+                    return getResources().getColor(R.color.tabsScrollColor);
+                }
+            });
+
+            // Setting the ViewPager For the SlidingTabsLayout
+            mSlidingTabLayout.setViewPager(mViewPager);
+        } else {
+            AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+            dialog.setMessage(getResources().getString(R.string.must_log_in));
+            dialog.setPositiveButton(getResources().getString(R.string.log_in), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+                    Intent myIntent = new Intent(ChatRoomActivity.this, CreateProfileActivity.class);
+                    startActivity(myIntent);
+                }
+            });
+            dialog.setNegativeButton(getString(R.string.Cancel), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+                    Intent myIntent = new Intent(ChatRoomActivity.this, DirectoryActivity.class);
+                    startActivity(myIntent);
+                }
+            });
+            dialog.show();
+        }
+
     }
 
     // TABS

@@ -1,7 +1,9 @@
 package hackaccess.c4q.nyc.educationapp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.location.Address;
 import android.location.Geocoder;
@@ -43,16 +45,19 @@ public class DirectoryActivity extends ActionBarActivity implements OnMapReadyCa
     private ListView mListView;
     private GoogleApiClient googleApiClient;
     private LocationRequest mLocationRequest;
-    private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
     private GoogleMap map;
     private Location location;
     private CardAdapter mAdapter;
+    private boolean isLoggedIn = false;
+    private SharedPreferences preferences;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.directory_activity_layout);
+        setContentView(R.layout.activity_directory);
         mListView = (ListView) findViewById(R.id.list_view);
+        preferences = getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE);
+        preferences.getBoolean(Constants.LOGGEDIN, false);
 
         // Connect to Geolocation API to make current location request
         connectGoogleApiClient();
@@ -96,7 +101,7 @@ public class DirectoryActivity extends ActionBarActivity implements OnMapReadyCa
     public void onConnectionFailed(ConnectionResult connectionResult) {
         if (connectionResult.hasResolution()) {
             try {
-                connectionResult.startResolutionForResult(this, CONNECTION_FAILURE_RESOLUTION_REQUEST);
+                connectionResult.startResolutionForResult(this, Constants.CONNECTION_FAILURE_RESOLUTION_REQUEST);
             } catch (IntentSender.SendIntentException e) {
                 e.printStackTrace();
             }
@@ -220,6 +225,7 @@ public class DirectoryActivity extends ActionBarActivity implements OnMapReadyCa
         }
     }
 
+    // MENU RESOURCES
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -229,14 +235,22 @@ public class DirectoryActivity extends ActionBarActivity implements OnMapReadyCa
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
+        // Handle action bar item clicks here. The action bar will automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_profile) {
+            if (isLoggedIn) {
+                Intent profile = new Intent(this, ProfileActivity.class);
+                startActivity(profile);
+            } else {
+                Intent create = new Intent(this, CreateProfileActivity.class);
+                startActivity(create);
+            }
+        }
         if (id == R.id.action_settings) {
-            return true;
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);

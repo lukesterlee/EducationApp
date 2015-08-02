@@ -1,14 +1,11 @@
-package hackaccess.c4q.nyc.educationapp;
+package hackaccess.c4q.nyc.educationapp.program;
 
 import android.app.ActionBar;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
@@ -17,6 +14,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.samples.apps.iosched.ui.widget.SlidingTabLayout;
+
+import hackaccess.c4q.nyc.educationapp.ChatRoomActivity;
+import hackaccess.c4q.nyc.educationapp.Constants;
+import hackaccess.c4q.nyc.educationapp.ProfileActivity;
+import hackaccess.c4q.nyc.educationapp.Program;
+import hackaccess.c4q.nyc.educationapp.R;
+import hackaccess.c4q.nyc.educationapp.SettingsActivity;
 
 
 /**

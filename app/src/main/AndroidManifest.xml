@@ -35,14 +35,18 @@
 
         <activity android:name=".ProfileActivity"
             android:noHistory="true"/>
+
         <activity android:name=".chat.ChatRoomActivity"
             android:noHistory="true"/>
         <activity android:name=".SettingsActivity"
             android:noHistory="true"/>
+
         <activity android:name=".MapActivity"
             />
+
+
         <activity android:name=".profile.CreateProfileActivity"
-            android:noHistory="true"/>
+            android:theme="@style/ActionBar"/>
 
 
 

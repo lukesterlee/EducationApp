@@ -84,7 +84,7 @@ public class SignupFragment extends Fragment{
             String fName = firstName.getText().toString();
             String lName = lastName.getText().toString();
             String email = emailName.getText().toString();
-            int zip = Integer.parseInt(zipcode.getText().toString());
+            String zip = zipcode.getText().toString();
             String pword = password.getText().toString();
 
             //Creates user account on Firebase

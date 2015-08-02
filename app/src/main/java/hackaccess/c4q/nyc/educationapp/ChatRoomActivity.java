@@ -23,7 +23,7 @@ import com.firebase.client.ValueEventListener;
 
 import java.util.Random;
 
-public class ChatRoomActivity extends ListActivity {
+public class ChatRoomActivity extends ListActivity  {
 
     private static final String FIREBASE_URL = "https://edusearch.firebaseio.com/";
 
@@ -135,10 +135,10 @@ public class ChatRoomActivity extends ListActivity {
     // MENU RESOURCES
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu items for use in the action bar
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_main, menu);
-        return super.onCreateOptionsMenu(menu);
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        return true;
     }
 
     @Override

@@ -3,6 +3,8 @@ package hackaccess.c4q.nyc.educationapp;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -69,7 +71,6 @@ public class ProgramGetter {
         List<Program> list = new ArrayList<Program>();
 
         String body = getJsonString(zipcode);
-        
 
         if (body != null) {
             JSONObject object = null;
@@ -80,8 +81,27 @@ public class ProgramGetter {
                 for (int i = 0; i < programs.length(); i++) {
                     JSONObject item = programs.getJSONObject(i);
                     double distance = item.getDouble("distance");
-                    String name = item.getString("name");
-                    list.add(new Program(distance, name));
+
+                    if (distance <= 5){
+                        String name = item.getString("name");
+                        JSONArray offices = item.getJSONArray("offices");
+                        JSONObject inside = offices.getJSONObject(0);
+                        JSONObject location = inside.getJSONObject("location");
+                        JSONArray languages = item.getJSONArray("supported_languages");
+                        double latitude = location.getDouble("latitude");
+                        double longitude = location.getDouble("longitude");
+                        String description = item.getString("description");
+
+
+                        String language = "";
+                        for (int j = 0; j < languages.length(); j++) {
+                            language += languages.getString(j) + " ";
+                        }
+
+                        String lastUpdated = item.getString("update_date");
+                        String phoneNumber = inside.getString("phone_number");
+                        list.add(new Program(description, distance, language, lastUpdated, latitude, longitude, name, phoneNumber));
+                    }
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

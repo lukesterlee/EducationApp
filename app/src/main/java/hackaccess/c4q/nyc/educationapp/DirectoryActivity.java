@@ -9,6 +9,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -51,6 +52,7 @@ public class DirectoryActivity extends ActionBarActivity implements OnMapReadyCa
     private List<Program> programs;
     private String zipcode;
     private CardAdapter mAdapter;
+    private String jsonString;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -205,7 +207,9 @@ public class DirectoryActivity extends ActionBarActivity implements OnMapReadyCa
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             Intent intent = new Intent(DirectoryActivity.this, ProgramActivity.class);
-            //intent.putExtra("program", programs.get(position));
+            Program program = (Program) parent.getItemAtPosition(position);
+
+            intent.putExtra(Constants.EXTRA_PROGRAM, (Parcelable) program);
             startActivity(intent);
         }
     }
@@ -215,7 +219,9 @@ public class DirectoryActivity extends ActionBarActivity implements OnMapReadyCa
         @Override
         protected List<hackaccess.c4q.nyc.educationapp.Program> doInBackground(String... zipcode) {
 
-            return new ProgramGetter().getHardCodingData(zipcode[0]);
+            ProgramGetter getter = new ProgramGetter();
+            jsonString = getter.getJsonString(zipcode[0]);
+            return getter.getHardCodingData(zipcode[0]);
         }
 
         @Override

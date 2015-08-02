@@ -2,8 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="hackaccess.c4q.nyc.educationapp" >
 
-
-
     <uses-feature
         android:glEsVersion="0x00020000"
         android:required="true" />
@@ -40,7 +38,6 @@
 
         <activity android:name=".program.ProgramActivity"/>
 
-
         <activity android:name=".CreateAccountActivity"
             android:theme="@style/ActionBar"/>
         <activity android:name=".ProfileActivity"
@@ -51,6 +48,8 @@
             android:theme="@style/ActionBar"/>
         <activity android:name=".SettingsActivity"
             android:theme="@style/ActionBar"/>
+
+
 
     </application>
 

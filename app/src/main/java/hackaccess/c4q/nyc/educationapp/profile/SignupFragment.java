@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +17,9 @@ import com.firebase.client.Firebase;
 
 import hackaccess.c4q.nyc.educationapp.FirebaseHelper;
 import hackaccess.c4q.nyc.educationapp.R;
+import hackaccess.c4q.nyc.educationapp.firebase.UserInfo;
 
-public class SignupFragment extends Fragment implements View.OnClickListener{
+public class SignupFragment extends Fragment{
 
     private SharedPreferences preferences;
 
@@ -32,6 +34,7 @@ public class SignupFragment extends Fragment implements View.OnClickListener{
     FirebaseHelper firebaseHelper;
     Firebase ref;
     Context applicationContext;
+    
 //    private ProgressDialog mAuthProgressDialog;
 //    private AuthData mAuthData;
 //    private Firebase.AuthStateListener mAuthStateListener;
@@ -45,6 +48,12 @@ public class SignupFragment extends Fragment implements View.OnClickListener{
         View result = inflater.inflate(R.layout.fragment_sign_up, container, false);
         setupFields(result);
 
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                submitForm(v);
+            }
+        });
 
         return result;
     }
@@ -62,36 +71,29 @@ public class SignupFragment extends Fragment implements View.OnClickListener{
 
         applicationContext = getActivity().getApplicationContext();
         firebaseHelper = FirebaseHelper.getInstance(applicationContext);
-        ref = firebaseHelper.getRef();
+        //ref = firebaseHelper.getRef();
     }
 
     public void submitForm(View view) {
 
         if (firstName.length() == 0 || lastName.length() == 0 || emailName.length() == 0 || zipcode.length() != 5 || password.length() == 0) {
 
-            Toast.makeText(view.getContext(), " Fields are missing info", Toast.LENGTH_SHORT).show();
-
+            Toast.makeText(getActivity(), " Fields are missing info", Toast.LENGTH_SHORT).show();
+            Log.d("onclick","inside of the submit button");
         } else {
             String fName = firstName.getText().toString();
             String lName = lastName.getText().toString();
             String email = emailName.getText().toString();
-            String zip = zipcode.getText().toString();
+            int zip = Integer.parseInt(zipcode.getText().toString());
             String pword = password.getText().toString();
 
             //Creates user account on Firebase
 
-            firebaseHelper.createAccount(email, pword);
+            UserInfo userInfo = new UserInfo(fName,lName,zip);
+            firebaseHelper.createAccount(email, pword, userInfo);
+            Log.d("onclick","inside of the submit button");
         }
 
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.userSignUpButton:
-                submitForm(v);
-                break;
-        }
     }
 
     //    public void setupFacebookLogin() {

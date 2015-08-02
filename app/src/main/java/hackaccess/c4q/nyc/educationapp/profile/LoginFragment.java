@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.firebase.client.Firebase;
@@ -13,11 +14,12 @@ import com.firebase.client.Firebase;
 import hackaccess.c4q.nyc.educationapp.FirebaseHelper;
 import hackaccess.c4q.nyc.educationapp.R;
 
-public class LoginFragment extends Fragment implements View.OnClickListener {
+public class LoginFragment extends Fragment{
 
     EditText emailLogin, passwordLogin;
     FirebaseHelper firebaseHelper;
     Firebase ref;
+    Button login;
 
     @Nullable
     @Override
@@ -26,8 +28,15 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
         emailLogin = (EditText) result.findViewById(R.id.emailLogin);
         passwordLogin = (EditText) result.findViewById(R.id.passwordLogin);
+        login = (Button) result.findViewById(R.id.userLoginButton);
         firebaseHelper = FirebaseHelper.getInstance(getActivity().getApplicationContext());
-        ref = firebaseHelper.getRef();
+
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                login(v);
+            }
+        });
 
         return result;
     }
@@ -38,15 +47,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         String password = passwordLogin.getText().toString();
 
         //TODO: Login with firebase method
+        firebaseHelper.logInUser(email,password);
 
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.userSignUpButton:
-                login(v);
-                break;
-        }
-    }
 }

@@ -43,14 +43,16 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:hint="@string/email"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_gravity="center_horizontal"
+        android:inputType="textEmailAddress"/>
 
     <EditText
         android:id="@+id/zipcodeField"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:hint="@string/zipcode"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_gravity="center_horizontal"
+        android:inputType="number"/>
 
     <EditText
         android:id="@+id/passwordField"

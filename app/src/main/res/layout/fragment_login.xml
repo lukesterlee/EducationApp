@@ -10,7 +10,8 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:hint="@string/email"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_gravity="center_horizontal"
+        android:inputType="textEmailAddress"/>
 
     <EditText
         android:id="@+id/passwordLogin"

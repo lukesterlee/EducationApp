@@ -8,6 +8,10 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 
@@ -19,6 +23,7 @@ public class CardAdapter extends BaseAdapter {
     private Context mContext;
     private List<Program> mList;
     private LayoutInflater mInflater;
+    private String preHTTP = "https://maps.googleapis.com/maps/api/streetview?key=AIzaSyDTaAeiCfVCXJhdweubPkgIvsni3s1-9ss&size=600x600&location=";
 
 
     private TextView mTextViewName;
@@ -59,7 +64,15 @@ public class CardAdapter extends BaseAdapter {
 
         mTextViewName.setText(getItem(position).getName());
         mTextViewDistance.setText(getItem(position).getDistance() + "");
-       // mImageView.setImageBitmap(BITMAP);
+
+        URL url = null;
+        try {
+            url = new URL(preHTTP + getItem(position).getLatLng().latitude + "," + getItem(position).getLatLng().longitude);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        Glide.with(mContext).load(url).centerCrop().into(mImageView);
 
         return convertView;
     }

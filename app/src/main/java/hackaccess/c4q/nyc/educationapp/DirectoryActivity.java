@@ -193,7 +193,6 @@ public class DirectoryActivity extends ActionBarActivity implements OnMapReadyCa
 
         for (Program program : programs) {
             latLngs.add(program.getLatLng());
-            Log.d("LATLNG+++++", program.getLatLng().toString());
 
             IconGenerator mIconGenerator = new IconGenerator(DirectoryActivity.this);
             Bitmap iconBitmap = mIconGenerator.makeIcon(Integer.toString(count));

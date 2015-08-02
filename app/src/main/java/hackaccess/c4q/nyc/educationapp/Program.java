@@ -44,5 +44,6 @@ public class Program {
     public LatLng getLatLng() {
         return latLng;
     }
+
 }
 

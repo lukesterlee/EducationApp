@@ -18,6 +18,8 @@
         <meta-data android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDTaAeiCfVCXJhdweubPkgIvsni3s1-9ss" />
 
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+
         <activity android:name=".DirectoryActivity"
             android:label="@string/app_name">
 
@@ -39,13 +41,17 @@
         </activity>
         <activity android:name=".ProfileActivity"
             android:noHistory="true"/>
-        <activity android:name=".CreateProfileActivity"
-            android:noHistory="true"/>
         <activity android:name=".chat.ChatRoomActivity"
             android:noHistory="true"/>
         <activity android:name=".SettingsActivity"
             android:noHistory="true"/>
-        <activity android:name=".MapActivity"/>
+        <activity android:name=".MapActivity"
+            />
+        <activity android:name=".profile.CreateProfileActivity"
+            android:noHistory="true"/>
+
+
+
     </application>
 
 </manifest>

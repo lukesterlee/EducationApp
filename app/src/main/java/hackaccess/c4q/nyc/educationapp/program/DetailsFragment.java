@@ -6,7 +6,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import hackaccess.c4q.nyc.educationapp.Constants;
 import hackaccess.c4q.nyc.educationapp.Program;
@@ -34,7 +40,6 @@ public class DetailsFragment extends Fragment {
         if (bundle != null) {
             mProgram = bundle.getParcelable(Constants.EXTRA_PROGRAM);
         }
-
 
         mTextViewDescription = (TextView) result.findViewById(R.id.tv_description);
         mTextViewDescription.setText("Description : " + mProgram.getDescription());

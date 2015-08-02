@@ -12,9 +12,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.samples.apps.iosched.ui.widget.SlidingTabLayout;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import hackaccess.c4q.nyc.educationapp.FirebaseHelper;
 import hackaccess.c4q.nyc.educationapp.MapActivity;
@@ -40,7 +45,8 @@ public class ProgramActivity extends AppCompatActivity implements ActionBar.TabL
     private ViewPager mViewPager;
     private ProgramActivity.ProgramPagerAdapter mAdapter;
     private FirebaseHelper mHelper;
-
+    private ImageView image;
+    private String preHTTP = "https://maps.googleapis.com/maps/api/streetview?key=AIzaSyDTaAeiCfVCXJhdweubPkgIvsni3s1-9ss&size=800x400&location=";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +79,16 @@ public class ProgramActivity extends AppCompatActivity implements ActionBar.TabL
         // Setting the ViewPager For the SlidingTabsLayout
         mSlidingTabLayout.setViewPager(mViewPager);
 
+
+        image = (ImageView) findViewById(R.id.image);
+        URL url = null;
+        try {
+            url = new URL(preHTTP + mProgram.getLatitude() + "," + mProgram.getLongitude());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        Glide.with(this).load(url).centerCrop().into(image);
 
         //Program program = intent.getParcelableExtra("program");
 

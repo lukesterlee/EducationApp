@@ -13,11 +13,6 @@
         <item name="windowActionBar">false</item>
     </style>
 
-    <style name="ActionBar" parent="@style/Base.Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">@color/ColorPrimary</item>
-        <item name="colorPrimaryDark">#fff</item>
-    </style>
-
     <style name="tv_agency_name">
         <item name="android:textColor">#212121</item>
         <item name="android:textSize">16dp</item>

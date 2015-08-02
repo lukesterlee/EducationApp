@@ -12,7 +12,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -36,13 +38,14 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.maps.android.ui.IconGenerator;
 
+import hackaccess.c4q.nyc.educationapp.firebase.Account;
+import hackaccess.c4q.nyc.educationapp.program.ProgramActivity;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import hackaccess.c4q.nyc.educationapp.program.ProgramActivity;
-
-public class DirectoryActivity extends ActionBarActivity implements OnMapReadyCallback,
+public class DirectoryActivity extends AppCompatActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
     private ListView mListView;
@@ -61,7 +64,12 @@ public class DirectoryActivity extends ActionBarActivity implements OnMapReadyCa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_directory);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
+        final ActionBar ab = getSupportActionBar();
+        ab.setHomeAsUpIndicator(R.drawable.ic_menu);
+        ab.setDisplayHomeAsUpEnabled(true);
 
         mListView = (ListView) findViewById(R.id.list_view);
         preferences = getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE);
@@ -119,7 +127,8 @@ public class DirectoryActivity extends ActionBarActivity implements OnMapReadyCa
     }
 
     @Override // must override
-    public void onConnectionSuspended(int i) {}
+    public void onConnectionSuspended(int i) {
+    }
 
     @Override
     public void onLocationChanged(Location location) {
@@ -201,6 +210,7 @@ public class DirectoryActivity extends ActionBarActivity implements OnMapReadyCa
             intent.putExtra(Constants.EXTRA_PROGRAM, (Parcelable) program);
             startActivity(intent);
         }
+
     }
 
     // Task to decode current location
@@ -255,8 +265,8 @@ public class DirectoryActivity extends ActionBarActivity implements OnMapReadyCa
 
         if (id == R.id.action_profile) {
 //            if (isLoggedIn) {
-                Intent profile = new Intent(this, ProfileActivity.class);
-                startActivity(profile);
+            Intent profile = new Intent(this, ProfileActivity.class);
+            startActivity(profile);
 //            } else {
 //                Intent create = new Intent(this, CreateProfileActivity.class);
 //                startActivity(create);

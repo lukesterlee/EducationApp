@@ -1,11 +1,9 @@
-package hackaccess.c4q.nyc.educationapp.chat;
+package hackaccess.c4q.nyc.educationapp.program;
 
 import android.app.ActionBar;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Settings;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -18,69 +16,77 @@ import android.widget.Toast;
 
 import com.google.samples.apps.iosched.ui.widget.SlidingTabLayout;
 
-import hackaccess.c4q.nyc.educationapp.MapActivity;
-import hackaccess.c4q.nyc.educationapp.profile.CreateProfileActivity;
-import hackaccess.c4q.nyc.educationapp.DirectoryActivity;
+import hackaccess.c4q.nyc.educationapp.Constants;
 import hackaccess.c4q.nyc.educationapp.FirebaseHelper;
 import hackaccess.c4q.nyc.educationapp.ProfileActivity;
+import hackaccess.c4q.nyc.educationapp.Program;
 import hackaccess.c4q.nyc.educationapp.R;
 import hackaccess.c4q.nyc.educationapp.SettingsActivity;
+import hackaccess.c4q.nyc.educationapp.chat.ChatRoomActivity;
+import hackaccess.c4q.nyc.educationapp.profile.CreateProfileActivity;
 
-public class ChatRoomActivity extends AppCompatActivity implements ActionBar.TabListener {
 
+/**
+ * Created by sufeizhao on 8/1/15.
+ */
+public class ProgramActivity extends AppCompatActivity implements ActionBar.TabListener {
+
+
+    private Toolbar mToolbar;
+    private SlidingTabLayout mSlidingTabLayout;
+
+    private Program mProgram;
     private ViewPager mViewPager;
+    private ProgramActivity.ProgramPagerAdapter mAdapter;
     private FirebaseHelper mHelper;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chat);
-        mHelper = FirebaseHelper.getInstance(this);
+        setContentView(R.layout.activity_program);
+        mHelper = FirebaseHelper.getInstance(getApplicationContext());
 
-        Toolbar mToolbar = (Toolbar) findViewById(R.id.tool_bar);
-        setSupportActionBar(mToolbar);
-        setTitle("Chatrooms");
-
-        if (mHelper.isLoggedIn()) {
-            mViewPager = (ViewPager) findViewById(R.id.pager);
-            ProgramPagerAdapter mAdapter = new ProgramPagerAdapter(getSupportFragmentManager());
-            mViewPager.setAdapter(mAdapter);
-
-            SlidingTabLayout mSlidingTabLayout = (SlidingTabLayout) findViewById(R.id.tabs);
-            mSlidingTabLayout.setDistributeEvenly(true);
-
-            mSlidingTabLayout.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
-                @Override
-                public int getIndicatorColor(int position) {
-                    return getResources().getColor(R.color.accent);
-                }
-            });
-
-            // Setting the ViewPager For the SlidingTabsLayout
-            mSlidingTabLayout.setViewPager(mViewPager);
-        } else {
-            AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-            dialog.setMessage(getResources().getString(R.string.must_log_in));
-            dialog.setPositiveButton(getResources().getString(R.string.log_in), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface paramDialogInterface, int paramInt) {
-                    Intent myIntent = new Intent(ChatRoomActivity.this, CreateProfileActivity.class);
-                    startActivity(myIntent);
-                }
-            });
-            dialog.setNegativeButton(getString(R.string.Cancel), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface paramDialogInterface, int paramInt) {
-                    Intent myIntent = new Intent(ChatRoomActivity.this, DirectoryActivity.class);
-                    startActivity(myIntent);
-                }
-            });
-            dialog.show();
+        Intent intent = getIntent();
+        if (intent != null) {
+            mProgram = intent.getParcelableExtra(Constants.EXTRA_PROGRAM);
         }
+
+        mToolbar = (Toolbar) findViewById(R.id.tool_bar);
+        setSupportActionBar(mToolbar);
+
+        mViewPager = (ViewPager) findViewById(R.id.pager);
+        mAdapter = new ProgramPagerAdapter(getSupportFragmentManager());
+        mViewPager.setAdapter(mAdapter);
+
+        mSlidingTabLayout = (SlidingTabLayout) findViewById(R.id.tabs);
+        mSlidingTabLayout.setDistributeEvenly(true);
+
+        mSlidingTabLayout.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
+            @Override
+            public int getIndicatorColor(int position) {
+                return getResources().getColor(R.color.accent);
+            }
+        });
+
+        // Setting the ViewPager For the SlidingTabsLayout
+        mSlidingTabLayout.setViewPager(mViewPager);
+
+
+        //Program program = intent.getParcelableExtra("program");
+
+        // Add 3 tabs, specifying the tab's text and TabListener
+//        for (int i = 0; i < 3; i++) {
+//
+//            actionBar.addTab(
+//                    actionBar.newTab()
+//                            .setText("Tab " + (i + 1))
+//                            .setTabListener(this));
+//        }
+
 
     }
 
-    // TABS
     public class ProgramPagerAdapter extends FragmentStatePagerAdapter {
 
         public ProgramPagerAdapter(FragmentManager fm) {
@@ -91,23 +97,28 @@ public class ChatRoomActivity extends AppCompatActivity implements ActionBar.Tab
         public Fragment getItem(int position) {
 
             Fragment fragment = null;
-//            String username = mHelper.getUserInfo().getFirstName() + " " + mHelper.getUserInfo().getLastName();
+            Bundle bundle = new Bundle();
+            bundle.putParcelable(Constants.EXTRA_PROGRAM, (Parcelable) mProgram);
 
             switch (position) {
                 case 0:
-                    fragment = new ChatFragment("chat");
+                    fragment = new DetailsFragment();
                     break;
                 case 1:
-                    fragment = new ChatFragment("chat2");
+                    fragment = new HoursFragment();
+                    break;
+                case 2:
+                    fragment = new ContactFragment();
                     break;
             }
 
+            fragment.setArguments(bundle);
             return fragment;
         }
 
         @Override
         public int getCount() {
-            return 2;
+            return 3;
         }
 
         @Override
@@ -115,10 +126,13 @@ public class ChatRoomActivity extends AppCompatActivity implements ActionBar.Tab
             CharSequence title = "";
             switch (position) {
                 case 0:
-                    title = getResources().getString(R.string.chat1);
+                    title = "Details";
                     break;
                 case 1:
-                    title = getResources().getString(R.string.chat2);
+                    title = "Hours";
+                    break;
+                case 2:
+                    title = "Contacts";
                     break;
             }
             return title;
@@ -140,12 +154,10 @@ public class ChatRoomActivity extends AppCompatActivity implements ActionBar.Tab
 
     }
 
-    // MENU RESOURCES
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
-
         return true;
     }
 
@@ -154,10 +166,6 @@ public class ChatRoomActivity extends AppCompatActivity implements ActionBar.Tab
         // Handle action bar item clicks here. The action bar will automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         switch (item.getItemId()) {
-            case R.id.action_mapview:
-                Intent map = new Intent(this, MapActivity.class);
-                startActivity(map);
-                break;
             case R.id.action_sign_user:
                 if (mHelper.isLoggedIn()) {
                     item.setTitle("Sign In");

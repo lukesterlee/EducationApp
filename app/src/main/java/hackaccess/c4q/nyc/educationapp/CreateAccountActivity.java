@@ -2,7 +2,7 @@ package hackaccess.c4q.nyc.educationapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,7 +14,7 @@ import hackaccess.c4q.nyc.educationapp.chat.ChatRoomActivity;
 /**
  * Created by c4q-anthonyf on 8/1/15.
  */
-public class CreateAccountActivity extends ActionBarActivity implements View.OnClickListener{
+public class CreateAccountActivity extends AppCompatActivity implements View.OnClickListener{
 
     private EditText mEditTextEmail;
     private EditText mEditTextPassword;

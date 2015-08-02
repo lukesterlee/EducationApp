@@ -3,7 +3,7 @@ package hackaccess.c4q.nyc.educationapp;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -12,7 +12,7 @@ import hackaccess.c4q.nyc.educationapp.chat.ChatRoomActivity;
 /**
  * Created by sufeizhao on 8/1/15.
  */
-public class CreateProfileActivity extends ActionBarActivity {
+public class CreateProfileActivity extends AppCompatActivity {
 
     private SharedPreferences preferences;
 
@@ -20,10 +20,6 @@ public class CreateProfileActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_profile);
-
-
-
-
     }
 
     // MENU RESOURCES

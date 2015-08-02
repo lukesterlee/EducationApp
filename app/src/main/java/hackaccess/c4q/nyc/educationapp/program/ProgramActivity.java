@@ -36,8 +36,6 @@ public class ProgramActivity extends AppCompatActivity implements ActionBar.TabL
     private ViewPager mViewPager;
     private ProgramActivity.ProgramPagerAdapter mAdapter;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +60,7 @@ public class ProgramActivity extends AppCompatActivity implements ActionBar.TabL
         mSlidingTabLayout.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
             @Override
             public int getIndicatorColor(int position) {
-                return getResources().getColor(R.color.tabsScrollColor);
+                return getResources().getColor(R.color.accent);
             }
         });
 
@@ -129,7 +127,7 @@ public class ProgramActivity extends AppCompatActivity implements ActionBar.TabL
                     title = "Hours";
                     break;
                 case 2:
-                    title = "Contacts";
+                    title = "Contact";
                     break;
             }
             return title;

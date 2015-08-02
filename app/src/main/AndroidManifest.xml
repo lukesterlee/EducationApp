@@ -29,18 +29,11 @@
         </activity>
 
         <activity android:name=".program.ProgramActivity"/>
-
-
-        <activity android:name=".CreateAccountActivity"
-            android:theme="@style/ActionBar"/>
-        <activity android:name=".ProfileActivity"
-            android:theme="@style/ActionBar"/>
-        <activity android:name=".CreateProfileActivity"
-            android:theme="@style/ActionBar"/>
+        <activity android:name=".CreateAccountActivity" />
+        <activity android:name=".ProfileActivity" />
+        <activity android:name=".CreateProfileActivity" />
         <activity android:name=".chat.ChatRoomActivity"/>
-        <activity android:name=".SettingsActivity"
-            android:theme="@style/ActionBar"/>
-
+        <activity android:name=".SettingsActivity" />
 
     </application>
 

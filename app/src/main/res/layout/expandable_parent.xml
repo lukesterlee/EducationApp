@@ -5,7 +5,7 @@
     android:layout_height="60dp"
     android:gravity="center_vertical"
     android:padding="10dp"
-    android:textColor="@color/ColorPrimaryDark"
+    android:textColor="@color/style_color_primary_dark"
     android:textSize="40sp"
     android:textStyle="bold"
 />

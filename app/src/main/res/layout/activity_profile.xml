@@ -13,8 +13,8 @@
     <TextView
         android:id="@+id/name"
         android:layout_weight="1"
-        android:text="Sufei"
-        android:textSize="20dp"
+        android:text="@string/username"
+        android:textSize="18sp"
         android:gravity="center_horizontal"
         android:layout_width="match_parent"
         android:layout_height="0dp" />
@@ -25,7 +25,7 @@
         android:layout_width="match_parent"
         android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
         android:layout_height="0dp"
-        android:divider="@color/tabsScrollColor"
+        android:divider="@color/primary"
         android:dividerHeight="0.5dp"/>
 
     <Button

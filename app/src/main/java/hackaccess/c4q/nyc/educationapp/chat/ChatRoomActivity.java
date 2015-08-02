@@ -2,41 +2,22 @@ package hackaccess.c4q.nyc.educationapp.chat;
 
 import android.app.ActionBar;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.database.DataSetObserver;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.ValueEventListener;
 import com.google.samples.apps.iosched.ui.widget.SlidingTabLayout;
 
-import java.util.Random;
-
-import hackaccess.c4q.nyc.educationapp.Constants;
 import hackaccess.c4q.nyc.educationapp.ProfileActivity;
-import hackaccess.c4q.nyc.educationapp.Program;
 import hackaccess.c4q.nyc.educationapp.R;
 import hackaccess.c4q.nyc.educationapp.SettingsActivity;
-import hackaccess.c4q.nyc.educationapp.program.DetailsFragment;
-import hackaccess.c4q.nyc.educationapp.program.HoursFragment;
 
 public class ChatRoomActivity extends AppCompatActivity implements ActionBar.TabListener {
 
@@ -62,7 +43,7 @@ public class ChatRoomActivity extends AppCompatActivity implements ActionBar.Tab
         mSlidingTabLayout.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
             @Override
             public int getIndicatorColor(int position) {
-                return getResources().getColor(R.color.tabsScrollColor);
+                return getResources().getColor(R.color.accent);
             }
         });
 

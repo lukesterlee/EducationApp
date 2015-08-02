@@ -1,71 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:orientation="vertical">
+
+    <!-- Sufei's images go here -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:background="#CCCCCC" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="0dp"
+        android:layout_weight="3">
 
-        <FrameLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2">
+            android:layout_height="match_parent"
+            android:fillViewport="true">
 
-            <!-- Sufei's images go here -->
-            <ImageView
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#CCCCCC" />
-
-            <Button
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right|bottom"
-                android:layout_margin="16dp"
-                android:text="@string/like" />
+                android:orientation="vertical"
+                android:padding="16dp">
 
-        </FrameLayout>
+                <net.steamcrafted.materialiconlib.MaterialIconView xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/ic_office"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:paddingBottom="16dp"
+                    android:paddingRight="40dp"
+                    android:scaleType="center"
+                    app:materialIcon="city"
+                    app:materialIconColor="#212121"
+                    app:materialIconSize="24dp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="3"
-            android:orientation="vertical"
-            android:padding="16dp">
+                <TextView
+                    android:id="@+id/tv_office_name"
+                    style="@style/tv_body"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:layout_toRightOf="@+id/ic_office"
+                    android:text="@string/office_name" />
 
-            <TextView
-                android:id="@+id/tv_office_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:text="@string/office_name" />
+                <net.steamcrafted.materialiconlib.MaterialIconView xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/ic_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@id/tv_office_name"
+                    android:paddingBottom="16dp"
+                    android:paddingRight="40dp"
+                    android:scaleType="center"
+                    app:materialIcon="information"
+                    app:materialIconColor="#212121"
+                    app:materialIconSize="24dp" />
 
-            <TextView
-                android:id="@+id/tv_description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:text="@string/description" />
+                <TextView
+                    android:id="@+id/tv_description"
+                    style="@style/tv_body"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_office_name"
+                    android:layout_marginBottom="16dp"
+                    android:layout_toRightOf="@+id/ic_office"
+                    android:text="@string/description" />
 
-            <TextView
-                android:id="@+id/tv_languages"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:text="@string/languages" />
+                <net.steamcrafted.materialiconlib.MaterialIconView xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/ic_languages"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@id/tv_description"
+                    android:paddingBottom="16dp"
+                    android:paddingRight="40dp"
+                    android:scaleType="center"
+                    app:materialIcon="comment_multiple_outline"
+                    app:materialIconColor="#212121"
+                    app:materialIconSize="24dp" />
 
-            <TextView
-                android:id="@+id/tv_last_updated"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:text="@string/last_updated" />
+                <TextView
+                    android:id="@+id/tv_languages"
+                    style="@style/tv_body"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_languages"
+                    android:layout_marginBottom="16dp"
+                    android:layout_toRightOf="@+id/ic_languages"
+                    android:text="@string/languages" />
 
-        </LinearLayout>
+                <net.steamcrafted.materialiconlib.MaterialIconView xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/ic_pencil"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@id/tv_languages"
+                    android:paddingBottom="16dp"
+                    android:paddingRight="40dp"
+                    android:scaleType="center"
+                    app:materialIcon="pencil"
+                    app:materialIconColor="#212121"
+                    app:materialIconSize="24dp" />
+
+                <TextView
+                    android:id="@+id/tv_last_updated"
+                    style="@style/tv_body"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_languages"
+                    android:layout_toRightOf="@+id/ic_pencil"
+                    android:text="@string/last_updated" />
+
+            </RelativeLayout>
+
+        </ScrollView>
 
     </LinearLayout>
 
-</ScrollView>
+</LinearLayout>

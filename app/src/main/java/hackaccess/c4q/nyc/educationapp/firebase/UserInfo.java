@@ -9,15 +9,15 @@ public class UserInfo {
 
     private String firstName;
     private String lastName;
-    private int zip;
+    private String zip;
     private HashMap<String,String> userLikes;
 
 
-    public UserInfo(String firstName, String lastName, int zip) {
+    public UserInfo(String firstName, String lastName, String zip) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.zip = zip;
-        userLikes = new HashMap<>();
+        userLikes = new HashMap<String, String>();
     }
 
     public UserInfo(String firstName, String lastName) {
@@ -34,18 +34,17 @@ public class UserInfo {
     }
 
 
-
     public void setName(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
 
-    public int getZip() {
+    public String getZip() {
         return zip;
     }
 
-    public void setZip(int zip) {
+    public void setZip(String zip) {
         this.zip = zip;
     }
 

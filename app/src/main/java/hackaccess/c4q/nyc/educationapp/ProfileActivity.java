@@ -83,8 +83,8 @@ public class ProfileActivity extends ExpandableListActivity {
     }
 
     public void setGroupParents() {
-        parentItems.add("Favorites");
-        parentItems.add("Chat History");
+        parentItems.add(getResources().getString(R.string.favorites));
+        parentItems.add(getResources().getString(R.string.chat));
     }
 
     public void setChildData() {

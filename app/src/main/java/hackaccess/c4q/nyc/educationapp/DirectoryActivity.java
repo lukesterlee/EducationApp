@@ -248,6 +248,10 @@ public class DirectoryActivity extends ActionBarActivity implements OnMapReadyCa
 //                startActivity(create);
 //            }
         }
+        if (id == R.id.action_chat) {
+            Intent chat = new Intent(this, ChatRoomActivity.class);
+            startActivity(chat);
+        }
         if (id == R.id.action_settings) {
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);

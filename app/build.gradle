@@ -17,6 +17,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE-FIREBASE.txt'
+        exclude 'META-INF/NOTICE'
+    }
 }
 
 
@@ -31,4 +36,5 @@ dependencies {
     compile 'com.google.android.gms:play-services:7.5.0'
     compile 'com.google.maps.android:android-maps-utils:0.3'
     compile 'com.android.support:cardview-v7:22.+'
+    compile 'com.firebase:firebase-client-android:2.3.1+'
 }

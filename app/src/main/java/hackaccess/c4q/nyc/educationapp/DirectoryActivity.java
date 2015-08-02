@@ -74,7 +74,9 @@ public class DirectoryActivity extends ActionBarActivity implements OnMapReadyCa
         Firebase.setAndroidContext(this);
         Firebase fbRef = new Firebase("https://edusearch.firebaseio.com/");
         Account userAccount = new Account("ksmaragh@gmail.com", "Testing");
-        FbHelper.saveAccount(userAccount,fbRef);
+        FbHelper.saveAccount(userAccount, fbRef);
+
+
 
     }
 

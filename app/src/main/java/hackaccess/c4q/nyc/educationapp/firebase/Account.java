@@ -20,8 +20,14 @@ public class Account {
         return account.get("email");
     }
 
+
+
     public void setPassword(String password) {
         account.put("password", password);
+    }
+
+    public String getPassword(){
+        return account.get("password");
     }
 
     public boolean checkPassword(String password){

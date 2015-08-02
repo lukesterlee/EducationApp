@@ -1,7 +1,5 @@
 package hackaccess.c4q.nyc.educationapp;
 
-import android.util.Log;
-
 import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONArray;
@@ -77,9 +75,21 @@ public class ProgramGetter {
                         JSONArray offices = item.getJSONArray("offices");
                         JSONObject inside = offices.getJSONObject(0);
                         JSONObject location = inside.getJSONObject("location");
-                        double lat = location.getDouble("latitude");
-                        double lon = location.getDouble("longitude");
-                        list.add(new Program(distance, name, new LatLng(lat, lon)));
+                        JSONArray languages = item.getJSONArray("supported_languages");
+                        double latitude = location.getDouble("latitude");
+                        double longitude = location.getDouble("longitude");
+                        String description = item.getString("description");
+
+
+                        String language = "";
+                        for (int j = 0; j < languages.length(); j++) {
+                            language += languages.getString(j) + " ";
+                        }
+
+                        String lastUpdated = item.getString("update_date");
+                        String phoneNumber = inside.getString("phone_number");
+                        list.add(new Program(description, distance, language, lastUpdated, latitude, longitude, name, phoneNumber));
+
                     }
                 }
             } catch (JSONException e) {

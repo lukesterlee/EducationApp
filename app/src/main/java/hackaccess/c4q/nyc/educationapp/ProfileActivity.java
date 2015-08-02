@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,16 +14,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
 
 import hackaccess.c4q.nyc.educationapp.chat.ChatRoomActivity;
 import hackaccess.c4q.nyc.educationapp.profile.CreateProfileActivity;
@@ -38,11 +33,13 @@ public class ProfileActivity extends AppCompatActivity  {
     private ListView eListView;
     private TextView name;
     private Button logout, changeEmail;
+    private FirebaseHelper mHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+        mHelper = FirebaseHelper.getInstance(this);
 
         profilePic = (ImageView) findViewById(R.id.profile_pic);
         heart = (ImageView) findViewById(R.id.heart);
@@ -54,14 +51,20 @@ public class ProfileActivity extends AppCompatActivity  {
             public void onClick(View v) {
                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(ProfileActivity.this);
                 final EditText emailEditText = new EditText(ProfileActivity.this);
+                final EditText passwordEditText = new EditText(ProfileActivity.this);
                 dialogBuilder.setTitle(getResources().getString(R.string.change_email))
                         .setMessage(getResources().getString(R.string.enter_email))
                         .setView(emailEditText)
+                        .setMessage(getResources().getString(R.string.enter_password))
+                        .setView(passwordEditText)
                         .setPositiveButton(getResources().getString(R.string.save), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                String email = emailEditText.getText().toString();
-                                //TODO add to db
+                                String newEmail = emailEditText.getText().toString();
+                                String password = passwordEditText.getText().toString();
+//                                mHelper. TODO
+//                                mHelper.changeUserEmail(oldEmail, newEmail, password);
+                                Toast.makeText(ProfileActivity.this, "New Email saved", Toast.LENGTH_LONG).show();
                             }
                         });
                 AlertDialog alertDialog = dialogBuilder.create();

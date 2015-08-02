@@ -91,6 +91,7 @@ public class ChatRoomActivity extends AppCompatActivity implements ActionBar.Tab
         public Fragment getItem(int position) {
 
             Fragment fragment = null;
+//            String username = mHelper.getUserInfo().getFirstName() + " " + mHelper.getUserInfo().getLastName();
 
             switch (position) {
                 case 0:

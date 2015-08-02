@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.DataSetObserver;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,10 +24,11 @@ import com.firebase.client.ValueEventListener;
 
 import java.util.Random;
 
-public class ChatRoomActivity extends ListActivity  {
+public class ChatRoomActivity extends ActionBarActivity {
 
     private static final String FIREBASE_URL = "https://edusearch.firebaseio.com/";
 
+    private ListView mListView;
     private String mUsername;
     private Firebase mFirebaseRef;
     private ValueEventListener mConnectedListener;
@@ -37,6 +39,8 @@ public class ChatRoomActivity extends ListActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chat_room);
         Firebase.setAndroidContext(this);
+
+        mListView = (ListView) findViewById(R.id.listView_chatroom);
 
         // Make sure we have a mUsername
         setupUsername();
@@ -71,15 +75,15 @@ public class ChatRoomActivity extends ListActivity  {
     public void onStart() {
         super.onStart();
         // Setup our view and list adapter. Ensure it scrolls to the bottom as data changes
-        final ListView listView = getListView();
+
         // Tell our list adapter that we only want 50 messages at a time
         mChatListAdapter = new ChatListAdapter(mFirebaseRef.limit(50), this, R.layout.chat_message, mUsername);
-        listView.setAdapter(mChatListAdapter);
+        mListView.setAdapter(mChatListAdapter);
         mChatListAdapter.registerDataSetObserver(new DataSetObserver() {
             @Override
             public void onChanged() {
                 super.onChanged();
-                listView.setSelection(mChatListAdapter.getCount() - 1);
+                mListView.setSelection(mChatListAdapter.getCount() - 1);
             }
         });
 

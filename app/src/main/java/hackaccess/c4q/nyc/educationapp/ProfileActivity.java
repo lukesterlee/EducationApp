@@ -19,6 +19,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import hackaccess.c4q.nyc.educationapp.chat.ChatRoomActivity;
+
 /**
  * Created by sufeizhao on 8/1/15.
  */
@@ -83,8 +85,8 @@ public class ProfileActivity extends ExpandableListActivity {
     }
 
     public void setGroupParents() {
-        parentItems.add("Favorites");
-        parentItems.add("Chat History");
+        parentItems.add(getResources().getString(R.string.favorites));
+        parentItems.add(getResources().getString(R.string.chat));
     }
 
     public void setChildData() {

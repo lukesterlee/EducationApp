@@ -2,11 +2,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:theme="@style/ActionBar"
-    tools:context=".MainActivity">
+    tools:context=".ChatRoomActivity">
 
     <ListView
-        android:id="@android:id/list"
+        android:id="@+id/listView_chatroom"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/listFooter"

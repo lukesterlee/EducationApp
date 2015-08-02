@@ -1,4 +1,4 @@
-package hackaccess.c4q.nyc.educationapp;
+package hackaccess.c4q.nyc.educationapp.chat;
 
 import android.app.Activity;
 import android.graphics.Color;
@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.firebase.client.Query;
+
+import hackaccess.c4q.nyc.educationapp.R;
 
 /**
 * @author greg

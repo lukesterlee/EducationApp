@@ -1,12 +1,13 @@
 package hackaccess.c4q.nyc.educationapp;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import hackaccess.c4q.nyc.educationapp.chat.ChatRoomActivity;
 
 /**
  * Created by sufeizhao on 8/1/15.

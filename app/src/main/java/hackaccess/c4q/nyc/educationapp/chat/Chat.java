@@ -1,4 +1,4 @@
-package hackaccess.c4q.nyc.educationapp;
+package hackaccess.c4q.nyc.educationapp.chat;
 
 /**
  * from FireBase AndroidChat

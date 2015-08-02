@@ -15,7 +15,7 @@ public class Like {
         like.put("zipcode", zipcode);
     }
 
-    public HashMap<String, String> getLikeHashMap() {
+    public HashMap<String, String> getHashMap() {
         return like;
     }
     public String getZipcode(){

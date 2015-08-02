@@ -12,6 +12,7 @@ import com.firebase.client.Query;
 import com.firebase.client.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import hackaccess.c4q.nyc.educationapp.firebase.Like;
@@ -25,9 +26,11 @@ public class FirebaseHelper extends Firebase {
     private static Context sContext;
     private static final String URL = "https://edusearch.firebaseio.com/";
     private static FirebaseHelper INSTANCE;
-    private static String userID;
+    private static String userID = null;
     private static UserInfo userInfo;
-    private static ArrayList<Like> userLikes;
+    private static ArrayList<HashMap<String, String>> userLikes;
+
+
 
 
     public FirebaseHelper() {
@@ -55,6 +58,7 @@ public class FirebaseHelper extends Firebase {
                 Firebase userRef = INSTANCE.child("users").child(stringObjectMap.get("uid").toString());
                 userRef.setValue(userInfo);
 
+
                 logInUser(emailAddress, password);
 
             }
@@ -79,6 +83,10 @@ public class FirebaseHelper extends Firebase {
                 Toast.makeText(sContext, "Email or Password Incorrect", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public boolean isLoggedIn() {
+        return (userID != null);
     }
 
     public void logOutUser(){
@@ -106,7 +114,6 @@ public class FirebaseHelper extends Firebase {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 userInfo = (UserInfo) dataSnapshot.getValue();
-                Log.d("UserInfo Retrieved", userInfo.getName());
             }
 
             @Override
@@ -123,6 +130,12 @@ public class FirebaseHelper extends Firebase {
 
         if(userID != null){
 
+            Like like = new Like(programId, zipcode);
+
+            getUserLikes();
+            userLikes.add(like.getHashMap());
+            Firebase userRef = INSTANCE.child("users").child(userID).child("likes");
+            userRef.setValue(userLikes);
         }
 
 
@@ -132,13 +145,18 @@ public class FirebaseHelper extends Firebase {
         return null;
     }
 
-    public ArrayList<Like> getUserLikes(){
+    public ArrayList<HashMap<String, String>> getUserLikes(){
+        return userLikes;
+    }
+
+    public boolean updateUserLikes(){
+
         if(userID != null) {
-            Query likesRef = INSTANCE.child("userLikes").equalTo(userID);
+            Query likesRef = INSTANCE.child("users").equalTo(userID).equalTo("likes");
             likesRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    userLikes = (ArrayList<Like>) dataSnapshot.getValue();
+                    userLikes = (ArrayList<HashMap<String, String>>) dataSnapshot.getValue();
                 }
 
                 @Override
@@ -147,10 +165,10 @@ public class FirebaseHelper extends Firebase {
                 }
             });
 
-            return userLikes;
-        }else{
-            return null;
+            return true;
         }
+
+        return false;
 
     }
 

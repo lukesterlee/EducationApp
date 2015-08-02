@@ -32,7 +32,11 @@
 
 
         <activity android:name=".CreateAccountActivity"
-            android:theme="@style/ActionBar"/>
+            android:theme="@style/ActionBar">
+
+
+
+        </activity>
         <activity android:name=".ProfileActivity"
             android:theme="@style/ActionBar"/>
         <activity android:name=".CreateProfileActivity"

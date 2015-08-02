@@ -16,15 +16,10 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -40,6 +35,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.maps.android.ui.IconGenerator;
 
@@ -50,35 +46,25 @@ import java.util.List;
 import hackaccess.c4q.nyc.educationapp.chat.ChatRoomActivity;
 import hackaccess.c4q.nyc.educationapp.program.ProgramActivity;
 
-public class DirectoryActivity extends AppCompatActivity implements OnMapReadyCallback,
+/**
+ * Created by sufeizhao on 8/2/15.
+ */
+public class MapActivity extends AppCompatActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
-    private ListView mListView;
     private GoogleApiClient googleApiClient;
     private LocationRequest mLocationRequest;
     private GoogleMap map;
     private Location location = new Location("Current Location");
-    private CardAdapter mAdapter;
     boolean gps_enabled = false;
     private boolean isLoggedIn = false;
     private SharedPreferences preferences;
-
+    private Program programClicked;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_directory);
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        final ActionBar ab = getSupportActionBar();
-        ab.setHomeAsUpIndicator(R.drawable.ic_menu);
-        ab.setDisplayHomeAsUpEnabled(true);
-
-        mListView = (ListView) findViewById(R.id.list_view);
-        preferences = getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE);
-        isLoggedIn = preferences.getBoolean(Constants.LOGGEDIN, false);
+        setContentView(R.layout.activity_map);
 
         // Connect to Geolocation API to make current location request
         locationServiceIsAvailable();
@@ -92,9 +78,6 @@ public class DirectoryActivity extends AppCompatActivity implements OnMapReadyCa
         MapFragment mapFragment = (MapFragment) this.getFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         map = mapFragment.getMap();
-
-        mListView.setOnItemClickListener(new ProgramClickListener());
-
     }
 
     @Override
@@ -188,7 +171,7 @@ public class DirectoryActivity extends AppCompatActivity implements OnMapReadyCa
         protected Address doInBackground(Void... params) {
             Address address = null;
 
-            Geocoder geocoder = new Geocoder(DirectoryActivity.this);
+            Geocoder geocoder = new Geocoder(MapActivity.this);
             try {
                 List<Address> locations = geocoder.getFromLocation(
                         location.getLatitude(), location.getLongitude(), 1 /* maxResults */);
@@ -216,23 +199,8 @@ public class DirectoryActivity extends AppCompatActivity implements OnMapReadyCa
 
         @Override
         protected void onPostExecute(List<Program> programs) {
-            mAdapter = new CardAdapter(getApplicationContext(), programs);
-            mListView.setAdapter(mAdapter);
             populateMap(programs);
         }
-    }
-
-    public class ProgramClickListener implements AdapterView.OnItemClickListener {
-
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            Intent intent = new Intent(DirectoryActivity.this, ProgramActivity.class);
-            Program program = (Program) parent.getItemAtPosition(position);
-
-            intent.putExtra(Constants.EXTRA_PROGRAM, (Parcelable) program);
-            startActivity(intent);
-        }
-
     }
 
     // Task to decode current location
@@ -246,17 +214,20 @@ public class DirectoryActivity extends AppCompatActivity implements OnMapReadyCa
 
             latLngs.add(latLng);
 
-            IconGenerator mIconGenerator = new IconGenerator(DirectoryActivity.this);
+            IconGenerator mIconGenerator = new IconGenerator(MapActivity.this);
             Bitmap iconBitmap = mIconGenerator.makeIcon(Integer.toString(count));
-            map.addMarker(new MarkerOptions()
+            map.addMarker(new MarkerOptions().get
                     .position(latLng)
                     .title(program.getName())
+                    .snippet(getResources().getString(R.string.marker_snippet))
                     .icon(BitmapDescriptorFactory.fromBitmap(iconBitmap)));
+
             count++;
         }
 
         Log.d("Map", "Fix Zoom");
         fixZoomForLatLngs(map, latLngs);
+        map.setOnInfoWindowClickListener(new ProgramClickListener(programs));
     }
 
     public static void fixZoomForLatLngs(GoogleMap map, List<LatLng> latLngs) {
@@ -270,11 +241,29 @@ public class DirectoryActivity extends AppCompatActivity implements OnMapReadyCa
         }
     }
 
+    public class ProgramClickListener implements GoogleMap.OnInfoWindowClickListener {
+        List<Program> programs;
+
+        public ProgramClickListener(List<Program> programs) {
+            this.programs = programs;
+        }
+
+        @Override
+        public void onInfoWindowClick(Marker marker) {
+            Intent intent = new Intent(MapActivity.this, ProgramActivity.class);
+            String title = marker.getTitle();
+            Program program = programs.get(programs.indexOf(title));
+
+            intent.putExtra(Constants.EXTRA_PROGRAM, (Parcelable) program);
+            startActivity(intent);
+        }
+    }
+
     // MENU RESOURCES
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.directory_menu, menu);
+        getMenuInflater().inflate(R.menu.map_menu, menu);
 
         return true;
     }
@@ -285,9 +274,9 @@ public class DirectoryActivity extends AppCompatActivity implements OnMapReadyCa
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        if (id == R.id.action_mapview) {
-            Intent map = new Intent(this, MapActivity.class);
-            startActivity(map);
+        if (id == R.id.action_listview) {
+            Intent list = new Intent(this, DirectoryActivity.class);
+            startActivity(list);
         }
         if (id == R.id.action_profile) {
             if (isLoggedIn) {
@@ -331,7 +320,7 @@ public class DirectoryActivity extends AppCompatActivity implements OnMapReadyCa
             dialog.setNegativeButton(getString(R.string.Cancel), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface paramDialogInterface, int paramInt) {
-                    Toast.makeText(DirectoryActivity.this, "Location Services disabled", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MapActivity.this, "Location Services disabled", Toast.LENGTH_LONG).show();
                 }
             });
             dialog.show();

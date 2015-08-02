@@ -28,20 +28,20 @@
 
         </activity>
 
-        <activity android:name=".program.ProgramActivity"/>
-
-
+        <activity android:name=".program.ProgramActivity"
+            android:noHistory="true"/>
         <activity android:name=".CreateAccountActivity"
-            android:theme="@style/ActionBar"/>
+            android:noHistory="true"/>
         <activity android:name=".ProfileActivity"
-            android:theme="@style/ActionBar"/>
+            android:noHistory="true"/>
         <activity android:name=".CreateProfileActivity"
-            android:theme="@style/ActionBar"/>
-        <activity android:name=".chat.ChatRoomActivity"/>
+            android:noHistory="true"/>
+        <activity android:name=".chat.ChatRoomActivity"
+            android:noHistory="true"/>
         <activity android:name=".SettingsActivity"
-            android:theme="@style/ActionBar"/>
-
-
+            android:noHistory="true"/>
+        <activity android:name=".MapActivity"
+            android:noHistory="true"/>
     </application>
 
 </manifest>

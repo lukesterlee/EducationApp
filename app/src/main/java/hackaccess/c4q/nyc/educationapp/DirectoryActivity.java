@@ -53,6 +53,13 @@ import hackaccess.c4q.nyc.educationapp.chat.ChatRoomActivity;
 import hackaccess.c4q.nyc.educationapp.profile.CreateProfileActivity;
 import hackaccess.c4q.nyc.educationapp.program.ProgramActivity;
 
+/* TODO:
+ * 1.) Squad tab with user favorites -- XML
+ * 2.) Assign parsed info to TextViews in ListView (open hours -- just get their Monday hours for
+ * demo if you can. And Languages.
+ * 3.) Assign parsed info to TextViews in Contacts fragments -- email, website, Facebook, Twitter.
+ */
+
 public class DirectoryActivity extends AppCompatActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener, SwipeRefreshLayout.OnRefreshListener {
 

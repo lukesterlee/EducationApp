@@ -58,6 +58,7 @@ import hackaccess.c4q.nyc.educationapp.program.ProgramActivity;
  * 2.) Assign parsed info to TextViews in ListView (open hours -- just get their Monday hours for
  * demo if you can. And Languages.
  * 3.) Assign parsed info to TextViews in Contacts fragments -- email, website, Facebook, Twitter.
+ * 4.) In ListView, add numbers to correspond to map markers (marker 1 to LV item 1, etc).
  */
 
 public class DirectoryActivity extends AppCompatActivity implements OnMapReadyCallback,

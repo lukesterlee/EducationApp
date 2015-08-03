@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:elevation="2dp"
         android:background="@color/primary"/>
-<<<<<<< HEAD
+
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -40,8 +40,6 @@
             android:text="@string/like" />
 
     </FrameLayout>
-=======
->>>>>>> 4ba3ccee89f6461bb445f6a729c988696a02d827
 
     <ScrollView
         android:fillViewport="true"

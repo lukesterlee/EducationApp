@@ -32,16 +32,10 @@ import hackaccess.c4q.nyc.educationapp.SettingsActivity;
 import hackaccess.c4q.nyc.educationapp.chat.ChatRoomActivity;
 import hackaccess.c4q.nyc.educationapp.profile.CreateProfileActivity;
 
-
-/**
- * Created by sufeizhao on 8/1/15.
- */
 public class ProgramActivity extends AppCompatActivity implements ActionBar.TabListener {
-
 
     private Toolbar mToolbar;
     private SlidingTabLayout mSlidingTabLayout;
-
     private Program mProgram;
     private ViewPager mViewPager;
     private ProgramActivity.ProgramPagerAdapter mAdapter;
@@ -180,7 +174,7 @@ public class ProgramActivity extends AppCompatActivity implements ActionBar.TabL
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
 
-        signMenu = menu.getItem(1);
+        signMenu = menu.getItem(0);
         if (mHelper.isLoggedIn()) {
             signMenu.setTitle("Sign Out");
 

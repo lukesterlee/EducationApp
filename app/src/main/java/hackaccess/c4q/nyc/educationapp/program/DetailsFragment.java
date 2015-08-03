@@ -27,7 +27,7 @@ public class DetailsFragment extends Fragment {
 
     private TextView mTextViewName;
     private TextView mTextViewDescription;
-    private TextView mTextViewLangueage;
+    private TextView mTextViewLanguage;
     private TextView mTextViewLastUpdated;
 
     @Nullable
@@ -44,8 +44,8 @@ public class DetailsFragment extends Fragment {
         mTextViewDescription = (TextView) result.findViewById(R.id.tv_description);
         mTextViewDescription.setText("Description : " + mProgram.getDescription());
 
-        mTextViewLangueage = (TextView) result.findViewById(R.id.tv_languages);
-        mTextViewLangueage.setText("Languages : " + mProgram.getLanguage());
+        mTextViewLanguage = (TextView) result.findViewById(R.id.tv_languages);
+        mTextViewLanguage.setText("Languages : " + mProgram.getLanguage());
 
         mTextViewLastUpdated = (TextView) result.findViewById(R.id.tv_last_updated);
         mTextViewLastUpdated.setText("Last Updated : " + mProgram.getLastUpdated());

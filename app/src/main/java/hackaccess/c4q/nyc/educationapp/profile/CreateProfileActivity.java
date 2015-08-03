@@ -26,6 +26,7 @@ import hackaccess.c4q.nyc.educationapp.chat.ChatRoomActivity;
 
 public class CreateProfileActivity extends ActionBarActivity implements ActionBar.TabListener, BackCallback {
 
+
     private SlidingTabLayout mSlidingTabLayout;
 
     private ViewPager mViewPager;

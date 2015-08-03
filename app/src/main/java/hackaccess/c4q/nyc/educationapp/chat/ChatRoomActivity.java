@@ -17,13 +17,13 @@ import android.widget.Toast;
 
 import com.google.samples.apps.iosched.ui.widget.SlidingTabLayout;
 
-import hackaccess.c4q.nyc.educationapp.MapActivity;
-import hackaccess.c4q.nyc.educationapp.profile.CreateProfileActivity;
 import hackaccess.c4q.nyc.educationapp.DirectoryActivity;
 import hackaccess.c4q.nyc.educationapp.FirebaseHelper;
+import hackaccess.c4q.nyc.educationapp.MapActivity;
 import hackaccess.c4q.nyc.educationapp.ProfileActivity;
 import hackaccess.c4q.nyc.educationapp.R;
 import hackaccess.c4q.nyc.educationapp.SettingsActivity;
+import hackaccess.c4q.nyc.educationapp.profile.CreateProfileActivity;
 
 public class ChatRoomActivity extends AppCompatActivity implements ActionBar.TabListener {
 
@@ -204,4 +204,3 @@ public class ChatRoomActivity extends AppCompatActivity implements ActionBar.Tab
         refresh();
     }
 }
-

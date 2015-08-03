@@ -38,7 +38,7 @@
                     android:paddingRight="40dp"
                     android:scaleType="center"
                     app:materialIcon="city"
-                    app:materialIconColor="#212121"
+                    app:materialIconColor="@color/primary"
                     app:materialIconSize="24dp" />
 
                 <TextView
@@ -60,7 +60,7 @@
                     android:paddingRight="40dp"
                     android:scaleType="center"
                     app:materialIcon="information"
-                    app:materialIconColor="#212121"
+                    app:materialIconColor="@color/primary"
                     app:materialIconSize="24dp" />
 
                 <TextView
@@ -83,7 +83,7 @@
                     android:paddingRight="40dp"
                     android:scaleType="center"
                     app:materialIcon="comment_multiple_outline"
-                    app:materialIconColor="#212121"
+                    app:materialIconColor="@color/primary"
                     app:materialIconSize="24dp" />
 
                 <TextView
@@ -91,7 +91,7 @@
                     style="@style/tv_body"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/tv_languages"
+                    android:layout_below="@id/tv_description"
                     android:layout_marginBottom="16dp"
                     android:layout_toRightOf="@+id/ic_languages"
                     android:text="@string/languages" />
@@ -106,7 +106,7 @@
                     android:paddingRight="40dp"
                     android:scaleType="center"
                     app:materialIcon="pencil"
-                    app:materialIconColor="#212121"
+                    app:materialIconColor="@color/primary"
                     app:materialIconSize="24dp" />
 
                 <TextView

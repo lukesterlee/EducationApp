@@ -22,7 +22,6 @@ import android.widget.Toast;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
-import com.firebase.client.Query;
 import com.firebase.client.ValueEventListener;
 
 import java.util.ArrayList;
@@ -38,7 +37,7 @@ public class ProfileActivity extends AppCompatActivity  {
 
     private ImageView profilePic, heart;
     private ListView eListView;
-    private TextView name;
+    private TextView mTextViewName;
     private Button logout, changeEmail;
     private FirebaseHelper mHelper;
     private UserInfo mUserInfo;
@@ -47,17 +46,42 @@ public class ProfileActivity extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        mHelper = FirebaseHelper.getInstance(this);
+
 
         profilePic = (ImageView) findViewById(R.id.profile_pic);
         heart = (ImageView) findViewById(R.id.heart);
-        name = (TextView) findViewById(R.id.name);
+        mTextViewName = (TextView) findViewById(R.id.name);
 
         mHelper = FirebaseHelper.getInstance(getApplicationContext());
 
-        mUserInfo = mHelper.getUserInfo();
+        Firebase firebase = mHelper.child(Constants.FIREBASE_KEY_USERS).child(mHelper.getUserID()).child(Constants.FIREBASE_KEY_FIRST_NAME);
+        firebase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                mTextViewName.setText((String) dataSnapshot.getValue());
+            }
 
-        name.setText(mUserInfo.getFirstName() + " " + mUserInfo.getLastName());
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
+        firebase = mHelper.child(Constants.FIREBASE_KEY_USERS).child(mHelper.getUserID()).child(Constants.FIREBASE_KEY_LAST_NAME);
+        firebase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                mTextViewName.append(" " + (String) dataSnapshot.getValue());
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
+
+        //mUserInfo = mHelper.getUserInfo();
+
+        //mTextViewName.setText(mUserInfo.getFirstName() + " " + mUserInfo.getLastName());
 
         changeEmail = (Button) findViewById(R.id.change_email);
         changeEmail.setOnClickListener(new View.OnClickListener() {

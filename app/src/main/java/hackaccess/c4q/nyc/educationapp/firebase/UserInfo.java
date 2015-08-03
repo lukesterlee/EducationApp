@@ -13,6 +13,13 @@ public class UserInfo {
     private HashMap<String,String> userLikes;
 
 
+    public UserInfo() {
+        firstName = "";
+        lastName = "";
+        zip = "";
+        userLikes = new HashMap<String, String>();
+    }
+
     public UserInfo(String firstName, String lastName, String zip) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -39,6 +46,13 @@ public class UserInfo {
         this.lastName = lastName;
     }
 
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
     public String getZip() {
         return zip;

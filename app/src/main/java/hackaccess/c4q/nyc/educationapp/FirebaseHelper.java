@@ -40,6 +40,9 @@ public class FirebaseHelper extends Firebase {
 
 
 
+    public String getUserID() {
+        return userID;
+    }
 
     public FirebaseHelper() {
         super(URL);
@@ -128,13 +131,14 @@ public class FirebaseHelper extends Firebase {
 
     public UserInfo getUserInfo(){
         if(isLoggedIn()) {
-
-            Firebase userRef = INSTANCE.child("users").child(userID).child("firstName");
+            userInfo = new UserInfo();
+            Firebase userRef = INSTANCE.child(Constants.FIREBASE_KEY_USERS).child(userID).child(Constants.FIREBASE_KEY_FIRST_NAME);
 
             userRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    userInfo = new UserInfo((String) dataSnapshot.getValue(), "last name");
+                    userInfo.setFirstName((String) dataSnapshot.getValue());
+
                 }
 
                 @Override
@@ -142,6 +146,19 @@ public class FirebaseHelper extends Firebase {
 
                 }
             });
+
+//            Firebase userRef2 = INSTANCE.child(Constants.FIREBASE_KEY_USERS).child(userID).child(Constants.FIREBASE_KEY_LAST_NAME);
+//            userRef2.addListenerForSingleValueEvent(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(DataSnapshot dataSnapshot) {
+//                    userInfo.setLastName((String) dataSnapshot.getValue());
+//                }
+//
+//                @Override
+//                public void onCancelled(FirebaseError firebaseError) {
+//
+//                }
+//            });
 
         }
 

@@ -38,6 +38,8 @@ public class Program implements Parcelable, Serializable {
     private String saturday;
     private String sunday;
     private String address;
+    private String websiteUrl;
+
 
 
     @Override

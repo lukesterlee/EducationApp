@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right|bottom"
             android:layout_margin="16dp"
-            android:text="@string/like" />
+            android:text="@string/favorite" />
 
     </FrameLayout>
 

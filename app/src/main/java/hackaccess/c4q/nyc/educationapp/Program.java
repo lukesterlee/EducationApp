@@ -9,9 +9,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Willee on 8/1/15.
- */
 public class Program implements Parcelable, Serializable {
 
     public static final Creator<Program> CREATOR = new Creator<Program>() {

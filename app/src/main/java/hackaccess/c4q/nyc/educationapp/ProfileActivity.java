@@ -30,9 +30,6 @@ import hackaccess.c4q.nyc.educationapp.chat.ChatRoomActivity;
 import hackaccess.c4q.nyc.educationapp.firebase.UserInfo;
 import hackaccess.c4q.nyc.educationapp.profile.CreateProfileActivity;
 
-/**
- * Created by sufeizhao on 8/1/15.
- */
 public class ProfileActivity extends AppCompatActivity  {
 
     private ImageView profilePic, heart;

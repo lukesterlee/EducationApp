@@ -46,7 +46,6 @@ public class LoginFragment extends Fragment{
         String email = emailLogin.getText().toString();
         String password = passwordLogin.getText().toString();
 
-        //TODO: Login with firebase method
         firebaseHelper.logInUser(email,password);
 
     }

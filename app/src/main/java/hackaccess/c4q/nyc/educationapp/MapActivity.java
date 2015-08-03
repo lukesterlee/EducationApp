@@ -50,9 +50,6 @@ import hackaccess.c4q.nyc.educationapp.chat.ChatRoomActivity;
 import hackaccess.c4q.nyc.educationapp.profile.CreateProfileActivity;
 import hackaccess.c4q.nyc.educationapp.program.ProgramActivity;
 
-/**
- * Created by sufeizhao on 8/2/15.
- */
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 

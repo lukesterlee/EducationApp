@@ -23,9 +23,6 @@ import hackaccess.c4q.nyc.educationapp.firebase.UserInfo;
 import hackaccess.c4q.nyc.educationapp.profile.BackCallback;
 import hackaccess.c4q.nyc.educationapp.profile.CreateProfileActivity;
 
-/**
- * Created by c4q-anthonyf on 8/1/15.
- */
 public class FirebaseHelper extends Firebase {
 
     private static Context sContext;
@@ -169,9 +166,13 @@ public class FirebaseHelper extends Firebase {
             Like like = new Like(programId, zipcode);
 
             updateUserLikes();
+
             userLikes.add(like.getHashMap());
             Firebase userRef = INSTANCE.child(Constants.FIREBASE_KEY_USERS).child(userID).child(Constants.FIREBASE_KEY_FAVORITES);
             userRef.setValue(userLikes);
+
+
+
             Toast.makeText(sContext, "Added!", Toast.LENGTH_SHORT).show();
             return true;
         }

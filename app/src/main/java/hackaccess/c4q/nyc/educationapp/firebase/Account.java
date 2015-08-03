@@ -2,9 +2,6 @@ package hackaccess.c4q.nyc.educationapp.firebase;
 
 import java.util.HashMap;
 
-/**
- * Created by c4q-anthonyf on 8/1/15.
- */
 public class Account {
 
     HashMap<String, String> account;

@@ -8,9 +8,6 @@ import android.view.MenuItem;
 
 import hackaccess.c4q.nyc.educationapp.chat.ChatRoomActivity;
 
-/**
- * Created by sufeizhao on 8/1/15.
- */
 public class SettingsActivity extends AppCompatActivity {
 
     @Override

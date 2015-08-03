@@ -12,9 +12,6 @@ import hackaccess.c4q.nyc.educationapp.Constants;
 import hackaccess.c4q.nyc.educationapp.Program;
 import hackaccess.c4q.nyc.educationapp.R;
 
-/**
- * Created by Willee on 8/1/15.
- */
 public class HoursFragment extends Fragment {
 
     private Program mProgram;

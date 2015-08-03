@@ -136,6 +136,9 @@ public class ProgramActivity extends AppCompatActivity implements ActionBar.TabL
                 case 2:
                     fragment = new ContactFragment();
                     break;
+                case 3:
+                    fragment = new SquadFragment();
+                    break;
             }
 
             fragment.setArguments(bundle);
@@ -144,7 +147,7 @@ public class ProgramActivity extends AppCompatActivity implements ActionBar.TabL
 
         @Override
         public int getCount() {
-            return 3;
+            return 4;
         }
 
         @Override
@@ -159,6 +162,9 @@ public class ProgramActivity extends AppCompatActivity implements ActionBar.TabL
                     break;
                 case 2:
                     title = "Contacts";
+                    break;
+                case 3:
+                    title = "Squad";
                     break;
             }
             return title;

@@ -27,9 +27,11 @@ public class FirebaseHelper extends Firebase {
     private static UserInfo userInfo;
     //private static ArrayList<HashMap<String, String>> userLikes = new ArrayList<>();
 
-    private static ArrayList<Program> mUserFavorites = new ArrayList<>();
+    private static List<Program> mUserFavorites = new ArrayList<>();
 
     private BackCallback mCallback;
+
+
 
 
 
@@ -179,23 +181,18 @@ public class FirebaseHelper extends Firebase {
     public boolean addFavorite(Program program){
 
         if(userID != null){
-
-            updateUserFavorites();
-
+            //updateUserFavorites();
             mUserFavorites.add(program);
-
             Firebase userRef = INSTANCE.child(Constants.FIREBASE_KEY_USERS).child(userID).child(Constants.FIREBASE_KEY_FAVORITES);
+
+            userRef.removeValue();
             userRef.setValue(mUserFavorites);
-
-
-
             Toast.makeText(sContext, "Added!", Toast.LENGTH_SHORT).show();
             return true;
         }
 
         return false;
     }
-
 
 
 
@@ -220,6 +217,7 @@ public class FirebaseHelper extends Firebase {
                         for (DataSnapshot dataSnapshot1 : iterable) {
                             Program program = dataSnapshot1.getValue(Program.class);
                             mUserFavorites.add(program);
+
                         }
                         //Toast.makeText(sContext, "Updated!", Toast.LENGTH_SHORT).show();
                     }
@@ -233,27 +231,6 @@ public class FirebaseHelper extends Firebase {
             });
         }
 
-
-
-
-
-//        
-//        if(userID != null) {
-//            Query likesRef = INSTANCE.child("users").equalTo(userID).equalTo("likes");
-//            likesRef.addListenerForSingleValueEvent(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(DataSnapshot dataSnapshot) {
-//                    userLikes = (ArrayList<HashMap<String, String>>) dataSnapshot.getValue();
-//                }
-//
-//                @Override
-//                public void onCancelled(FirebaseError firebaseError) {
-//
-//                }
-//            });
-//
-//            return true;
-//        }
 
         return false;
 

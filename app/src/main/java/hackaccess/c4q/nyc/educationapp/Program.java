@@ -38,9 +38,6 @@ public class Program implements Parcelable, Serializable {
     private String saturday;
     private String sunday;
     private String address;
-    private String websiteUrl;
-
-
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
@@ -131,7 +128,7 @@ public class Program implements Parcelable, Serializable {
     }
 
     public String getDistance() {
-        return distance + " mi";
+        return distance;
     }
 
     public void setDistance(String distance) {

@@ -12,6 +12,8 @@ import com.bumptech.glide.Glide;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class CardAdapter extends BaseAdapter {
@@ -24,6 +26,9 @@ public class CardAdapter extends BaseAdapter {
     private TextView mTextViewName;
     private TextView mTextViewDistance;
     private ImageView mImageView;
+
+    private TextView mTextViewOpenHour;
+    private TextView mTextViewLanguage;
 
     public CardAdapter(Context mContext, List<Program> mList) {
         this.mContext = mContext;
@@ -56,9 +61,42 @@ public class CardAdapter extends BaseAdapter {
         mTextViewName = (TextView) convertView.findViewById(R.id.tv_agency_name);
         mTextViewDistance = (TextView) convertView.findViewById(R.id.tv_agency_distance);
         mImageView = (ImageView) convertView.findViewById(R.id.iv_agency_photo);
+        mTextViewOpenHour = (TextView) convertView.findViewById(R.id.tv_hours);
+        mTextViewLanguage = (TextView) convertView.findViewById(R.id.tv_agency_language);
 
-        mTextViewName.setText(getItem(position).getName());
-        mTextViewDistance.setText(getItem(position).getDistance() + "");
+        Program program = getItem(position);
+
+        mTextViewName.setText(program.getName());
+        mTextViewDistance.setText(program.getDistance() + " mi");
+        mTextViewLanguage.setText("Language : " + program.getLanguage());
+
+        Calendar now = Calendar.getInstance();
+        int day = now.get(Calendar.DAY_OF_WEEK);
+        String today = "";
+        switch (day) {
+            case Calendar.MONDAY:
+                today = program.getMonday();
+                break;
+            case Calendar.TUESDAY:
+                today = program.getTuesday();
+                break;
+            case Calendar.WEDNESDAY:
+                today = program.getWednesday();
+                break;
+            case Calendar.THURSDAY:
+                today = program.getThursday();
+                break;
+            case Calendar.FRIDAY:
+                today = program.getFriday();
+                break;
+            case Calendar.SATURDAY:
+                today = program.getSaturday();
+                break;
+            case Calendar.SUNDAY:
+                today = program.getSunday();
+                break;
+        }
+        mTextViewOpenHour.setText("Today : " + today);
 
         URL url = null;
         try {

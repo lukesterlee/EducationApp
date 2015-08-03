@@ -35,13 +35,13 @@ public class HoursFragment extends Fragment {
         mTextViewHours = (TextView) result.findViewById(R.id.tv_hours);
         mTextViewAddress = (TextView) result.findViewById(R.id.tv_location);
 
-        mTextViewHours.setText("Monday: " + mProgram.getMonday() + "\n");
-        mTextViewHours.append("Tuesday: " + mProgram.getTuesday() + "\n");
-        mTextViewHours.append("Wednesday: " + mProgram.getWednesday() + "\n");
-        mTextViewHours.append("Thursday: " + mProgram.getThursday() + "\n");
-        mTextViewHours.append("Friday: " + mProgram.getFriday() + "\n");
-        mTextViewHours.append("Saturday: " + mProgram.getSaturday() + "\n");
-        mTextViewHours.append("Sunday: " + mProgram.getSunday() + "\n");
+        mTextViewHours.setText("MON : " + mProgram.getMonday() + "\n");
+        mTextViewHours.append("TUE : " + mProgram.getTuesday() + "\n");
+        mTextViewHours.append("WED : " + mProgram.getWednesday() + "\n");
+        mTextViewHours.append("THU : " + mProgram.getThursday() + "\n");
+        mTextViewHours.append("FRI : " + mProgram.getFriday() + "\n");
+        mTextViewHours.append("SAT : " + mProgram.getSaturday() + "\n");
+        mTextViewHours.append("SUN : " + mProgram.getSunday());
 
         mTextViewAddress.setText(mProgram.getAddress());
 

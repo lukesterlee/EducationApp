@@ -70,7 +70,8 @@ public class ProgramActivity extends AppCompatActivity implements ActionBar.TabL
 
         mToolbar = (Toolbar) findViewById(R.id.tool_bar);
         mButtonFavorite = (Button) findViewById(R.id.button_favorite);
-
+        mButtonFavorite.setBackgroundColor(Color.parseColor("#4BAE4F"));
+        mButtonFavorite.setTextColor(Color.WHITE);
         mToolbar.setTitleTextColor(Color.WHITE);
 
 
@@ -204,7 +205,9 @@ public class ProgramActivity extends AppCompatActivity implements ActionBar.TabL
                         for (DataSnapshot dataSnapshot1 : iterable) {
                             Program program = dataSnapshot1.getValue(Program.class);
                             if (mProgram.getProgramId().equals(program.getProgramId())) {
-                                mButtonFavorite.setText("Favorited");
+                                mButtonFavorite.setText("Saved");
+                                mButtonFavorite.setBackgroundColor(Color.parseColor("#e91e63"));
+                                mButtonFavorite.setTextColor(Color.WHITE);
                             }
                         }
 
@@ -220,7 +223,9 @@ public class ProgramActivity extends AppCompatActivity implements ActionBar.TabL
                 }
             });
         } else {
-            mButtonFavorite.setText("Favorite");
+            mButtonFavorite.setText("Save");
+            mButtonFavorite.setBackgroundColor(Color.parseColor("#4BAE4F"));
+            mButtonFavorite.setTextColor(Color.WHITE);
         }
 
 
@@ -286,25 +291,30 @@ public class ProgramActivity extends AppCompatActivity implements ActionBar.TabL
 
         String favorite = mButtonFavorite.getText().toString().toLowerCase();
 
-        if (favorite.equals("favorite")) {
+        if (favorite.equals("save")) {
             if (mHelper.addFavorite(mProgram)) {
-                mButtonFavorite.setText("Favorited");
+                mButtonFavorite.setText("Saved");
+                mButtonFavorite.setBackgroundColor(Color.parseColor("#e91e63"));
+                mButtonFavorite.setTextColor(Color.WHITE);
             }
         } else {
 
+
             mHelper.child("users").child(mUserID).child("likes").removeValue();
-
-
             List<Program> favorites = mHelper.getUserFavorites();
-
+            List<Program> newFav = new ArrayList<>();
             for (Program program : favorites) {
                 if (!mProgram.getProgramId().equals(program.getProgramId())) {
-                    mHelper.child("users").child(mUserID).child("likes").setValue(program);
+                    newFav.add(program);
+
                 }
             }
+            mHelper.child("users").child(mUserID).child("likes").setValue(newFav);
+            mButtonFavorite.setText("Save");
+            mButtonFavorite.setBackgroundColor(Color.parseColor("#4BAE4F"));
+            mButtonFavorite.setTextColor(Color.WHITE);
 
-            mButtonFavorite.setText("Favorite");
-
+            Toast.makeText(getApplicationContext(), "Deleted from the list!", Toast.LENGTH_SHORT).show();
 
 
 

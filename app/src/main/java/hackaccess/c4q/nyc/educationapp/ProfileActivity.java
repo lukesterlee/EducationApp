@@ -33,10 +33,12 @@ import hackaccess.c4q.nyc.educationapp.profile.CreateProfileActivity;
 public class ProfileActivity extends AppCompatActivity  {
 
     private ImageView profilePic, heart;
-    private ListView eListView;
+    private ListView mListView;
+    private CardAdapter mAdapter;
     private TextView mTextViewName;
     private Button logout, changeEmail;
     private FirebaseHelper mHelper;
+    private String mUserID;
     private UserInfo mUserInfo;
 
     @Override
@@ -44,12 +46,15 @@ public class ProfileActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+        mHelper = FirebaseHelper.getInstance(getApplicationContext());
+        mUserID = mHelper.getUserID();
+        mHelper.updateUserFavorites();
 
         profilePic = (ImageView) findViewById(R.id.profile_pic);
         heart = (ImageView) findViewById(R.id.heart);
         mTextViewName = (TextView) findViewById(R.id.name);
 
-        mHelper = FirebaseHelper.getInstance(getApplicationContext());
+
 
         Firebase firebase = mHelper.child(Constants.FIREBASE_KEY_USERS).child(mHelper.getUserID()).child(Constants.FIREBASE_KEY_FIRST_NAME);
         firebase.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -121,12 +126,12 @@ public class ProfileActivity extends AppCompatActivity  {
         });
 
         // Expandable listview
-        eListView = (ListView) findViewById(R.id.favorites_list);
-        //TODO likes
-        ArrayList<String> groupItems = new ArrayList<>();
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, groupItems);
-        eListView.setAdapter(adapter);
-        eListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mListView = (ListView) findViewById(R.id.favorites_list);
+
+
+        mAdapter = new CardAdapter(getApplicationContext(), mHelper.getUserFavorites());
+        mListView.setAdapter(mAdapter);
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // TODO bring up detail view

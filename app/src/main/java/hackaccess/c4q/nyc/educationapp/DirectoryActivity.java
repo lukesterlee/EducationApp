@@ -263,7 +263,8 @@ public class DirectoryActivity extends AppCompatActivity implements OnMapReadyCa
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             Intent intent = new Intent(DirectoryActivity.this, ProgramActivity.class);
-            Program program = (Program) parent.getItemAtPosition(position);
+
+            Program program = mAdapter.getItem(position);
             intent.putExtra(Constants.EXTRA_PROGRAM, (Parcelable) program);
             startActivity(intent);
         }

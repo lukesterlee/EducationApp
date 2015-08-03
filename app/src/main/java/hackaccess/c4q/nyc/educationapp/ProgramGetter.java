@@ -1,5 +1,7 @@
 package hackaccess.c4q.nyc.educationapp;
 
+import android.widget.Toast;
+
 import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONArray;
@@ -178,7 +180,7 @@ public class ProgramGetter {
                         }
 
 
-                        list.add(new Program(description, distance, language, lastUpdated,
+                        list.add(new Program(description, Double.toString(distance), language, lastUpdated,
                                 latitude, longitude, name, phoneNumber, programId, zipcode, monday,
                                 tuesday, wednesday, thursday, friday, saturday, sunday, address));
                     }

@@ -19,18 +19,18 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 import com.google.samples.apps.iosched.ui.widget.SlidingTabLayout;
 
-import java.lang.reflect.Array;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Objects;
 
 import hackaccess.c4q.nyc.educationapp.FirebaseHelper;
 import hackaccess.c4q.nyc.educationapp.chat.ChatRoomActivity;
@@ -62,7 +62,7 @@ public class ProgramActivity extends AppCompatActivity implements ActionBar.TabL
         setContentView(R.layout.activity_program);
         mHelper = FirebaseHelper.getInstance(getApplicationContext());
         mUserID = mHelper.getUserID();
-        mHelper.updateUserLikes();
+        mHelper.updateUserFavorites();
         Intent intent = getIntent();
         if (intent != null) {
             mProgram = intent.getParcelableExtra(Constants.EXTRA_PROGRAM);
@@ -206,12 +206,16 @@ public class ProgramActivity extends AppCompatActivity implements ActionBar.TabL
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if (dataSnapshot.getValue() != null) {
-                        ArrayList<HashMap<String, String>> favorites = (ArrayList<HashMap<String, String>>) dataSnapshot.getValue();
-                        for (HashMap<String, String> map : favorites) {
-                            if (mProgram.getProgramId().equals(map.get("programID"))) {
+                        Iterable<DataSnapshot> iterable = dataSnapshot.getChildren();
+                        for (DataSnapshot dataSnapshot1 : iterable) {
+                            Program program = dataSnapshot1.getValue(Program.class);
+                            if (mProgram.getProgramId().equals(program.getProgramId())) {
                                 mButtonFavorite.setText("Favorited");
                             }
                         }
+
+
+
                     }
 
                 }
@@ -289,27 +293,23 @@ public class ProgramActivity extends AppCompatActivity implements ActionBar.TabL
         String favorite = mButtonFavorite.getText().toString().toLowerCase();
 
         if (favorite.equals("favorite")) {
-            if (mHelper.addFavorite(mProgram.getProgramId(), mProgram.getZipcode())) {
+            if (mHelper.addFavorite(mProgram)) {
                 mButtonFavorite.setText("Favorited");
             }
         } else {
 
-            ArrayList<HashMap<String, String>> favorites = mHelper.getUserLikes();
+            mHelper.child("users").child(mUserID).child("likes").removeValue();
 
-            for (int i = 0; i < favorites.size(); i++) {
-                HashMap<String, String> map = favorites.get(i);
-                if (mProgram.getProgramId().equals(map.get("programID"))) {
-                    favorites.remove(i);
+
+            List<Program> favorites = mHelper.getUserFavorites();
+
+            for (Program program : favorites) {
+                if (!mProgram.getProgramId().equals(program.getProgramId())) {
+                    mHelper.child("users").child(mUserID).child("likes").setValue(program);
                 }
             }
-            Firebase firebase = new Firebase(Constants.FIREBASE_URL);
-            firebase.child("users").child(mUserID).child("likes").removeValue();
-            firebase.child("users").child(mUserID).child("likes").setValue(favorites);
-            mButtonFavorite.setText("Favorite");
 
-//            if (mHelper.updateUserLikes()) {
-//
-//            }
+            mButtonFavorite.setText("Favorite");
 
 
 

@@ -3,11 +3,7 @@ package hackaccess.c4q.nyc.educationapp;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.android.gms.maps.model.LatLng;
-
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Program implements Parcelable, Serializable {
 
@@ -25,7 +21,7 @@ public class Program implements Parcelable, Serializable {
 
 
     private String name;
-    private double distance;
+    private String distance;
     private double latitude;
     private double longitude;
     private String description;
@@ -47,7 +43,7 @@ public class Program implements Parcelable, Serializable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(name);
-        dest.writeDouble(distance);
+        dest.writeString(distance);
         dest.writeDouble(latitude);
         dest.writeDouble(longitude);
         dest.writeString(description);
@@ -70,7 +66,7 @@ public class Program implements Parcelable, Serializable {
 
     public Program() {
         name = "";
-        distance = 0;
+        distance = "";
         latitude = 0;
         longitude = 0;
         description = "";
@@ -85,7 +81,7 @@ public class Program implements Parcelable, Serializable {
 
     public Program(Parcel parcel) {
         name = parcel.readString();
-        distance = parcel.readDouble();
+        distance = parcel.readString();
         latitude = parcel.readDouble();
         longitude = parcel.readDouble();
         description = parcel.readString();
@@ -104,7 +100,7 @@ public class Program implements Parcelable, Serializable {
         address = parcel.readString();
     }
 
-    public Program(String description, double distance,
+    public Program(String description, String distance,
                    String language, String lastUpdated,
                    double latitude, double longitude,
                    String name, String phoneNumber,
@@ -136,7 +132,7 @@ public class Program implements Parcelable, Serializable {
         return distance + " mi";
     }
 
-    public void setDistance(double distance) {
+    public void setDistance(String distance) {
         this.distance = distance;
     }
 

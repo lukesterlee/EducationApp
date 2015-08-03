@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,15 +21,15 @@
                 android:padding="16dp">
 
                 <net.steamcrafted.materialiconlib.MaterialIconView xmlns:app="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/ic_office"
+                    android:id="@+id/ic_briefcase"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
-                    android:paddingBottom="16dp"
+                    android:paddingBottom="24dp"
                     android:paddingRight="40dp"
                     android:scaleType="center"
-                    app:materialIcon="city"
+                    app:materialIcon="briefcase"
                     app:materialIconColor="@color/primary"
                     app:materialIconSize="24dp" />
 
@@ -42,8 +38,8 @@
                     style="@style/tv_body"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:layout_toRightOf="@+id/ic_office"
+                    android:layout_marginBottom="24dp"
+                    android:layout_toRightOf="@+id/ic_briefcase"
                     android:text="@string/office_name" />
 
                 <net.steamcrafted.materialiconlib.MaterialIconView xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -52,7 +48,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_below="@id/tv_office_name"
-                    android:paddingBottom="16dp"
+                    android:paddingBottom="24dp"
                     android:paddingRight="40dp"
                     android:scaleType="center"
                     app:materialIcon="information"
@@ -65,8 +61,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_office_name"
-                    android:layout_marginBottom="16dp"
-                    android:layout_toRightOf="@+id/ic_office"
+                    android:layout_marginBottom="24dp"
+                    android:layout_toRightOf="@+id/ic_briefcase"
                     android:text="@string/description" />
 
                 <net.steamcrafted.materialiconlib.MaterialIconView xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -75,7 +71,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_below="@id/tv_description"
-                    android:paddingBottom="16dp"
+                    android:paddingBottom="24dp"
                     android:paddingRight="40dp"
                     android:scaleType="center"
                     app:materialIcon="comment_multiple_outline"
@@ -88,7 +84,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_description"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginBottom="24dp"
                     android:layout_toRightOf="@+id/ic_languages"
                     android:text="@string/languages" />
 
@@ -98,7 +94,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_below="@id/tv_languages"
-                    android:paddingBottom="16dp"
+                    android:paddingBottom="24dp"
                     android:paddingRight="40dp"
                     android:scaleType="center"
                     app:materialIcon="pencil"

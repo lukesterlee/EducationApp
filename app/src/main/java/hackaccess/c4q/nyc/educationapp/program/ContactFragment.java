@@ -26,19 +26,14 @@ public class ContactFragment extends Fragment {
         View result = inflater.inflate(R.layout.fragment_contact, container, false);
 
 
-
-
         Bundle bundle = getArguments();
 
         if (bundle != null) {
             mProgram = bundle.getParcelable(Constants.EXTRA_PROGRAM);
         }
 
-
         mTextViewPhoneNumber = (TextView) result.findViewById(R.id.tv_phone_number);
-        mTextViewPhoneNumber.setText("(Tel) " + mProgram.getPhoneNumber());
-
-
+        mTextViewPhoneNumber.setText(mProgram.getPhoneNumber());
 
         return result;
     }

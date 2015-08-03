@@ -52,7 +52,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/tv_agency_hours"
+                android:id="@+id/tv_hours"
                 style="@style/tv_agency_details"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

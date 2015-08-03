@@ -50,4 +50,9 @@
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="enter_password">Enter password</string>
+    <string name="agency_address">Address</string>
+    <string name="agency_email">email</string>
+    <string name="agency_website">website</string>
+    <string name="agency_facebook">Facebook</string>
+    <string name="agency_twitter">Twitter</string>
 </resources>

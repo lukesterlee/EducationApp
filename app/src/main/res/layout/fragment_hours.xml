@@ -1,39 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:orientation="vertical">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:fillViewport="true">
 
-            <TextView
-                android:id="@+id/tv_hours"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:text="@string/hours" />
+                android:orientation="vertical"
+                android:padding="16dp">
 
-            <TextView
-                android:id="@+id/tv_location"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:text="@string/location" />
+                <net.steamcrafted.materialiconlib.MaterialIconView xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/ic_hours"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:paddingBottom="24dp"
+                    android:paddingRight="40dp"
+                    android:scaleType="center"
+                    app:materialIcon="clock"
+                    app:materialIconColor="@color/primary"
+                    app:materialIconSize="24dp" />
 
-            <!-- Intent to Google Maps -->
-            <TextView
-                android:id="@+id/tv_get_directions"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:text="@string/get_directions" />
+                <TextView
+                    android:id="@+id/tv_hours"
+                    style="@style/tv_body"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="24dp"
+                    android:layout_toRightOf="@+id/ic_hours"
+                    android:text="@string/hours" />
 
-        </LinearLayout>
+                <net.steamcrafted.materialiconlib.MaterialIconView xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/ic_agency_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@id/tv_hours"
+                    android:paddingBottom="24dp"
+                    android:paddingRight="40dp"
+                    android:scaleType="center"
+                    app:materialIcon="city"
+                    app:materialIconColor="@color/primary"
+                    app:materialIconSize="24dp" />
 
+                <TextView
+                    android:id="@+id/tv_location"
+                    style="@style/tv_body"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_hours"
+                    android:layout_marginBottom="24dp"
+                    android:layout_toRightOf="@+id/ic_agency_address"
+                    android:text="@string/agency_address" />
 
-</ScrollView>
+                <net.steamcrafted.materialiconlib.MaterialIconView xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/ic_directions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@id/tv_location"
+                    android:paddingBottom="24dp"
+                    android:paddingRight="40dp"
+                    android:scaleType="center"
+                    app:materialIcon="directions"
+                    app:materialIconColor="@color/primary"
+                    app:materialIconSize="24dp" />
+
+                <TextView
+                    android:id="@+id/tv_get_directions"
+                    style="@style/tv_body"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_location"
+                    android:layout_marginBottom="24dp"
+                    android:layout_toRightOf="@+id/ic_directions"
+                    android:text="@string/get_directions" />
+
+            </RelativeLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+</LinearLayout>

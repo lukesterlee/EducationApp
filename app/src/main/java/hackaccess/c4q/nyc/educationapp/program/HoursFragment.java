@@ -38,16 +38,15 @@ public class HoursFragment extends Fragment {
         mTextViewHours = (TextView) result.findViewById(R.id.tv_hours);
         mTextViewAddress = (TextView) result.findViewById(R.id.tv_location);
 
-        mTextViewHours.setText("Monday : " + mProgram.getMonday() + "\n");
-        mTextViewHours.append("Tuesday : " + mProgram.getTuesday() + "\n");
-        mTextViewHours.append("Wednesday : " + mProgram.getWednesday() + "\n");
-        mTextViewHours.append("Thursday : " + mProgram.getThursday() + "\n");
-        mTextViewHours.append("Friday : " + mProgram.getFriday() + "\n");
-        mTextViewHours.append("Saturday : " + mProgram.getSaturday() + "\n");
-        mTextViewHours.append("Sunday : " + mProgram.getSunday() + "\n");
+        mTextViewHours.setText("Monday: " + mProgram.getMonday() + "\n");
+        mTextViewHours.append("Tuesday: " + mProgram.getTuesday() + "\n");
+        mTextViewHours.append("Wednesday: " + mProgram.getWednesday() + "\n");
+        mTextViewHours.append("Thursday: " + mProgram.getThursday() + "\n");
+        mTextViewHours.append("Friday: " + mProgram.getFriday() + "\n");
+        mTextViewHours.append("Saturday: " + mProgram.getSaturday() + "\n");
+        mTextViewHours.append("Sunday: " + mProgram.getSunday() + "\n");
 
-        mTextViewAddress.setText("Address : " + mProgram.getAddress());
-
+        mTextViewAddress.setText(mProgram.getAddress());
 
         return result;
     }

@@ -1,52 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:orientation="vertical">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:fillViewport="true">
 
-            <TextView
-                android:id="@+id/tv_phone_number"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:text="@string/phone_number" />
+                android:orientation="vertical"
+                android:padding="16dp">
 
-            <TextView
-                android:id="@+id/tv_email"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:text="@string/email" />
+                <net.steamcrafted.materialiconlib.MaterialIconView xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/ic_telephone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:paddingBottom="24dp"
+                    android:paddingRight="40dp"
+                    android:scaleType="center"
+                    app:materialIcon="phone"
+                    app:materialIconColor="@color/primary"
+                    app:materialIconSize="24dp" />
 
-            <TextView
-                android:id="@+id/tv_website"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:text="@string/website" />
+                <TextView
+                    android:id="@+id/tv_phone_number"
+                    style="@style/tv_body"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="24dp"
+                    android:layout_toRightOf="@+id/ic_telephone"
+                    android:text="@string/phone_number" />
 
-            <TextView
-                android:id="@+id/tv_facebook"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:text="@string/facebook" />
+                <net.steamcrafted.materialiconlib.MaterialIconView xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/ic_agency_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@id/tv_phone_number"
+                    android:paddingBottom="24dp"
+                    android:paddingRight="40dp"
+                    android:scaleType="center"
+                    app:materialIcon="email"
+                    app:materialIconColor="@color/primary"
+                    app:materialIconSize="24dp" />
 
-            <TextView
-                android:id="@+id/tv_twitter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:text="@string/twitter" />
+                <TextView
+                    android:id="@+id/tv_agency_email"
+                    style="@style/tv_body"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_phone_number"
+                    android:layout_marginBottom="24dp"
+                    android:layout_toRightOf="@+id/ic_agency_email"
+                    android:text="@string/agency_email" />
 
-        </LinearLayout>
+                <net.steamcrafted.materialiconlib.MaterialIconView xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/ic_website"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@id/tv_agency_email"
+                    android:paddingBottom="24dp"
+                    android:paddingRight="40dp"
+                    android:scaleType="center"
+                    app:materialIcon="web"
+                    app:materialIconColor="@color/primary"
+                    app:materialIconSize="24dp" />
 
+                <TextView
+                    android:id="@+id/tv_agency_website"
+                    style="@style/tv_body"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_agency_email"
+                    android:layout_marginBottom="24dp"
+                    android:layout_toRightOf="@+id/ic_website"
+                    android:text="@string/agency_website" />
 
-</ScrollView>
+                <net.steamcrafted.materialiconlib.MaterialIconView xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/ic_facebook"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@id/tv_agency_website"
+                    android:paddingBottom="24dp"
+                    android:paddingRight="40dp"
+                    android:scaleType="center"
+                    app:materialIcon="facebook"
+                    app:materialIconColor="@color/primary"
+                    app:materialIconSize="24dp" />
+
+                <TextView
+                    android:id="@+id/tv_agency_facebook"
+                    style="@style/tv_body"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_agency_website"
+                    android:layout_marginBottom="24dp"
+                    android:layout_toRightOf="@+id/ic_facebook"
+                    android:text="@string/agency_facebook" />
+
+                <net.steamcrafted.materialiconlib.MaterialIconView xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/ic_twitter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@id/tv_agency_facebook"
+                    android:paddingBottom="24dp"
+                    android:paddingRight="40dp"
+                    android:scaleType="center"
+                    app:materialIcon="twitter"
+                    app:materialIconColor="@color/primary"
+                    app:materialIconSize="24dp" />
+
+                <TextView
+                    android:id="@+id/tv_agency_twitter"
+                    style="@style/tv_body"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_agency_facebook"
+                    android:layout_marginBottom="24dp"
+                    android:layout_toRightOf="@+id/ic_twitter"
+                    android:text="@string/agency_twitter" />
+
+            </RelativeLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+</LinearLayout>

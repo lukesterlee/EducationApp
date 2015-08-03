@@ -6,13 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
-
-import java.net.MalformedURLException;
-import java.net.URL;
 
 import hackaccess.c4q.nyc.educationapp.Constants;
 import hackaccess.c4q.nyc.educationapp.Program;
@@ -42,13 +36,13 @@ public class DetailsFragment extends Fragment {
         }
 
         mTextViewDescription = (TextView) result.findViewById(R.id.tv_description);
-        mTextViewDescription.setText("Description : " + mProgram.getDescription());
+        mTextViewDescription.setText(mProgram.getDescription());
 
         mTextViewLanguage = (TextView) result.findViewById(R.id.tv_languages);
-        mTextViewLanguage.setText("Languages : " + mProgram.getLanguage());
+        mTextViewLanguage.setText(mProgram.getLanguage());
 
         mTextViewLastUpdated = (TextView) result.findViewById(R.id.tv_last_updated);
-        mTextViewLastUpdated.setText("Last Updated : " + mProgram.getLastUpdated());
+        mTextViewLastUpdated.setText(mProgram.getLastUpdated());
 
         mTextViewName = (TextView) result.findViewById(R.id.tv_office_name);
         mTextViewName.setText(mProgram.getName());

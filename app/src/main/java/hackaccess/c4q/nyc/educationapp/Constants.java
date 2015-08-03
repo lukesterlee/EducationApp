@@ -19,4 +19,7 @@ public abstract class Constants {
     public static final String FIREBASE_KEY_USERS = "users";
     public static final String FIREBASE_KEY_FIRST_NAME = "firstName";
     public static final String FIREBASE_KEY_LAST_NAME = "lastName";
+    public static final String FIREBASE_KEY_FAVORITES = "likes";
+
+    public static final String FIREBASE_URL = "https://edusearch.firebaseio.com/";
 }

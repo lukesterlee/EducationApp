@@ -13,28 +13,37 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.firebase.client.ChildEventListener;
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 import com.google.samples.apps.iosched.ui.widget.SlidingTabLayout;
 
+import java.lang.reflect.Array;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import hackaccess.c4q.nyc.educationapp.FirebaseHelper;
 import hackaccess.c4q.nyc.educationapp.chat.ChatRoomActivity;
 import hackaccess.c4q.nyc.educationapp.Constants;
-import hackaccess.c4q.nyc.educationapp.FirebaseHelper;
 import hackaccess.c4q.nyc.educationapp.ProfileActivity;
 import hackaccess.c4q.nyc.educationapp.Program;
 import hackaccess.c4q.nyc.educationapp.R;
 import hackaccess.c4q.nyc.educationapp.SettingsActivity;
-import hackaccess.c4q.nyc.educationapp.chat.ChatRoomActivity;
 import hackaccess.c4q.nyc.educationapp.profile.CreateProfileActivity;
 
-public class ProgramActivity extends AppCompatActivity implements ActionBar.TabListener {
+public class ProgramActivity extends AppCompatActivity implements ActionBar.TabListener, View.OnClickListener {
 
+    private static final String PRE_ENDPOINT = "https://maps.googleapis.com/maps/api/streetview?key=AIzaSyDTaAeiCfVCXJhdweubPkgIvsni3s1-9ss&size=800x400&location=";
     private Toolbar mToolbar;
     private SlidingTabLayout mSlidingTabLayout;
     private Program mProgram;
@@ -43,20 +52,24 @@ public class ProgramActivity extends AppCompatActivity implements ActionBar.TabL
     private FirebaseHelper mHelper;
     private ImageView image;
     private MenuItem signMenu;
-    private String preHTTP = "https://maps.googleapis.com/maps/api/streetview?key=AIzaSyDTaAeiCfVCXJhdweubPkgIvsni3s1-9ss&size=800x400&location=";
+    private Button mButtonFavorite;
+    private String mUserID;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_program);
         mHelper = FirebaseHelper.getInstance(getApplicationContext());
-
+        mUserID = mHelper.getUserID();
+        mHelper.updateUserLikes();
         Intent intent = getIntent();
         if (intent != null) {
             mProgram = intent.getParcelableExtra(Constants.EXTRA_PROGRAM);
         }
 
         mToolbar = (Toolbar) findViewById(R.id.tool_bar);
+        mButtonFavorite = (Button) findViewById(R.id.button_favorite);
 
         mToolbar.setTitleTextColor(Color.WHITE);
 
@@ -89,12 +102,13 @@ public class ProgramActivity extends AppCompatActivity implements ActionBar.TabL
         image = (ImageView) findViewById(R.id.image);
         URL url = null;
         try {
-            url = new URL(preHTTP + mProgram.getLatitude() + "," + mProgram.getLongitude());
+            url = new URL(PRE_ENDPOINT + mProgram.getLatitude() + "," + mProgram.getLongitude());
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
 
         Glide.with(this).load(url).centerCrop().into(image);
+
 
 
     }
@@ -178,6 +192,35 @@ public class ProgramActivity extends AppCompatActivity implements ActionBar.TabL
                 signMenu.setTitle("Sign In");
             }
         }
+
+        if (mUserID != null) {
+            mButtonFavorite.setOnClickListener(this);
+            Firebase firebase = new Firebase(Constants.FIREBASE_URL);
+            firebase.child(Constants.FIREBASE_KEY_USERS).child(mUserID).child(Constants.FIREBASE_KEY_FAVORITES).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.getValue() != null) {
+                        ArrayList<HashMap<String, String>> favorites = (ArrayList<HashMap<String, String>>) dataSnapshot.getValue();
+                        for (HashMap<String, String> map : favorites) {
+                            if (mProgram.getProgramId().equals(map.get("programID"))) {
+                                mButtonFavorite.setText("Favorited");
+                            }
+                        }
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
+
+                }
+            });
+        } else {
+            mButtonFavorite.setText("Favorite");
+        }
+
+
+
     }
 
     @Override
@@ -232,5 +275,41 @@ public class ProgramActivity extends AppCompatActivity implements ActionBar.TabL
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        String favorite = mButtonFavorite.getText().toString().toLowerCase();
+
+        if (favorite.equals("favorite")) {
+            if (mHelper.addFavorite(mProgram.getProgramId(), mProgram.getZipcode())) {
+                mButtonFavorite.setText("Favorited");
+            }
+        } else {
+
+            ArrayList<HashMap<String, String>> favorites = mHelper.getUserLikes();
+
+            for (int i = 0; i < favorites.size(); i++) {
+                HashMap<String, String> map = favorites.get(i);
+                if (mProgram.getProgramId().equals(map.get("programID"))) {
+                    favorites.remove(i);
+                }
+            }
+            Firebase firebase = new Firebase(Constants.FIREBASE_URL);
+            firebase.child("users").child(mUserID).child("likes").removeValue();
+            firebase.child("users").child(mUserID).child("likes").setValue(favorites);
+            mButtonFavorite.setText("Favorite");
+
+//            if (mHelper.updateUserLikes()) {
+//
+//            }
+
+
+
+
+        }
+
+
     }
 }

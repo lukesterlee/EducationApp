@@ -33,7 +33,7 @@ public class FirebaseHelper extends Firebase {
     private static FirebaseHelper INSTANCE;
     private static String userID = null;
     private static UserInfo userInfo;
-    private static ArrayList<HashMap<String, String>> userLikes;
+    private static ArrayList<HashMap<String, String>> userLikes = new ArrayList<>();
 
 
     private BackCallback mCallback;
@@ -72,11 +72,7 @@ public class FirebaseHelper extends Firebase {
 
                 Firebase userRef = INSTANCE.child("users").child(stringObjectMap.get("uid").toString());
                 userRef.setValue(userInfo);
-
-
                 logInUser(emailAddress, password);
-
-
 
             }
 
@@ -166,20 +162,26 @@ public class FirebaseHelper extends Firebase {
     }
 
 
-    public void addLike(String programId, String zipcode){
+    public boolean addFavorite(String programId, String zipcode){
 
         if(userID != null){
 
             Like like = new Like(programId, zipcode);
 
-            getUserLikes();
+            updateUserLikes();
             userLikes.add(like.getHashMap());
-            Firebase userRef = INSTANCE.child("users").child(userID).child("likes");
+            Firebase userRef = INSTANCE.child(Constants.FIREBASE_KEY_USERS).child(userID).child(Constants.FIREBASE_KEY_FAVORITES);
             userRef.setValue(userLikes);
+            Toast.makeText(sContext, "Added!", Toast.LENGTH_SHORT).show();
+            return true;
         }
 
-
+        return false;
     }
+
+
+
+
 
     public ArrayList<Like> getOfficeLikes(String programID, String zipcode){
         return null;
@@ -191,12 +193,17 @@ public class FirebaseHelper extends Firebase {
 
     public boolean updateUserLikes(){
 
-        if(userID != null) {
-            Query likesRef = INSTANCE.child("users").equalTo(userID).equalTo("likes");
-            likesRef.addListenerForSingleValueEvent(new ValueEventListener() {
+
+        if (userID != null) {
+            Firebase firebase = new Firebase(Constants.FIREBASE_URL);
+            firebase.child(Constants.FIREBASE_KEY_USERS).child(userID).child(Constants.FIREBASE_KEY_FAVORITES).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    userLikes = (ArrayList<HashMap<String, String>>) dataSnapshot.getValue();
+                    if (dataSnapshot.getValue() != null) {
+                        userLikes = (ArrayList<HashMap<String, String>>) dataSnapshot.getValue();
+                        //Toast.makeText(sContext, "Updated!", Toast.LENGTH_SHORT).show();
+                    }
+
                 }
 
                 @Override
@@ -204,9 +211,29 @@ public class FirebaseHelper extends Firebase {
 
                 }
             });
-
-            return true;
         }
+
+
+
+
+
+//        
+//        if(userID != null) {
+//            Query likesRef = INSTANCE.child("users").equalTo(userID).equalTo("likes");
+//            likesRef.addListenerForSingleValueEvent(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(DataSnapshot dataSnapshot) {
+//                    userLikes = (ArrayList<HashMap<String, String>>) dataSnapshot.getValue();
+//                }
+//
+//                @Override
+//                public void onCancelled(FirebaseError firebaseError) {
+//
+//                }
+//            });
+//
+//            return true;
+//        }
 
         return false;
 

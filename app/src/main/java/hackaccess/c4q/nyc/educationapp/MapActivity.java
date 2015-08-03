@@ -54,7 +54,7 @@ import hackaccess.c4q.nyc.educationapp.program.ProgramActivity;
  * Created by sufeizhao on 8/2/15.
  */
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback,
-        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener, SwipeRefreshLayout.OnRefreshListener {
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
     private GoogleApiClient googleApiClient;
     private LocationRequest mLocationRequest;
@@ -63,19 +63,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     boolean gps_enabled = false;
     private boolean isLoggedIn = false;
     private SharedPreferences preferences;
-    private SwipeRefreshLayout swipeLayout;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
-
-        swipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
-        swipeLayout.setOnRefreshListener(this);
-        swipeLayout.setColorScheme(android.R.color.holo_blue_bright,
-                android.R.color.holo_green_light,
-                android.R.color.holo_orange_light,
-                android.R.color.holo_red_light);
 
         // Connect to Geolocation API to make current location request
         locationServiceIsAvailable();
@@ -200,15 +192,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             new ProgramTask().execute(zipcode);
         }
     };
-
-    @Override
-    public void onRefresh() {
-        new Handler().postDelayed(new Runnable() {
-            @Override public void run() {
-                swipeLayout.setRefreshing(false);
-            }
-        }, 5000);
-    }
 
     private class ProgramTask extends AsyncTask<String, Void, List<Program>> {
 

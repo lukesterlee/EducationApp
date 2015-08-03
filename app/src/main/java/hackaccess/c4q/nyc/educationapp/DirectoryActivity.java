@@ -350,6 +350,9 @@ public class DirectoryActivity extends AppCompatActivity implements OnMapReadyCa
                 break;
             case R.id.action_profile:
                 if (mHelper.isLoggedIn()) {
+
+
+
                     Intent profile = new Intent(this, ProfileActivity.class);
                     startActivity(profile);
                 } else {

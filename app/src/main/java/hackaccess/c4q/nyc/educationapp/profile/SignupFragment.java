@@ -87,6 +87,8 @@ public class SignupFragment extends Fragment{
             String zip = zipcode.getText().toString();
             String pword = password.getText().toString();
 
+
+
             //Creates user account on Firebase
 
             UserInfo userInfo = new UserInfo(fName,lName,zip);

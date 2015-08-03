@@ -12,10 +12,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.samples.apps.iosched.ui.widget.SlidingTabLayout;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import hackaccess.c4q.nyc.educationapp.FirebaseHelper;
+import hackaccess.c4q.nyc.educationapp.chat.ChatRoomActivity;
 import hackaccess.c4q.nyc.educationapp.Constants;
 import hackaccess.c4q.nyc.educationapp.FirebaseHelper;
 import hackaccess.c4q.nyc.educationapp.ProfileActivity;
@@ -25,21 +32,17 @@ import hackaccess.c4q.nyc.educationapp.SettingsActivity;
 import hackaccess.c4q.nyc.educationapp.chat.ChatRoomActivity;
 import hackaccess.c4q.nyc.educationapp.profile.CreateProfileActivity;
 
-
-/**
- * Created by sufeizhao on 8/1/15.
- */
 public class ProgramActivity extends AppCompatActivity implements ActionBar.TabListener {
-
 
     private Toolbar mToolbar;
     private SlidingTabLayout mSlidingTabLayout;
-
     private Program mProgram;
     private ViewPager mViewPager;
     private ProgramActivity.ProgramPagerAdapter mAdapter;
     private FirebaseHelper mHelper;
-
+    private ImageView image;
+    private MenuItem signMenu;
+    private String preHTTP = "https://maps.googleapis.com/maps/api/streetview?key=AIzaSyDTaAeiCfVCXJhdweubPkgIvsni3s1-9ss&size=800x400&location=";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,16 +76,15 @@ public class ProgramActivity extends AppCompatActivity implements ActionBar.TabL
         mSlidingTabLayout.setViewPager(mViewPager);
 
 
-        //Program program = intent.getParcelableExtra("program");
+        image = (ImageView) findViewById(R.id.image);
+        URL url = null;
+        try {
+            url = new URL(preHTTP + mProgram.getLatitude() + "," + mProgram.getLongitude());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
 
-        // Add 3 tabs, specifying the tab's text and TabListener
-//        for (int i = 0; i < 3; i++) {
-//
-//            actionBar.addTab(
-//                    actionBar.newTab()
-//                            .setText("Tab " + (i + 1))
-//                            .setTabListener(this));
-//        }
+        Glide.with(this).load(url).centerCrop().into(image);
 
 
     }
@@ -155,9 +157,32 @@ public class ProgramActivity extends AppCompatActivity implements ActionBar.TabL
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        if(signMenu != null) {
+            if (mHelper.isLoggedIn()) {
+                signMenu.setTitle("Sign Out");
+
+            } else {
+                signMenu.setTitle("Sign In");
+            }
+        }
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        signMenu = menu.getItem(0);
+        if (mHelper.isLoggedIn()) {
+            signMenu.setTitle("Sign Out");
+
+        } else {
+            signMenu.setTitle("Sign In");
+
+        }
+
         return true;
     }
 

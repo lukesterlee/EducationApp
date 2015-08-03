@@ -1,6 +1,10 @@
 package hackaccess.c4q.nyc.educationapp;
 
+import android.app.Activity;
+import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.firebase.client.AuthData;
@@ -16,6 +20,8 @@ import java.util.Map;
 
 import hackaccess.c4q.nyc.educationapp.firebase.Like;
 import hackaccess.c4q.nyc.educationapp.firebase.UserInfo;
+import hackaccess.c4q.nyc.educationapp.profile.BackCallback;
+import hackaccess.c4q.nyc.educationapp.profile.CreateProfileActivity;
 
 /**
  * Created by c4q-anthonyf on 8/1/15.
@@ -28,6 +34,9 @@ public class FirebaseHelper extends Firebase {
     private static String userID = null;
     private static UserInfo userInfo;
     private static ArrayList<HashMap<String, String>> userLikes;
+
+
+    private BackCallback mCallback;
 
 
 
@@ -45,6 +54,10 @@ public class FirebaseHelper extends Firebase {
         return INSTANCE;
     }
 
+    public void setCallback(BackCallback mCallback) {
+        this.mCallback = mCallback;
+    }
+
 
     public void createAccount(final String emailAddress, final String password, final UserInfo userInfo) {
 
@@ -59,6 +72,8 @@ public class FirebaseHelper extends Firebase {
 
 
                 logInUser(emailAddress, password);
+
+
 
             }
 
@@ -76,6 +91,11 @@ public class FirebaseHelper extends Firebase {
             public void onAuthenticated(AuthData authData) {
                 userID = authData.getUid();
                 getUserInfo();
+
+                if (mCallback != null) {
+                    mCallback.goback();
+                }
+
             }
             @Override
             public void onAuthenticationError(FirebaseError firebaseError) {
@@ -107,19 +127,23 @@ public class FirebaseHelper extends Firebase {
     }
 
     public UserInfo getUserInfo(){
-        Query userRef = INSTANCE.child("users").equalTo(userID);
+        if(isLoggedIn()) {
 
-        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                userInfo = (UserInfo) dataSnapshot.getValue();
-            }
+            Firebase userRef = INSTANCE.child("users").child(userID).child("firstName");
 
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
+            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    userInfo = new UserInfo((String) dataSnapshot.getValue(), "last name");
+                }
 
-            }
-        });
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
+
+                }
+            });
+
+        }
 
         return userInfo;
     }

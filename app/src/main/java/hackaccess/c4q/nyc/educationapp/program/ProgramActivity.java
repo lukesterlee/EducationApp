@@ -2,6 +2,7 @@ package hackaccess.c4q.nyc.educationapp.program;
 
 import android.app.ActionBar;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.app.Fragment;
@@ -56,6 +57,11 @@ public class ProgramActivity extends AppCompatActivity implements ActionBar.TabL
         }
 
         mToolbar = (Toolbar) findViewById(R.id.tool_bar);
+
+        mToolbar.setTitleTextColor(Color.WHITE);
+
+
+
         setSupportActionBar(mToolbar);
 
         mViewPager = (ViewPager) findViewById(R.id.pager);
@@ -65,11 +71,15 @@ public class ProgramActivity extends AppCompatActivity implements ActionBar.TabL
         mSlidingTabLayout = (SlidingTabLayout) findViewById(R.id.tabs);
         mSlidingTabLayout.setDistributeEvenly(true);
 
+
         mSlidingTabLayout.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
             @Override
             public int getIndicatorColor(int position) {
                 return getResources().getColor(R.color.accent);
             }
+
+
+
         });
 
         // Setting the ViewPager For the SlidingTabsLayout
@@ -139,6 +149,7 @@ public class ProgramActivity extends AppCompatActivity implements ActionBar.TabL
             }
             return title;
         }
+
     }
 
     @Override

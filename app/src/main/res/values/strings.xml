@@ -6,7 +6,7 @@
     <string name="change_email">Change Email</string>
     <string name="log_out">Log Out</string>
     <string name="action_chat">Chat</string>
-    <string name="like">Like</string>
+    <string name="favorite">Favorite</string>
     <string name="description">Description</string>
     <string name="languages">Languages</string>
     <string name="last_updated">Last updated</string>

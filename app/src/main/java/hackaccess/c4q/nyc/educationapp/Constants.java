@@ -15,4 +15,8 @@ public abstract class Constants {
     public final static String LOGGEDIN = "LoggedIn";
     public static final String LASTLONGITUDE = "LastLongitude";
     public static final String LASTLATITUDE = "LastLatitude";
+
+    public static final String FIREBASE_KEY_USERS = "users";
+    public static final String FIREBASE_KEY_FIRST_NAME = "firstName";
+    public static final String FIREBASE_KEY_LAST_NAME = "lastName";
 }
